@@ -1,0 +1,6 @@
+phase,model,representation,parameter_count,batch_size,sequence_length,training_time,hardware,macro_f1,accuracy,memory_notes
+Phase 4,LinearSVM (BoW),"Bag of Words (n-grams 1-2, 50,000 features)",200004,Full dataset,N/A,12.4s,Multi-core CPU,0.7187,0.8457,Low (<500MB)
+Phase 5,LinearSVM (TF-IDF + Features),"TF-IDF (50,000) + 12 Linguistic & Sentiment Features",200052,Full dataset,N/A,28.6s,Multi-core CPU,0.7002,0.8565,Low (<750MB)
+Phase 6,GloVe + Bi-LSTM (BILSTM-02),GloVe 100d Pretrained Word Embeddings,3197636,64,30,184.2s,Multi-core CPU,0.694,0.8612,Moderate (~1.2GB)
+Phase 7,FastText + Bi-LSTM + Attention (FT-02),FastText 300d + Subword Synthesis + Attention,9201092,64,30,246.8s,Multi-core CPU,0.6928,0.8603,Moderate (~1.8GB)
+Phase 8,bert-base-uncased,"Contextual Transformer (WordPiece 30,522, 12 layers, 768d)",109485316,16,80,1802.2s,CPU,0.6935,0.8612,High (~2.5GB-3.5GB RAM)

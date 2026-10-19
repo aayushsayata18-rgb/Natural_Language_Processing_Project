@@ -1,13 +1,3 @@
-Phase 7 — Best Model (FT-01: FastText + Bi-LSTM (Frozen)) Test Classification Report
-======================================================================
-
-              precision    recall  f1-score   support
-
-     Regular     0.9984    0.9984    0.9984      1858
-     Sarcasm     0.7531    0.9994    0.8589      1602
-       Irony     0.8435    0.9985    0.9145      1301
-  Figurative     0.0000    0.0000    0.0000       766
-
-    accuracy                         0.8603      5527
-   macro avg     0.6487    0.7491    0.6929      5527
-weighted avg     0.7525    0.8603    0.7998      5527
+version https://git-lfs.github.com/spec/v1
+oid sha256:e0f4f1d806657dd7dd616232bbbd76ceaa1e347995542fefc7626859ef40b1a8
+size 606

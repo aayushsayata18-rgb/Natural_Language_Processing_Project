@@ -1,0 +1,8 @@
+metric,value,notes
+Total Records (Original Ingestion),"89,536 (Train: 81,408 / Test: 8,128)",Original raw dataset files as provided.
+Clean Training Samples (Post-Decontamination),"81,359",49 exact duplicate rows removed.
+Clean Test Samples (Official Evaluation),"5,527","Strictly decontaminated: 2,592 train-test overlapping records with conflicting labels or cross-split leakage removed in Phase 1."
+Class Distribution (Test Set),"Regular: 1,858 (33.6%) | Sarcasm: 1,602 (29.0%) | Irony: 1,301 (23.5%) | Figurative: 766 (13.9%)",Imbalanced 4-class distribution.
+Label Mapping,"Regular: 0, Sarcasm: 1, Irony: 2, Figurative: 3",Unified strictly across all phases 1 through 9.
+Preprocessing Variants,"Minimal, Classical Clean, Lemmatized, Stemmed, WordPiece Subword",Fitted strictly on train_clean.csv to avoid data leakage.
+Dataset Version,v1.0-leakage-controlled,Approved in Phase 1 validation.

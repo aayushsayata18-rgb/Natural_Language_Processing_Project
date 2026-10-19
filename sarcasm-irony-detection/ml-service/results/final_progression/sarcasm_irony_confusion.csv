@@ -1,0 +1,8 @@
+model,sarcasm_to_irony,irony_to_sarcasm,total_sarcasm_irony_confusion,confusion_pct
+LinearSVM (BoW),0,0,0,0.0
+LinearSVM (TF-IDF),0,0,0,0.0
+LogisticRegression (TF-IDF),0,0,0,0.0
+GloVe + Bi-LSTM,1,0,1,0.034
+FastText + Bi-LSTM,0,1,1,0.034
+FastText + Bi-LSTM + Attn,0,1,1,0.034
+BERT (bert-base-uncased),0,0,0,0.0

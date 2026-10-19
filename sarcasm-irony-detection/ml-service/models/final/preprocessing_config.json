@@ -1,0 +1,43 @@
+{
+  "pipeline_name": "ClassicalTextPreprocessor",
+  "version": "1.0.0",
+  "normalizations": {
+    "lowercase": true,
+    "url_normalization": {
+      "enabled": true,
+      "regex": "https?://\\S+|www\\.\\S+",
+      "replacement": " url "
+    },
+    "mention_normalization": {
+      "enabled": true,
+      "regex": "@\\w+",
+      "replacement": " user_mention "
+    },
+    "whitespace_normalization": {
+      "strip_leading_trailing": true,
+      "collapse_multiple_spaces": true
+    },
+    "punctuation_handling": "preserved",
+    "stop_words_removed": false,
+    "stemming_or_lemmatization": "none"
+  },
+  "input_validation": {
+    "allowed_types": [
+      "str"
+    ],
+    "max_length_chars": 5000,
+    "empty_input_policy": "raise_invalid_input_error",
+    "truncation_strategy": "truncate_at_max_length"
+  },
+  "vectorizer": {
+    "type": "CountVectorizer",
+    "ngram_range": [
+      1,
+      1
+    ],
+    "vocabulary_size": 28077,
+    "lowercase": false,
+    "binary": false,
+    "strip_accents": null
+  }
+}

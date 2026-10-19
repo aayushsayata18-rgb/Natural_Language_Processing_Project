@@ -1,0 +1,24 @@
+{
+  "python_version": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "pytorch_version": "2.14.0+cpu",
+  "transformers_version": "5.20.1",
+  "numpy_version": "2.4.2",
+  "pandas_version": "3.0.5",
+  "cuda_available": false,
+  "device_count": 0,
+  "device_name": "CPU",
+  "random_seed": 42,
+  "model_name": "bert-base-uncased",
+  "max_sequence_length": 80,
+  "batch_size": 16,
+  "learning_rate": 2e-05,
+  "epochs": 3,
+  "device": "cpu",
+  "parameter_counts": {
+    "total_parameters": 109485316,
+    "trainable_parameters": 109485316,
+    "non_trainable_parameters": 0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "model/model.joblib": {
+    "sha256": "f478eaaa4843b1568774316d40ea4c170cfb4bea35165e95d166895fc5ebba9a",
+    "size_bytes": 899235
+  },
+  "tokenizer/vectorizer.joblib": {
+    "sha256": "3e0e7d88a8c57b80b1e40ed412bdd626092e6cabcb4929317bb6b4b131151455",
+    "size_bytes": 834624
+  },
+  "config.json": {
+    "sha256": "191d2662aca4211c533472ad99dddb1af71c788fb4639cf26487f179e0f820d6",
+    "size_bytes": 706
+  },
+  "label_mapping.json": {
+    "sha256": "da2e5cf52bc06e453f53aa2217bf3c180d5fedd3415f08a1e4111d3dc57bb69e",
+    "size_bytes": 149
+  },
+  "preprocessing_config.json": {
+    "sha256": "f7db1a8b57304feac3888a1cfd6e0b81086e04b67d04cb031ae464fae4616cbd",
+    "size_bytes": 1056
+  },
+  "model_metadata.json": {
+    "sha256": "429eda2616cdae7680afc091aadf71e414821002a66cdcb05799edda95b47654",
+    "size_bytes": 1477
+  },
+  "environment.json": {
+    "sha256": "b087b69f9d5266b08d61b1367fb55f5ea84d61b2f8919e6b0add7bae7d737af8",
+    "size_bytes": 327
+  }
+}

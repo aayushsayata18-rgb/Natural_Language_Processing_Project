@@ -4,3 +4,4 @@ Phase 5,LinearSVM,TF-IDF + Text Features,0.8565,0.782,0.689,0.7002
 Phase 6,GloVe + Bi-LSTM (BILSTM-02),GloVe 100d Dense Word Embeddings,0.8612,0.899,0.75,0.694
 Phase 7 (FT-01),FastText + Bi-LSTM,FastText 300d (No Attention),0.8603,0.6487,0.7491,0.6929
 Phase 7 (FT-02),FastText + Bi-LSTM + Attention,FastText 300d + Subwords + Attention,0.8603,0.6484,0.749,0.6928
+Phase 8,bert-base-uncased,Contextual Transformer (WordPiece),0.8612,0.6491,0.7499,0.6935

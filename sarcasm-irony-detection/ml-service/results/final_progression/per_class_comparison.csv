@@ -1,0 +1,29 @@
+model,class,precision,recall,f1,support
+LinearSVM (BOW-16),Regular,0.9995,0.9995,0.9995,1858
+LinearSVM (BOW-16),Sarcasm,0.7632,0.877,0.8457,1602
+LinearSVM (BOW-16),Irony,0.8476,0.8678,0.8917,1301
+LinearSVM (BOW-16),Figurative,0.2621,0.1697,0.1378,766
+LinearSVM (TFIDF-06),Regular,0.9867,0.9995,0.993,1858
+LinearSVM (TFIDF-06),Sarcasm,0.7566,0.9819,0.8547,1602
+LinearSVM (TFIDF-06),Irony,0.844,0.9892,0.9108,1301
+LinearSVM (TFIDF-06),Figurative,0.4146,0.0222,0.0421,766
+LogisticRegression (TFIDF-01),Regular,0.9867,1.0,0.9957,1858
+LogisticRegression (TFIDF-01),Sarcasm,0.7554,0.9894,0.8569,1602
+LogisticRegression (TFIDF-01),Irony,0.8433,0.9946,0.9122,1301
+LogisticRegression (TFIDF-01),Figurative,0.25,0.0013,0.0026,766
+GloVe + Bi-LSTM (BILSTM-02),Regular,0.9995,1.0,0.9997,1858
+GloVe + Bi-LSTM (BILSTM-02),Sarcasm,0.7531,0.9994,0.8589,1602
+GloVe + Bi-LSTM (BILSTM-02),Irony,0.8436,0.9992,0.9148,1301
+GloVe + Bi-LSTM (BILSTM-02),Figurative,1.0,0.0013,0.0026,766
+FastText + Bi-LSTM (FT-01),Regular,0.9984,0.9984,0.9984,1858
+FastText + Bi-LSTM (FT-01),Sarcasm,0.7531,0.9994,0.8589,1602
+FastText + Bi-LSTM (FT-01),Irony,0.8435,0.9985,0.9145,1301
+FastText + Bi-LSTM (FT-01),Figurative,0.0,0.0,0.0,766
+FastText + Bi-LSTM + Attn (FT-02),Regular,0.9984,0.9984,0.9984,1858
+FastText + Bi-LSTM + Attn (FT-02),Sarcasm,0.7523,0.9994,0.8583,1602
+FastText + Bi-LSTM + Attn (FT-02),Irony,0.8435,0.9985,0.9145,1301
+FastText + Bi-LSTM + Attn (FT-02),Figurative,0.0,0.0,0.0,766
+BERT (bert-base-uncased),Regular,1.0,0.9995,0.9997,1858
+BERT (bert-base-uncased),Sarcasm,0.7528,1.0,0.859,1602
+BERT (bert-base-uncased),Irony,0.8437,1.0,0.9152,1301
+BERT (bert-base-uncased),Figurative,0.0,0.0,0.0,766

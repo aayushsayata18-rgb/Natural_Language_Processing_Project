@@ -1,0 +1,2 @@
+experiment_id,model_name,description,val_macro_f1,test_macro_f1,test_accuracy,parameters,training_time_s,selected
+BERT-01,bert-base-uncased,Standard BERT Fine-Tuning + 4-class head,0.6468,0.6935,0.8612,109485316,1802.21,True

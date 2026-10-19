@@ -1,0 +1,88 @@
+{
+  "total_samples": 5527,
+  "total_errors": 767,
+  "error_rate_pct": 13.88,
+  "pairwise_errors": {
+    "Regular -> Sarcasm": 1,
+    "Regular -> Irony": 0,
+    "Regular -> Figurative": 0,
+    "Sarcasm -> Regular": 0,
+    "Sarcasm -> Irony": 0,
+    "Sarcasm -> Figurative": 0,
+    "Irony -> Regular": 0,
+    "Irony -> Sarcasm": 0,
+    "Irony -> Figurative": 0,
+    "Figurative -> Regular": 0,
+    "Figurative -> Sarcasm": 525,
+    "Figurative -> Irony": 241
+  },
+  "sarcasm_irony_mutual_confusion": 0,
+  "sarcasm_as_irony": 0,
+  "irony_as_sarcasm": 0,
+  "sarcasm_as_figurative": 0,
+  "irony_as_figurative": 0,
+  "regular_misclassified_as_other": 1,
+  "other_misclassified_as_regular": 0,
+  "top_high_confidence_errors": [
+    {
+      "text": "White House labels rally against #Iran deal 'pro-war rally' | Military Times http://t.co/oQb1yUyIV6 #IranDeal #Ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.744700014591217
+    },
+    {
+      "text": "Police facing Qs over covert monitoring of Jeremy Corbyn and other MPs http://t.co/OAZQ2qqKOR &lt; 'involved in justice campaigns' #ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.744700014591217
+    },
+    {
+      "text": "Coincidentally, my brothers wisdom teeth are getting out soon! #Ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.739799976348877
+    },
+    {
+      "text": "#trump Was just behind a car w/Obama bumper sticker which I passed to find the driver smokn a 100 w/a handicapped parking pass. #ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7394000291824341
+    },
+    {
+      "text": "@JeremyClarkson How funny would it be 4 #VulcanXH558 to fly over #Leicester on its final flight during #RWC2015 when #Argentina play #Ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7390999794006348
+    },
+    {
+      "text": "Amy's #throwback #kiss #usher #burn #hangme #craptastic #2004? #2003? #rnb #rnbmusic #candles #ironic https://t.co/y5ARqwv9E6",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7387999892234802
+    },
+    {
+      "text": "I'm a psychology major and yet I'm the one who has anxiety issues. #Ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7386999726295471
+    },
+    {
+      "text": "I fell asleep researching about REM Sleep Cycles (rapid eye movement) #ironic",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7373999953269958
+    },
+    {
+      "text": "@Rachel_Nichols @CevallosLaw in the 60s in NYC bookmaking horse racing was illegal, in 70 NY opens OTB retail stores #ironic : )",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.7366999983787537
+    },
+    {
+      "text": "@cnnbrk #ironic One day after warning Russia of civilian casualties, the U.S. bombs a hospital in Afghanistan. I need to turn off my TV\ud83d\udcfa\ud83d\udd95\ud83c\udffb",
+      "actual_class": "Figurative",
+      "predicted_class": "Irony",
+      "confidence": 0.73580002784729
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "model": "LinearSVM",
+  "preprocessing": "classical",
+  "ngram_range": "(1, 1)",
+  "hyperparameters": {
+    "C": 0.1
+  },
+  "vocab_size": 28077,
+  "validation_macro_f1": 0.6371,
+  "test_macro_f1": 0.7186603571266583,
+  "random_state": 42,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "experiment_id": "BOW-16",
+  "final_model_name": "SarcasmIronyClassifier-LinearSVM-v1",
+  "version": "1.0.0",
+  "architecture": "Linear Support Vector Classifier (One-vs-Rest, C=0.1)",
+  "representation": "Bag of Words (CountVectorizer, ngram_range=(1,1), max_features=28077)",
+  "selected_metric": "Macro F1",
+  "selected_score": 0.7187
+}

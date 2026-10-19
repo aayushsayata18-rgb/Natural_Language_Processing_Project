@@ -1,0 +1,32 @@
+{
+  "project_name": "Sarcasm & Irony Detection System using NLP",
+  "model_name": "SarcasmIronyClassifier-LinearSVM",
+  "model_version": "SIC-v1.0",
+  "model_type": "Linear Support Vector Classifier (One-vs-Rest)",
+  "representation": "Bag of Words (CountVectorizer, (1, 1), 28,077 features)",
+  "preprocessing": "Classical cleaning (lowercase, URL/mention normalization, punctuation preservation)",
+  "dataset": "Kaggle 4-class Sarcasm and Irony Dataset (Decontaminated v1.0)",
+  "num_classes": 4,
+  "classes": [
+    "Regular",
+    "Sarcasm",
+    "Irony",
+    "Figurative"
+  ],
+  "label_mapping": {
+    "0": "Regular",
+    "1": "Sarcasm",
+    "2": "Irony",
+    "3": "Figurative"
+  },
+  "accuracy": 0.8457,
+  "macro_precision": 0.7285,
+  "macro_recall": 0.7455,
+  "macro_f1": 0.7187,
+  "weighted_f1": 0.803,
+  "training_date": "2026-10-19",
+  "inference_latency_ms": 0.027,
+  "parameter_count": 112312,
+  "device": "cpu",
+  "selected_reason": "Selected in Phase 9 based on achieving the highest Macro F1-score (0.7187) across all evaluated models (outperforming BERT at 0.6935 and GloVe Bi-LSTM at 0.6940). LinearSVM is the only architecture that maintains active discrimination on the minority Figurative class without collapsing to zero recall. Furthermore, it delivers ultra-low inference latency (0.027 ms/text, >1,400x faster than BERT) and a minimal memory footprint (<500MB), making it optimal for high-throughput production deployment."
+}

@@ -1,0 +1,19 @@
+{
+  "model_name": "SarcasmIronyClassifier-LinearSVM",
+  "model_version": "SIC-v1.0",
+  "framework": "scikit-learn",
+  "framework_version": "1.9.0",
+  "python_version": "3.14.2",
+  "created_at": "2026-10-19T18:45:00Z",
+  "checksum_file": "checksums.json",
+  "artifacts": {
+    "model_file": "model/model.joblib",
+    "vectorizer_file": "tokenizer/vectorizer.joblib",
+    "config_file": "config.json",
+    "label_mapping_file": "label_mapping.json",
+    "preprocessing_config_file": "preprocessing_config.json",
+    "metadata_file": "model_metadata.json",
+    "environment_file": "environment.json"
+  },
+  "entrypoint": "src.inference.predictor:SarcasmIronyPredictor"
+}

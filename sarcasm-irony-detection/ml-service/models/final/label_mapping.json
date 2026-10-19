@@ -1,0 +1,10 @@
+{
+  "0": "Regular",
+  "1": "Sarcasm",
+  "2": "Irony",
+  "3": "Figurative",
+  "Regular": 0,
+  "Sarcasm": 1,
+  "Irony": 2,
+  "Figurative": 3
+}

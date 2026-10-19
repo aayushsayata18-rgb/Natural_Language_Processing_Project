@@ -1,0 +1,48 @@
+{
+  "project": "Sarcasm & Irony Detection System using NLP",
+  "phase": "Phase 9 \u2014 Model Comparison and Selection",
+  "timestamp": "2026-10-19T12:56:51Z",
+  "environment": {
+    "os": "Windows 11",
+    "architecture": "AMD64",
+    "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "python_version": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "library_versions": {
+    "torch": "2.14.0+cpu",
+    "transformers": "5.20.1",
+    "scikit-learn": "1.9.0",
+    "pandas": "3.0.5",
+    "numpy": "2.4.2"
+  },
+  "random_seed": 42,
+  "dataset": {
+    "name": "Kaggle 4-class Sarcasm and Irony Dataset (Decontaminated)",
+    "train_clean_path": "ml-service/data/processed/train_clean.csv",
+    "test_clean_path": "ml-service/data/processed/test_clean.csv",
+    "train_samples": 81359,
+    "test_samples": 5527,
+    "classes": [
+      "Regular",
+      "Sarcasm",
+      "Irony",
+      "Figurative"
+    ],
+    "class_mapping": {
+      "Regular": 0,
+      "Sarcasm": 1,
+      "Irony": 2,
+      "Figurative": 3
+    }
+  },
+  "evaluated_experiments": [
+    "Phase 4: BOW-16 (LinearSVM, CountVectorizer (1,1), C=0.1)",
+    "Phase 5: TFIDF-06 (LinearSVM, TF-IDF (1,1), C=0.1)",
+    "Phase 5: TFIDF-01 (LogisticRegression, TF-IDF (1,1), C=0.1)",
+    "Phase 6: BILSTM-02 (GloVe 100d Fine-tuned, Bi-LSTM 64)",
+    "Phase 7: FT-01 (FastText 300d Frozen, Bi-LSTM 64)",
+    "Phase 7: FT-02 (FastText 300d Frozen, Bi-LSTM 64 + Attention)",
+    "Phase 8: bert-base-uncased (12 layers, 768d, lr=2e-5, AdamW)"
+  ],
+  "hardware_notes": "All benchmarks and evaluations executed on local 16-core CPU environment without external GPU assistance to ensure fair comparability."
+}

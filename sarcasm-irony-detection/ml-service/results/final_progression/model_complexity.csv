@@ -1,0 +1,8 @@
+model,parameter_count,vocab_feature_dims,embedding_dims,architecture,training_time_s,inference_latency_ms_per_text,inference_throughput_texts_per_s,memory_ram
+LinearSVM (BoW),112312,"28,077 unigrams",Sparse one-hot / count,Linear Support Vector Classifier (One-vs-Rest),12.4,0.027,37037.0,< 500 MB
+LinearSVM (TF-IDF),112312,"28,077 TF-IDF terms",Sparse sublinear TF-IDF,Linear Support Vector Classifier (L2 regularized),28.6,0.014,71428.0,< 750 MB
+LogisticRegression (TF-IDF),112312,"28,077 TF-IDF terms",Sparse sublinear TF-IDF,Multinomial Logistic Regression (L2),1.55,0.015,66666.0,< 750 MB
+GloVe + Bi-LSTM,3197636,"30,002 vocabulary tokens",100-dimensional dense vectors,2-Layer Bidirectional LSTM (64 hidden) + Dense(64) + Dropout(0.3),184.2,0.041,24390.0,~1.2 GB
+FastText + Bi-LSTM,9196508,"30,002 vocabulary tokens",300-dimensional subword synthesized vectors,Bidirectional LSTM (64 hidden) + Dense(64) + Dropout(0.3),212.4,0.085,11764.0,~1.8 GB
+FastText + Bi-LSTM + Attn,9204828,"30,002 vocabulary tokens",300-dimensional subword synthesized vectors,Bidirectional LSTM (64 hidden) + Feed-Forward Attention + Dense(64),246.8,0.098,10204.0,~1.8 GB
+BERT (bert-base-uncased),109485316,"30,522 WordPiece subwords",768-dimensional contextual hidden state,"12 Transformer Encoder Blocks (12 heads, 768d, 3072 FFN) + Linear Classification Head",1802.2,39.33,25.4,~2.7 GB - 3.5 GB

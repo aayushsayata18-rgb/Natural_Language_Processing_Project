@@ -1,0 +1,65 @@
+[
+  {
+    "id": "gold_01",
+    "category": "regular",
+    "text": "The public library is open on Monday through Friday from 9 AM to 6 PM.",
+    "expected_class": "Regular",
+    "description": "Standard literal factual statement without sarcasm, irony, or figurative devices."
+  },
+  {
+    "id": "gold_02",
+    "category": "regular",
+    "text": "A severe thunderstorm warning has been issued for Northern California this evening.",
+    "expected_class": "Regular",
+    "description": "Literal weather forecast announcement."
+  },
+  {
+    "id": "gold_03",
+    "category": "sarcasm",
+    "text": "Oh absolutely fantastic, another flat tire on Monday morning! Just what I needed. #sarcasm",
+    "expected_class": "Sarcasm",
+    "description": "Caustic praise with blatant pragmatic polarity inversion and sarcasm hashtag."
+  },
+  {
+    "id": "gold_04",
+    "category": "sarcasm",
+    "text": "I just love spending four hours stuck in airport security lines! Best vacation ever.",
+    "expected_class": "Not predefined",
+    "description": "Hyperbolic positive sentiment expressing frustration."
+  },
+  {
+    "id": "gold_05",
+    "category": "irony",
+    "text": "A fire station caught on fire while all the firefighters were out responding to a drill.",
+    "expected_class": "Not predefined",
+    "description": "Situational irony: the institution tasked with fighting fires succumbing to fire."
+  },
+  {
+    "id": "gold_06",
+    "category": "figurative",
+    "text": "Her smile was a warm ray of sunshine piercing through the frozen dead of winter.",
+    "expected_class": "Not predefined",
+    "description": "Poetic metaphor and figurative comparison."
+  },
+  {
+    "id": "gold_07",
+    "category": "social_media_entities",
+    "text": "Check out this amazing article at https://news.example.com/breaking via @reuters!",
+    "expected_class": "Regular",
+    "description": "Tweet containing web URL and user mention."
+  },
+  {
+    "id": "gold_08",
+    "category": "short_text",
+    "text": "Totally great.",
+    "expected_class": "Not predefined",
+    "description": "Short ambiguous two-word utterance."
+  },
+  {
+    "id": "gold_09",
+    "category": "punctuation_heavy",
+    "text": "Wow... just WOW... could this day get ANY better?!?!?!?! #soblessed",
+    "expected_class": "Not predefined",
+    "description": "Heavy expressive punctuation and hashtags."
+  }
+]

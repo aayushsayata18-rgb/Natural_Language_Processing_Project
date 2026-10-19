@@ -1,0 +1,187 @@
+{
+  "info": {
+    "name": "Sarcasm & Irony Detection API (Phase 11)",
+    "description": "Postman API Collection for Node/Express Backend and Python FastAPI ML Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Backend - Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "health"]
+        },
+        "description": "Verifies backend status, ML service availability, and MongoDB connectivity."
+      }
+    },
+    {
+      "name": "Backend - Single Text Predict",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Oh fantastic, another three-hour meeting.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/predict",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "predict"]
+        },
+        "description": "Evaluates text through the ML model and persists prediction history in MongoDB."
+      }
+    },
+    {
+      "name": "Backend - Batch Predict",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"texts\": [\n    \"What a wonderful sunny day for a walk in the park.\",\n    \"Brilliant code, it only failed in every single test.\"\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/predict/batch",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "predict", "batch"]
+        },
+        "description": "Vectorized batch classification of multiple text snippets."
+      }
+    },
+    {
+      "name": "Backend - Get Prediction History",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/predictions?limit=20&page=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "predictions"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            }
+          ]
+        },
+        "description": "Fetches paginated prediction history from MongoDB."
+      }
+    },
+    {
+      "name": "Backend - Delete Prediction Record",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/predictions/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "predictions", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "60d0fe4f5311236168a109ca"
+            }
+          ]
+        },
+        "description": "Deletes a specific prediction document from MongoDB."
+      }
+    },
+    {
+      "name": "Python ML - Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["health"]
+        },
+        "description": "Checks FastAPI ML service health and model load state."
+      }
+    },
+    {
+      "name": "Python ML - Readiness Probe",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/ready",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["ready"]
+        },
+        "description": "Readiness probe returning 200 when ready or 503 when model is not loaded."
+      }
+    },
+    {
+      "name": "Python ML - Model Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/model-info",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["model-info"]
+        },
+        "description": "Fetches sanitized model metadata and benchmark validation metrics."
+      }
+    },
+    {
+      "name": "Python ML - Direct Inference",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Oh fantastic, another three-hour meeting.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/predict",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["predict"]
+        },
+        "description": "Direct internal inference endpoint on the FastAPI ML service."
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+batch_size,total_latency_ms,latency_per_sample_ms,throughput_samples_per_sec,model_loading_time_ms,device,hardware_processor,memory_rss_mb
+1,0.215,0.2151,4649.2,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+10,0.443,0.0443,22559.6,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+50,1.37,0.0274,36488.6,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+100,2.593,0.0259,38561.2,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+500,11.421,0.0228,43780.2,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+1000,22.885,0.0229,43697.1,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A
+5527,128.887,0.0233,42882.5,210.52,cpu,"AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",N/A

@@ -1,0 +1,2 @@
+model,representation,sequence_length,batch_size,learning_rate,epochs_completed,best_epoch,val_macro_f1,test_accuracy,test_macro_precision,test_macro_recall,test_macro_f1,test_weighted_f1,total_parameters,trainable_parameters,training_duration_s
+bert-base-uncased,"Contextual Transformer Embeddings (12-layer, 768d)",80,16,2e-05,3,1,0.6468,0.8612,0.6491,0.7499,0.6935,0.8005,109485316,109485316,1802.21

@@ -61,6 +61,7 @@ const predictionLimiter = rateLimit({
 
 // Mount Routes
 app.use('/api', healthRoutes);
+app.use('/', healthRoutes);
 app.use('/api', predictionLimiter, predictionRoutes);
 
 // Fallback for unmapped routes

@@ -1,0 +1,2079 @@
+============================================================
+PHASE 12 — REACT FRONTEND + COMPLETE USER INTERFACE
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+FRONTEND:
+React
+
+BACKEND:
+Node.js + Express
+
+DATABASE:
+MongoDB
+
+ML SERVICE:
+Python + FastAPI
+
+FINAL MODEL:
+Single final model selected in Phase 9
+and packaged in Phase 10
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+Build the complete React frontend for the Sarcasm & Irony
+Detection System.
+
+The frontend must allow a user to:
+
+1. Enter text.
+2. Submit the text for analysis.
+3. Receive the NLP prediction.
+4. View the predicted class.
+5. View confidence.
+6. View class probabilities.
+7. Understand the prediction visually.
+8. View previous prediction history.
+9. View model/project information.
+10. Handle loading and errors properly.
+
+The frontend communicates ONLY with:
+
+Node.js + Express
+
+It must NOT directly communicate with:
+
+Python ML Service.
+
+============================================================
+2. ARCHITECTURE
+============================================================
+
+Final application:
+
+                    USER
+                      │
+                      ▼
+              ┌───────────────┐
+              │ React         │
+              │ Frontend      │
+              └───────┬───────┘
+                      │
+                 HTTP / JSON
+                      │
+                      ▼
+              ┌───────────────┐
+              │ Node.js       │
+              │ Express       │
+              └───────┬───────┘
+                      │
+            ┌─────────┴─────────┐
+            ▼                   ▼
+    ┌──────────────┐     ┌──────────────┐
+    │ Python       │     │ MongoDB      │
+    │ FastAPI      │     │              │
+    │ ML Service   │     │ History      │
+    └──────┬───────┘     └──────────────┘
+           │
+           ▼
+    ┌──────────────┐
+    │ Final NLP    │
+    │ Model        │
+    └──────────────┘
+
+============================================================
+3. CRITICAL RULE
+============================================================
+
+DO NOT:
+
+- retrain the model
+- modify the final model
+- create another ML model
+- call Python directly from React
+- connect React directly to MongoDB
+- duplicate NLP preprocessing in React
+
+React is responsible for PRESENTATION and USER INTERACTION.
+
+============================================================
+4. TECHNOLOGY STACK
+============================================================
+
+Use:
+
+React
+JavaScript or TypeScript
+Vite
+React Router
+Axios or fetch
+CSS
+
+If the existing project already established JavaScript,
+continue with JavaScript.
+
+Do not migrate the project to TypeScript unnecessarily.
+
+============================================================
+5. UI DESIGN GOAL
+============================================================
+
+The UI should look like a real NLP/AI application rather than
+a basic college form.
+
+Design characteristics:
+
+- modern
+- clean
+- professional
+- responsive
+- readable
+- minimal
+- academic/project appropriate
+- visually connected to NLP/AI
+
+Avoid:
+
+- excessive animations
+- excessive gradients
+- unnecessary cards
+- cluttered layouts
+- excessive rounded components
+- irrelevant features
+
+============================================================
+6. APPLICATION PAGES
+============================================================
+
+Create the following pages:
+
+1. Home
+2. Detector
+3. History
+4. About / Project Information
+
+Optional:
+
+5. Model Information
+
+If Model Information is simple enough, it can be included inside
+the About page instead of creating another page.
+
+============================================================
+7. NAVIGATION
+============================================================
+
+Create a navigation bar.
+
+Recommended:
+
+Logo / Project Name
+
+Home
+Detector
+History
+About
+
+Navigation must work using:
+
+React Router.
+
+No full-page reloads for normal navigation.
+
+============================================================
+8. HOME PAGE
+============================================================
+
+The Home page should introduce the project.
+
+Include:
+
+Hero section:
+
+"Sarcasm & Irony Detection"
+
+Subtitle:
+
+"Analyze text using Natural Language Processing and Machine
+Learning."
+
+Primary button:
+
+"Analyze Text"
+
+Secondary button:
+
+"Learn About Project"
+
+Explain briefly:
+
+- what the system does
+- four-class classification
+- NLP-based analysis
+
+============================================================
+9. FOUR CLASSES
+============================================================
+
+Clearly explain the project's four classes:
+
+1. Regular
+2. Sarcasm
+3. Irony
+4. Figurative
+
+Use the EXACT class terminology established by the dataset/model.
+
+Do not rename the classes to:
+
+"Normal"
+"Funny"
+"Joke"
+
+unless the project specification explicitly changes them.
+
+============================================================
+10. HOME PAGE — HOW IT WORKS
+============================================================
+
+Show a simple process:
+
+STEP 1
+Enter text
+
+↓
+
+STEP 2
+NLP preprocessing
+
+↓
+
+STEP 3
+ML model analysis
+
+↓
+
+STEP 4
+Four-class prediction
+
+↓
+
+STEP 5
+Display result
+
+Do not expose unnecessary technical implementation details to
+normal users.
+
+============================================================
+11. DETECTOR PAGE
+============================================================
+
+This is the main application page.
+
+Create:
+
+Text input area
+
+Example:
+
+"Enter a sentence or social-media text..."
+
+Include:
+
+Character count
+
+Clear button
+
+Analyze button
+
+============================================================
+12. INPUT UX
+============================================================
+
+Textarea should:
+
+- be easy to read
+- support multiline text
+- have reasonable maximum length
+- show character count
+- clearly indicate when input is required
+
+Example:
+
+0 / 500 characters
+
+Use the actual configured backend/model limit.
+
+Do NOT invent a limit that conflicts with Phase 11.
+
+============================================================
+13. ANALYZE BUTTON
+============================================================
+
+When clicked:
+
+1. Validate input.
+2. Show loading state.
+3. Send request to:
+
+POST /api/predict
+
+4. Receive response.
+5. Display result.
+6. Handle errors.
+
+Do not allow multiple accidental simultaneous requests.
+
+Disable the button while the current prediction is running.
+
+============================================================
+14. API SERVICE
+============================================================
+
+Create:
+
+src/services/api.js
+
+or:
+
+src/services/apiClient.js
+
+Centralize API communication.
+
+Do NOT place fetch/axios calls randomly throughout components.
+
+Example functions:
+
+predictText(text)
+getPredictionHistory()
+getModelInfo()
+
+Use environment variables for backend URL.
+
+============================================================
+15. FRONTEND ENVIRONMENT
+============================================================
+
+Create:
+
+.env.example
+
+Example:
+
+VITE_API_BASE_URL=http://localhost:5000
+
+Use the actual Node backend URL.
+
+Do NOT point React directly to:
+
+http://localhost:8000
+
+because that is the Python ML service.
+
+============================================================
+16. PREDICTION REQUEST
+============================================================
+
+React sends:
+
+POST /api/predict
+
+Request:
+
+{
+    "text": "..."
+}
+
+Do not send:
+
+tokenized text
+embeddings
+TF-IDF vectors
+model-specific fields
+
+Node/Python handle ML processing.
+
+============================================================
+17. PREDICTION RESPONSE
+============================================================
+
+React should expect:
+
+{
+    "success": true,
+    "data": {
+        "text": "...",
+        "predictedClass": "...",
+        "confidence": 0.87,
+        "probabilities": {
+            "Regular": 0.03,
+            "Sarcasm": 0.87,
+            "Irony": 0.07,
+            "Figurative": 0.03
+        },
+        "modelName": "...",
+        "modelVersion": "..."
+    }
+}
+
+Use the actual backend schema.
+
+============================================================
+18. RESULT SECTION
+============================================================
+
+After successful prediction, show:
+
+Predicted Class
+
+Confidence
+
+Probability distribution
+
+Model information
+
+Input text
+
+Example:
+
+----------------------------------
+Prediction
+----------------------------------
+
+SARCASM
+
+Confidence: 87%
+
+----------------------------------
+Class Probabilities
+
+Regular      3%
+Sarcasm     87%
+Irony        7%
+Figurative   3%
+
+----------------------------------
+
+Use actual values.
+
+============================================================
+19. PREDICTED CLASS DISPLAY
+============================================================
+
+The predicted class should be visually prominent.
+
+Example:
+
+"Detected: Sarcasm"
+
+Do not make the confidence appear more authoritative than it is.
+
+Use wording:
+
+"Model confidence"
+
+rather than:
+
+"100% certain"
+
+============================================================
+20. CONFIDENCE DISPLAY
+============================================================
+
+Display confidence as:
+
+percentage
+
+Example:
+
+87.2%
+
+If the model returns a probability:
+
+confidence = highest predicted probability.
+
+Do not recalculate confidence differently in React.
+
+Use the backend-provided value.
+
+============================================================
+21. PROBABILITY VISUALIZATION
+============================================================
+
+Display all four classes.
+
+Possible visualization:
+
+horizontal probability bars.
+
+Example:
+
+Regular       ███░░░░░░  20%
+Sarcasm       ████████░  82%
+Irony         ██░░░░░░░  15%
+Figurative    █░░░░░░░░   7%
+
+Use actual probability values.
+
+============================================================
+22. CHART
+============================================================
+
+Optionally use a lightweight chart library if already used or
+approved.
+
+A simple bar chart is sufficient.
+
+Do NOT add charts merely for decoration.
+
+The visualization should help the user understand the model's
+distribution across the four classes.
+
+============================================================
+23. RESULT EXPLANATION
+============================================================
+
+Do NOT claim the model understands human intention perfectly.
+
+Use wording such as:
+
+"The model classified this text as Sarcasm with a confidence of
+87%."
+
+Avoid:
+
+"The person definitely intended sarcasm."
+
+============================================================
+24. DISCLAIMER
+============================================================
+
+Include a small explanation:
+
+"Sarcasm and irony can be context-dependent and subjective.
+The prediction is an NLP model output and may not always reflect
+the author's intended meaning."
+
+This is academically and ethically important.
+
+============================================================
+25. CLEAR RESULT
+============================================================
+
+Provide:
+
+"Analyze Another"
+
+or:
+
+"Clear"
+
+button.
+
+It should reset the current result without reloading the page.
+
+============================================================
+26. LOADING STATE
+============================================================
+
+While prediction is running:
+
+Disable Analyze button.
+
+Show:
+
+"Analyzing text..."
+
+Use a simple spinner/loading indicator.
+
+Do not freeze the entire application.
+
+============================================================
+27. ERROR STATE
+============================================================
+
+If backend returns an error:
+
+display a friendly message.
+
+Example:
+
+"Unable to analyze the text right now. Please try again."
+
+Do not display:
+
+Python stack traces
+Express stack traces
+database errors
+internal paths
+
+============================================================
+28. VALIDATION ERROR
+============================================================
+
+If input is empty:
+
+"Please enter some text to analyze."
+
+If input exceeds the configured limit:
+
+"Text exceeds the maximum allowed length."
+
+Use frontend validation before API call.
+
+Backend remains the final validation layer.
+
+============================================================
+29. NETWORK ERROR
+============================================================
+
+If Node backend is unavailable:
+
+show:
+
+"Prediction service is currently unavailable. Please try again
+later."
+
+Do not crash the React application.
+
+============================================================
+30. HISTORY PAGE
+============================================================
+
+Create:
+
+/history
+
+Display previous predictions obtained from:
+
+GET /api/predictions
+
+Show:
+
+- input text
+- predicted class
+- confidence
+- model version
+- date/time
+
+============================================================
+31. HISTORY CARD/TABLE
+============================================================
+
+Use either:
+
+responsive table
+
+or:
+
+clean prediction cards.
+
+For desktop:
+
+table is preferred for readability.
+
+For mobile:
+
+cards may be used.
+
+============================================================
+32. HISTORY PAGINATION/LIMIT
+============================================================
+
+Do not request unlimited history.
+
+Use the backend's supported limit.
+
+Example:
+
+GET /api/predictions?limit=20
+
+If pagination is implemented by backend:
+
+support it correctly.
+
+Do not implement fake frontend pagination over an unlimited dataset.
+
+============================================================
+33. EMPTY HISTORY
+============================================================
+
+If no predictions exist:
+
+display:
+
+"No predictions yet."
+
+and:
+
+"Analyze your first text"
+
+button.
+
+============================================================
+34. HISTORY ERROR
+============================================================
+
+If history cannot be loaded:
+
+show:
+
+"Unable to load prediction history."
+
+Provide:
+
+Retry
+
+button.
+
+============================================================
+35. HISTORY PRIVACY
+============================================================
+
+Remember that prediction history may contain user-entered text.
+
+Do not expose unnecessary personal information.
+
+Do not include:
+
+email
+password
+phone
+authentication information
+
+unless explicitly required later.
+
+============================================================
+36. DELETE HISTORY
+============================================================
+
+If DELETE /api/predictions/:id was implemented in Phase 11:
+
+provide a delete option.
+
+Before deleting:
+
+ask for confirmation.
+
+Do not accidentally delete records.
+
+If deletion is not required:
+
+do not implement it simply to increase features.
+
+============================================================
+37. ABOUT PAGE
+============================================================
+
+Create:
+
+/about
+
+Explain the project in academic but understandable language.
+
+Include:
+
+Project title
+
+Problem statement
+
+Objective
+
+NLP role
+
+Machine-learning role
+
+Four classes
+
+Dataset
+
+Methodology
+
+Technology stack
+
+Limitations
+
+============================================================
+38. PROJECT METHODOLOGY
+============================================================
+
+Show:
+
+Dataset
+ ↓
+Preprocessing
+ ↓
+Feature/Representation
+ ↓
+Model Training
+ ↓
+Model Evaluation
+ ↓
+Final Model Selection
+ ↓
+API
+ ↓
+React Application
+
+Keep the explanation concise.
+
+============================================================
+39. MODEL INFORMATION
+============================================================
+
+Display:
+
+Final model name
+Model type
+Model version
+Macro F1
+Accuracy
+Number of classes
+
+Use actual Phase 9 values.
+
+Do not fabricate metrics.
+
+============================================================
+40. MODEL INFORMATION API
+============================================================
+
+If implemented in Phase 11:
+
+GET /model-info
+
+React may retrieve the information dynamically.
+
+Do not hard-code performance metrics if the API already provides
+them.
+
+This ensures the UI stays synchronized with the actual model.
+
+============================================================
+41. TECHNOLOGY STACK SECTION
+============================================================
+
+Display:
+
+Frontend:
+React
+
+Backend:
+Node.js + Express
+
+ML:
+Python + FastAPI
+
+NLP:
+Final selected NLP pipeline
+
+Database:
+MongoDB
+
+Do not list technologies that are not actually used.
+
+============================================================
+42. DATASET INFORMATION
+============================================================
+
+Mention the actual dataset used by the project.
+
+Do not introduce another dataset.
+
+Explain:
+
+- four-class classification
+- text-based sarcasm/irony-related classification
+- dataset used for training/evaluation
+
+Use the actual dataset information established in Phase 1.
+
+============================================================
+43. NLP PIPELINE
+============================================================
+
+Show a simplified user-facing pipeline:
+
+Text Input
+ ↓
+Preprocessing
+ ↓
+NLP Representation
+ ↓
+Final Trained Model
+ ↓
+Four-Class Prediction
+
+Do not expose implementation-specific details unnecessarily.
+
+============================================================
+44. RESPONSIVE DESIGN
+============================================================
+
+The application MUST work on:
+
+Desktop
+Laptop
+Tablet
+Mobile
+
+Test:
+
+320px
+375px
+768px
+1024px
+1440px
+
+Avoid:
+
+horizontal scrolling
+overlapping text
+buttons extending outside containers
+broken navigation
+
+============================================================
+45. ACCESSIBILITY
+============================================================
+
+Implement basic accessibility:
+
+- semantic HTML
+- labels for textarea
+- keyboard navigation
+- visible focus state
+- appropriate button labels
+- sufficient text contrast
+- aria attributes where needed
+
+Do not rely on color alone to communicate prediction state.
+
+============================================================
+46. COMPONENT STRUCTURE
+============================================================
+
+Recommended:
+
+src/
+├── components/
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   ├── TextAnalyzer.jsx
+│   ├── PredictionResult.jsx
+│   ├── ProbabilityChart.jsx
+│   ├── PredictionHistory.jsx
+│   ├── LoadingState.jsx
+│   └── ErrorMessage.jsx
+│
+├── pages/
+│   ├── Home.jsx
+│   ├── Detector.jsx
+│   ├── History.jsx
+│   └── About.jsx
+│
+├── services/
+│   └── api.js
+│
+├── hooks/
+│   └── usePrediction.js
+│
+├── utils/
+│   └── formatting.js
+│
+├── App.jsx
+├── main.jsx
+└── styles/
+
+Adapt this to the project.
+
+Do not create unnecessarily tiny components.
+
+============================================================
+47. REACT ROUTER
+============================================================
+
+Implement routes:
+
+/
+
+Home
+
+/detector
+
+Detector
+
+/history
+
+History
+
+/about
+
+About
+
+Use React Router.
+
+============================================================
+48. APP STATE
+============================================================
+
+At minimum manage:
+
+inputText
+prediction
+loading
+error
+history
+historyLoading
+historyError
+
+Use:
+
+React state/hooks
+
+Do not introduce Redux unless the application genuinely requires
+it.
+
+The current project scope does not require Redux.
+
+============================================================
+49. PREDICTION STATE
+============================================================
+
+The detector should follow:
+
+IDLE
+ ↓
+LOADING
+ ↓
+SUCCESS
+
+or:
+
+LOADING
+ ↓
+ERROR
+
+After:
+
+SUCCESS
+ ↓
+ANALYZE AGAIN
+ ↓
+IDLE
+
+Do not allow stale results to appear as if they belong to a new
+input.
+
+============================================================
+50. STALE RESULT HANDLING
+============================================================
+
+When the user changes the text after a prediction:
+
+the previous prediction should not be presented as the result of
+the new text.
+
+Clearly separate:
+
+current input
+
+from:
+
+previous prediction.
+
+============================================================
+51. FORM SUBMISSION
+============================================================
+
+Use:
+
+onSubmit
+
+rather than relying only on button click.
+
+This allows:
+
+Enter/keyboard interaction where appropriate.
+
+For multiline textarea, support:
+
+Ctrl/Cmd + Enter
+
+for submission if desired.
+
+Do not make plain Enter submit unexpectedly while users are typing
+multiline text.
+
+============================================================
+52. TEXT COUNTER
+============================================================
+
+Display:
+
+current characters / maximum characters
+
+Use the actual configured limit.
+
+Example:
+
+124 / 500
+
+Update dynamically.
+
+============================================================
+53. EXAMPLE TEXTS
+============================================================
+
+Provide a few example inputs users can click to test.
+
+Examples should be clearly labeled:
+
+"Try an example"
+
+Do NOT present examples as guaranteed ground truth.
+
+The examples are demonstration inputs only.
+
+============================================================
+54. DO NOT HARD-CODE PREDICTIONS
+============================================================
+
+When the user clicks an example:
+
+put the example into the textarea.
+
+Then call the real backend.
+
+Never display a hard-coded prediction.
+
+============================================================
+55. NAVIGATION STATE
+============================================================
+
+Changing pages should not unnecessarily reload the entire
+application.
+
+React Router should handle navigation.
+
+============================================================
+56. API SERVICE ERROR HANDLING
+============================================================
+
+Centralize:
+
+- network error handling
+- HTTP status handling
+- JSON parsing
+- backend error extraction
+
+The components should receive clean error messages.
+
+============================================================
+57. AXIOS/FETCH
+============================================================
+
+Use either:
+
+Axios
+
+or:
+
+native fetch.
+
+Choose one consistently.
+
+Do not use both without a strong reason.
+
+============================================================
+58. API BASE URL
+============================================================
+
+Use:
+
+VITE_API_BASE_URL
+
+from environment configuration.
+
+Never hard-code production URLs into components.
+
+============================================================
+59. SECURITY
+============================================================
+
+Do NOT put:
+
+- MongoDB credentials
+- Python service credentials
+- private API keys
+- server secrets
+
+into React environment variables.
+
+Remember:
+
+VITE_* values are exposed to the browser.
+
+Only public configuration belongs there.
+
+============================================================
+60. FRONTEND SECURITY
+============================================================
+
+Do not use:
+
+dangerouslySetInnerHTML
+
+for user-entered prediction text.
+
+Render user text safely as normal React text.
+
+This prevents unnecessary XSS risk.
+
+============================================================
+61. USER INPUT
+============================================================
+
+User-entered text must be treated as untrusted input.
+
+Do not execute:
+
+HTML
+JavaScript
+scripts
+
+contained in the input.
+
+============================================================
+62. RESULT FORMATTING
+============================================================
+
+Format confidence:
+
+0–100%
+
+with sensible decimal precision.
+
+Example:
+
+87.4%
+
+Do not display:
+
+0.874234234234
+
+directly.
+
+============================================================
+63. PROBABILITY ROUNDING
+============================================================
+
+Use readable formatting.
+
+Example:
+
+Regular: 3.2%
+Sarcasm: 87.4%
+Irony: 6.8%
+Figurative: 2.6%
+
+Do not alter the underlying values.
+
+Only round for display.
+
+============================================================
+64. PROBABILITY VALIDATION
+============================================================
+
+If backend returns malformed probabilities:
+
+do not render broken charts.
+
+Show:
+
+"Prediction details are temporarily unavailable."
+
+Log a development error.
+
+============================================================
+65. MODEL VERSION
+============================================================
+
+Show model version somewhere appropriate.
+
+Example:
+
+"Model: SIC-v1.0"
+
+This helps demonstrate that predictions are produced by a
+specific version of the trained model.
+
+============================================================
+66. FOOTER
+============================================================
+
+Create a simple footer.
+
+Include:
+
+Project name
+
+"NLP-based Sarcasm & Irony Detection System"
+
+Technology/project information
+
+Avoid unnecessary social links or unrelated content.
+
+============================================================
+67. VISUAL STYLE
+============================================================
+
+Use a consistent visual system.
+
+Define:
+
+- typography
+- spacing
+- buttons
+- cards
+- colors
+- borders
+- shadows
+- responsive breakpoints
+
+Avoid random styling per component.
+
+============================================================
+68. COLOR USAGE
+============================================================
+
+Use color to distinguish the four classes if desired.
+
+However:
+
+do NOT rely on color alone.
+
+Each class should also have:
+
+text label
+
+and/or:
+
+icon/visual marker.
+
+============================================================
+69. ANIMATIONS
+============================================================
+
+Use subtle animations only.
+
+Good:
+
+- button hover
+- result appearance
+- loading spinner
+- page transition if lightweight
+
+Avoid:
+
+- excessive motion
+- distracting animations
+- long transitions
+
+============================================================
+70. LOADING UX
+============================================================
+
+Prediction loading should provide immediate feedback.
+
+Example:
+
+Analyzing...
+
+with spinner.
+
+History loading:
+
+Loading prediction history...
+
+Do not show a blank page.
+
+============================================================
+71. ERROR UX
+============================================================
+
+Errors should be:
+
+clear
+short
+actionable
+
+Example:
+
+"Prediction service is unavailable."
+
+Button:
+
+"Try Again"
+
+============================================================
+72. SUCCESS UX
+============================================================
+
+After prediction:
+
+scroll/focus result into view where appropriate.
+
+The user should not need to manually search for the result.
+
+Do not automatically navigate away from the Detector page.
+
+============================================================
+73. HISTORY REFRESH
+============================================================
+
+After a successful prediction:
+
+either:
+
+- refresh history
+- or optimistically update history if reliable.
+
+Prefer fetching the authoritative history from backend where
+simple.
+
+============================================================
+74. HISTORY SORTING
+============================================================
+
+Display newest predictions first.
+
+Prefer backend sorting by:
+
+createdAt DESC
+
+Do not rely solely on frontend sorting if the API already provides
+ordered results.
+
+============================================================
+75. MODEL INFO LOADING
+============================================================
+
+If About page retrieves model information:
+
+show loading state.
+
+If unavailable:
+
+still display the static project information.
+
+Do not make the entire About page unusable because model-info API
+is unavailable.
+
+============================================================
+76. HOME PAGE PERFORMANCE
+============================================================
+
+Do not call the prediction API on page load.
+
+Only call prediction when the user submits text.
+
+============================================================
+77. HISTORY PERFORMANCE
+============================================================
+
+Do not continuously poll prediction history.
+
+Load when:
+
+History page opens
+
+and:
+
+refresh manually if needed.
+
+============================================================
+78. API REQUEST CANCELLATION
+============================================================
+
+If practical, cancel stale prediction requests when the user
+starts another request.
+
+At minimum prevent race conditions where an older response
+overwrites a newer prediction.
+
+============================================================
+79. RACE CONDITION HANDLING
+============================================================
+
+If request A starts.
+
+Then request B starts.
+
+If B completes first:
+
+B must remain the displayed result.
+
+A must not overwrite B afterward.
+
+Use request IDs or cancellation if necessary.
+
+============================================================
+80. TESTING
+============================================================
+
+Test:
+
+1. Home page loads.
+2. Navigation works.
+3. Detector page loads.
+4. Empty input validation.
+5. Valid prediction.
+6. Loading state.
+7. Backend error.
+8. ML service unavailable.
+9. History loads.
+10. Empty history.
+11. History error.
+12. About page loads.
+13. Responsive design.
+14. Browser refresh.
+15. API response handling.
+
+============================================================
+81. FRONTEND UNIT TESTS
+============================================================
+
+Test important components:
+
+TextAnalyzer
+PredictionResult
+ProbabilityChart
+PredictionHistory
+
+Test:
+
+- rendering
+- user interaction
+- loading state
+- errors
+- prediction output
+
+============================================================
+82. FRONTEND INTEGRATION TEST
+============================================================
+
+Test:
+
+Detector
+ ↓
+API
+ ↓
+prediction response
+ ↓
+result display
+
+Use the real backend where practical.
+
+Mock only when necessary for isolated component tests.
+
+============================================================
+83. END-TO-END TEST
+============================================================
+
+Perform a real local end-to-end test:
+
+React
+ ↓
+Node
+ ↓
+Python
+ ↓
+Final model
+ ↓
+Node
+ ↓
+React
+
+Input a real text.
+
+Verify:
+
+prediction displayed.
+
+============================================================
+84. BROWSER TESTING
+============================================================
+
+Test in:
+
+Chrome
+
+and at least one additional browser if practical.
+
+Verify:
+
+- layout
+- API requests
+- navigation
+- error handling
+- responsiveness
+
+============================================================
+85. MOBILE TESTING
+============================================================
+
+Test mobile viewport.
+
+Ensure:
+
+textarea
+buttons
+result
+probability bars
+history
+
+do not overflow horizontally.
+
+============================================================
+86. ACCESSIBILITY TEST
+============================================================
+
+Verify:
+
+keyboard navigation
+
+textarea label
+
+button focus
+
+readable contrast
+
+screen-reader-friendly labels
+
+Do not use placeholder text as the only input label.
+
+============================================================
+87. PROJECT INFORMATION
+============================================================
+
+About page should explain:
+
+WHY:
+Sarcasm and irony are difficult for machines because intended
+meaning may differ from literal wording.
+
+WHAT:
+The system classifies text into four classes.
+
+HOW:
+NLP preprocessing + trained ML model.
+
+OUTPUT:
+Predicted class + confidence + class probabilities.
+
+============================================================
+88. DO NOT OVERCLAIM
+============================================================
+
+Never write:
+
+"Detects human emotions perfectly."
+
+"Understands user intention."
+
+"Always detects sarcasm."
+
+"100% accurate."
+
+Use:
+
+"Classifies text based on patterns learned from the training data."
+
+============================================================
+89. COLLEGE PROJECT PRESENTATION VALUE
+============================================================
+
+The UI should make the following easy to demonstrate during viva:
+
+1. Enter text.
+2. Click Analyze.
+3. Show prediction.
+4. Show four probability values.
+5. Show model version.
+6. Open History.
+7. Explain NLP pipeline.
+8. Explain architecture.
+
+============================================================
+90. DEMO EXAMPLE
+============================================================
+
+Prepare demonstration examples in the UI.
+
+Do not hard-code their results.
+
+Example:
+
+"Yeah, because studying at 3 AM is exactly what I wanted."
+
+The system must actually classify it through:
+
+React
+→
+Node
+→
+Python
+→
+final model.
+
+============================================================
+91. FRONTEND PROJECT STRUCTURE
+============================================================
+
+Recommended final structure:
+
+frontend/
+│
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── TextAnalyzer.jsx
+│   │   ├── PredictionResult.jsx
+│   │   ├── ProbabilityChart.jsx
+│   │   ├── PredictionHistory.jsx
+│   │   ├── LoadingState.jsx
+│   │   └── ErrorMessage.jsx
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Detector.jsx
+│   │   ├── History.jsx
+│   │   └── About.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── hooks/
+│   │   └── usePrediction.js
+│   │
+│   ├── utils/
+│   │   └── formatting.js
+│   │
+│   ├── styles/
+│   │   └── global.css
+│   │
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── public/
+├── .env.example
+├── package.json
+└── README.md
+
+Adapt to the existing project.
+
+============================================================
+92. NO UNNECESSARY FEATURES
+============================================================
+
+Do NOT add:
+
+- chatbot
+- user authentication
+- social login
+- admin dashboard
+- live social-media scraping
+- sentiment analysis
+- emotion detection
+- recommendation engine
+- multilingual translation
+- voice input
+
+unless explicitly approved in a later phase.
+
+Keep the project focused on:
+
+SARCASM & IRONY DETECTION.
+
+============================================================
+93. FINAL APPLICATION FEATURES
+============================================================
+
+The completed frontend should contain:
+
+HOME
+- project introduction
+- four classes
+- methodology
+- CTA
+
+DETECTOR
+- text input
+- character counter
+- analyze
+- loading
+- result
+- confidence
+- probability distribution
+- disclaimer
+
+HISTORY
+- previous predictions
+- confidence
+- model version
+- timestamp
+
+ABOUT
+- project description
+- NLP methodology
+- dataset
+- model
+- technology stack
+- limitations
+
+============================================================
+94. FRONTEND API CONTRACT
+============================================================
+
+The frontend communicates with ONLY:
+
+POST /api/predict
+
+GET /api/predictions
+
+GET /api/health
+
+GET /model-info
+
+or the exact Node routes established in Phase 11.
+
+Never:
+
+React → Python
+
+Never:
+
+React → MongoDB
+
+============================================================
+95. ENVIRONMENT CONFIGURATION
+============================================================
+
+Use:
+
+frontend/.env.example
+
+Example:
+
+VITE_API_BASE_URL=http://localhost:5000
+
+For production:
+
+use the deployed Node backend URL.
+
+Do not hard-code it.
+
+============================================================
+96. BUILD
+============================================================
+
+Run:
+
+npm run build
+
+and verify the production build succeeds.
+
+Resolve:
+
+- broken imports
+- missing environment configuration
+- route issues
+- asset issues
+- build warnings that affect functionality
+
+============================================================
+97. PRODUCTION BUILD TEST
+============================================================
+
+Serve the production build locally.
+
+Verify:
+
+- routes
+- API calls
+- assets
+- styling
+- prediction
+- history
+
+Do not assume development mode success means production build
+success.
+
+============================================================
+98. ERROR BOUNDARY
+============================================================
+
+Implement a React error boundary or equivalent global fallback.
+
+If an unexpected rendering error occurs:
+
+show a friendly message.
+
+Do not expose stack traces to users.
+
+============================================================
+99. FINAL QUALITY CHECK
+============================================================
+
+Check:
+
+[ ] Navigation works.
+[ ] Home page works.
+[ ] Detector works.
+[ ] Prediction works.
+[ ] Loading state works.
+[ ] Error state works.
+[ ] Probability display works.
+[ ] Confidence display works.
+[ ] History works.
+[ ] About page works.
+[ ] Model information works where implemented.
+[ ] Mobile layout works.
+[ ] Desktop layout works.
+[ ] Accessibility basics work.
+[ ] No direct React → Python calls.
+[ ] No React → MongoDB calls.
+[ ] No hard-coded predictions.
+[ ] No secrets in frontend.
+[ ] API URL uses environment variable.
+[ ] Production build works.
+[ ] End-to-end prediction works.
+
+============================================================
+100. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 12 report:
+
+1. React project structure.
+2. Pages created.
+3. Components created.
+4. API integration.
+5. Prediction flow.
+6. History flow.
+7. Error handling.
+8. Loading states.
+9. Responsive design.
+10. Accessibility.
+11. Testing.
+12. Production build status.
+13. End-to-end test result.
+14. Known limitations.
+15. Next phase recommendation.
+
+============================================================
+101. TRANSITION TO PHASE 13
+============================================================
+
+After Phase 12, the core application exists:
+
+React
+ ↓
+Node/Express
+ ↓
+Python ML Service
+ ↓
+Final NLP Model
+
+and:
+
+Node/Express
+ ↓
+MongoDB
+
+Phase 13 should focus on:
+
+COMPLETE SYSTEM INTEGRATION
++
+TESTING
++
+UI/UX POLISH
++
+SECURITY
++
+PERFORMANCE
++
+FINAL PROJECT VALIDATION
+
+Do not introduce new ML models unless explicitly requested.
+
+============================================================
+102. STOP CONDITION
+============================================================
+
+After completing Phase 12:
+
+STOP.
+
+Do NOT automatically implement:
+
+- deployment
+- cloud hosting
+- authentication
+- new ML models
+- new datasets
+- additional NLP tasks
+
+Wait for explicit instruction to begin Phase 13.
+
+============================================================
+END OF PHASE 12 MASTER PROMPT
+============================================================
+
+
+Phase 12 architecture
+
+                         USER
+                           │
+                           ▼
+                ┌────────────────────┐
+                │   REACT FRONTEND   │
+                │                    │
+                │  Home              │
+                │  Detector          │
+                │  History           │
+                │  About             │
+                └─────────┬──────────┘
+                          │
+                    HTTP / JSON
+                          │
+                          ▼
+                ┌────────────────────┐
+                │ NODE + EXPRESS     │
+                │                    │
+                │ /api/predict      │
+                │ /api/predictions  │
+                │ /api/health       │
+                └───────┬─────┬──────┘
+                        │     │
+                        │     └──────────────┐
+                        ▼                    ▼
+              ┌────────────────┐      ┌────────────┐
+              │ PYTHON         │      │ MONGODB    │
+              │ FASTAPI        │      │            │
+              │ ML SERVICE     │      │ Prediction │
+              └───────┬────────┘      │ History    │
+                      │               └────────────┘
+                      ▼
+              ┌────────────────┐
+              │ FINAL NLP      │
+              │ MODEL          │
+              └────────────────┘

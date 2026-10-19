@@ -1,0 +1,5 @@
+experiment_id,split,description,embedding,embedding_trainable,lstm_units,dense_units,dropout,batch_size,best_epoch,total_epochs,accuracy,macro_precision,macro_recall,macro_f1,regular_f1,sarcasm_f1,irony_f1,figurative_f1,training_time
+BILSTM-01,validation,"Frozen GloVe, LSTM 64",GloVe-6B-100d,False,64,64,0.3,32,9,14,0.7375,0.5794,0.7485,0.6469,0.9966,0.7918,0.799,0.0,247.12
+BILSTM-02,validation,"Fine-tuned GloVe, LSTM 64",GloVe-6B-100d,True,64,64,0.3,32,1,6,0.7382,0.5799,0.7492,0.6474,0.998,0.7924,0.7993,0.0,297.31
+BILSTM-03,validation,"Frozen GloVe, LSTM 128",GloVe-6B-100d,False,128,64,0.3,32,5,10,0.7378,0.5796,0.7488,0.6471,0.9974,0.792,0.799,0.0,260.09
+BILSTM-02,test,"Fine-tuned GloVe, LSTM 64",GloVe-6B-100d,True,64,64,0.3,32,2,7,0.8612,0.899,0.75,0.694,0.9997,0.8589,0.9148,0.0026,364.62

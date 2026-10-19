@@ -1,0 +1,227 @@
+{
+  "phase": "Phase 3 - NLP Text Preprocessing",
+  "project": "Sarcasm & Irony Detection System",
+  "generated": "2026-08-15T15:19:28.493313",
+  "variants": {
+    "minimal": {
+      "config": {
+        "name": "minimal",
+        "description": "Minimal preprocessing - preserve maximum linguistic information",
+        "normalize_whitespace": true,
+        "lowercase": false,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "preserve",
+        "emoji_mode": "preserve",
+        "punctuation_mode": "preserve",
+        "normalize_repeated_chars": false,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": false,
+        "lemmatize": false,
+        "stem": false
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 95.71,
+        "avg_words": 17.09,
+        "vocab_size": 94588,
+        "emoji_pct": 6.74,
+        "hashtag_pct": 99.98,
+        "punctuation_pct": 100.0,
+        "variant": "minimal",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    },
+    "lowercase": {
+      "config": {
+        "name": "lowercase",
+        "description": "Variant A + lowercase",
+        "normalize_whitespace": true,
+        "lowercase": true,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "preserve",
+        "emoji_mode": "preserve",
+        "punctuation_mode": "preserve",
+        "normalize_repeated_chars": false,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": false,
+        "lemmatize": false,
+        "stem": false
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 95.71,
+        "avg_words": 17.09,
+        "vocab_size": 76605,
+        "emoji_pct": 6.74,
+        "hashtag_pct": 99.98,
+        "punctuation_pct": 100.0,
+        "variant": "lowercase",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    },
+    "lemmatized": {
+      "config": {
+        "name": "lemmatized",
+        "description": "Variant A + lemmatization",
+        "normalize_whitespace": true,
+        "lowercase": false,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "preserve",
+        "emoji_mode": "preserve",
+        "punctuation_mode": "preserve",
+        "normalize_repeated_chars": false,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": false,
+        "lemmatize": true,
+        "stem": false
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 93.62,
+        "avg_words": 17.09,
+        "vocab_size": 88915,
+        "emoji_pct": 6.74,
+        "hashtag_pct": 99.98,
+        "punctuation_pct": 100.0,
+        "variant": "lemmatized",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    },
+    "stopword": {
+      "config": {
+        "name": "stopword",
+        "description": "Variant A + stopword removal (negation protected)",
+        "normalize_whitespace": true,
+        "lowercase": false,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "preserve",
+        "emoji_mode": "preserve",
+        "punctuation_mode": "preserve",
+        "normalize_repeated_chars": false,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": true,
+        "lemmatize": false,
+        "stem": false
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 76.91,
+        "avg_words": 12.13,
+        "vocab_size": 94138,
+        "emoji_pct": 6.74,
+        "hashtag_pct": 99.98,
+        "punctuation_pct": 100.0,
+        "variant": "stopword",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    },
+    "stemmed": {
+      "config": {
+        "name": "stemmed",
+        "description": "Variant A + stemming",
+        "normalize_whitespace": true,
+        "lowercase": false,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "preserve",
+        "emoji_mode": "preserve",
+        "punctuation_mode": "preserve",
+        "normalize_repeated_chars": false,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": false,
+        "lemmatize": false,
+        "stem": true
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 87.59,
+        "avg_words": 17.09,
+        "vocab_size": 63594,
+        "emoji_pct": 6.74,
+        "hashtag_pct": 99.98,
+        "punctuation_pct": 100.0,
+        "variant": "stemmed",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    },
+    "classical": {
+      "config": {
+        "name": "classical",
+        "description": "Classical NLP preprocessing for baseline comparison",
+        "normalize_whitespace": true,
+        "lowercase": true,
+        "normalize_urls": true,
+        "url_placeholder": "URL",
+        "normalize_mentions": true,
+        "mention_placeholder": "USER_MENTION",
+        "hashtag_mode": "strip",
+        "emoji_mode": "text",
+        "punctuation_mode": "normalize",
+        "normalize_repeated_chars": true,
+        "max_char_repeat": 2,
+        "protect_negations": true,
+        "remove_stopwords": true,
+        "lemmatize": true,
+        "stem": false
+      },
+      "metrics": {
+        "empty_pct": 0.0,
+        "avg_chars": 74.64,
+        "avg_words": 12.13,
+        "vocab_size": 61081,
+        "emoji_pct": 0.0,
+        "hashtag_pct": 0.03,
+        "punctuation_pct": 89.92,
+        "variant": "classical",
+        "records": 81359
+      },
+      "quality": {
+        "train_passed": true,
+        "test_passed": true
+      }
+    }
+  },
+  "quality_summary": {
+    "all_passed": true,
+    "issues": []
+  }
+}

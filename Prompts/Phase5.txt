@@ -1,0 +1,1533 @@
+============================================================
+PHASE 5 — TF-IDF + N-GRAMS + FEATURE ENGINEERING
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+ROLE:
+Act as a senior NLP engineer, machine-learning engineer,
+data scientist, researcher, and academic project mentor.
+
+Your responsibility is to implement Phase 5 of the project.
+
+This phase must build upon the completed outputs of:
+
+PHASE 1:
+Dataset Validation
+
+PHASE 2:
+EDA
+
+PHASE 3:
+NLP Preprocessing
+
+PHASE 4:
+Bag of Words + Classical ML
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+The objective of Phase 5 is to build and evaluate stronger
+traditional NLP classification systems using:
+
+1. TF-IDF
+2. Unigrams
+3. Bigrams
+4. Trigrams
+5. Linguistic features
+6. Social-media features
+7. Classical ML classifiers
+
+The main question is:
+
+"Can TF-IDF, n-gram representations, and linguistic/social-media
+features improve sarcasm and irony classification compared with
+the Bag-of-Words baselines from Phase 4?"
+
+The main pipeline is:
+
+CLEAN TEXT
+    ↓
+PHASE 3 PREPROCESSING
+    ↓
+TF-IDF
+    ↓
+N-GRAM FEATURES
+    ↓
+OPTIONAL LINGUISTIC/SOCIAL FEATURES
+    ↓
+CLASSICAL ML
+    ↓
+VALIDATION
+    ↓
+TEST EVALUATION
+    ↓
+COMPARISON WITH PHASE 4
+    ↓
+BEST TRADITIONAL NLP MODEL
+
+============================================================
+2. IMPORTANT PROJECT RULE
+============================================================
+
+Use ONLY the approved four-class dataset.
+
+DO NOT use:
+
+- Reddit
+- another Kaggle dataset
+- another Twitter dataset
+- external sarcasm dataset
+- external irony dataset
+- synthetic data
+- generated examples
+- merged datasets
+
+============================================================
+3. TARGET CLASSES
+============================================================
+
+The four classes remain:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+Use the exact label mapping established in Phase 1.
+
+Do not change class IDs.
+
+============================================================
+4. INPUTS FROM PREVIOUS PHASES
+============================================================
+
+Use:
+
+data/processed/train_clean.csv
+data/processed/test_clean.csv
+
+Use Phase 3 preprocessing infrastructure.
+
+Use Phase 4 results for comparison.
+
+Use Phase 2 EDA findings to guide feature selection.
+
+Use Phase 4's best classical baseline as the main comparison point.
+
+Do not overwrite Phase 4 results.
+
+============================================================
+5. CORE REPRESENTATION — TF-IDF
+============================================================
+
+Implement:
+
+sklearn.feature_extraction.text.TfidfVectorizer
+
+TF-IDF should be fitted ONLY on the training data.
+
+Correct:
+
+TRAIN TEXT
+    ↓
+FIT TF-IDF
+    ↓
+TRAIN VECTORS
+
+VALIDATION TEXT
+    ↓
+TRANSFORM ONLY
+
+TEST TEXT
+    ↓
+TRANSFORM ONLY
+
+Never fit TF-IDF using validation or test text.
+
+============================================================
+6. TF-IDF CONCEPT
+============================================================
+
+The implementation should support:
+
+TF-IDF =
+Term Frequency × Inverse Document Frequency
+
+The system should use TF-IDF to assign higher importance to terms
+that are useful within documents but less common across the corpus.
+
+Do not manually implement TF-IDF unless there is a specific
+educational reason.
+
+Use a reliable library implementation.
+
+============================================================
+7. TF-IDF EXPERIMENTS
+============================================================
+
+Run controlled experiments.
+
+Experiment TFIDF-01:
+
+Unigram TF-IDF
+
+ngram_range=(1,1)
+
+Experiment TFIDF-02:
+
+Unigram + Bigram TF-IDF
+
+ngram_range=(1,2)
+
+Experiment TFIDF-03:
+
+Unigram + Bigram + Trigram TF-IDF
+
+ngram_range=(1,3)
+
+Compare:
+
+- vocabulary size
+- validation performance
+- test performance
+- training time
+- memory requirements
+
+Do not assume (1,3) is automatically better.
+
+============================================================
+8. TF-IDF PARAMETERS
+============================================================
+
+Investigate meaningful parameters such as:
+
+- ngram_range
+- min_df
+- max_df
+- max_features
+- sublinear_tf
+- norm
+
+Do not perform an unnecessarily huge parameter search.
+
+Start with sensible defaults.
+
+Then perform controlled tuning.
+
+============================================================
+9. MIN_DF AND MAX_DF
+============================================================
+
+Experiment carefully with:
+
+min_df
+
+to remove extremely rare terms.
+
+max_df
+
+to remove extremely common terms.
+
+Possible examples:
+
+min_df:
+1
+2
+5
+
+max_df:
+0.95
+1.0
+
+Do not blindly use every combination.
+
+Select a small meaningful experiment set.
+
+============================================================
+10. SUBLINEAR TF
+============================================================
+
+Optionally compare:
+
+sublinear_tf=False
+
+versus:
+
+sublinear_tf=True
+
+Sublinear TF can reduce the impact of extremely frequent terms.
+
+Only retain the experiment if it provides useful information.
+
+============================================================
+11. CLASSIFIERS
+============================================================
+
+Use the same core classical classifiers from Phase 4:
+
+1. Logistic Regression
+2. Multinomial Naive Bayes
+3. Linear SVM
+
+The primary model should be:
+
+TF-IDF + Linear SVM
+
+because it is a strong and standard baseline for sparse text
+classification.
+
+However:
+
+DO NOT assume SVM is the winner.
+
+Evaluate the models objectively.
+
+============================================================
+12. MAIN EXPERIMENT MATRIX
+============================================================
+
+At minimum:
+
+| ID | Representation | Model |
+|----|----------------|-------|
+| TFIDF-01 | Unigram TF-IDF | Logistic Regression |
+| TFIDF-02 | Uni+Bi TF-IDF | Logistic Regression |
+| TFIDF-03 | Uni+Bi+Tri TF-IDF | Logistic Regression |
+| TFIDF-04 | Unigram TF-IDF | Naive Bayes |
+| TFIDF-05 | Uni+Bi TF-IDF | Naive Bayes |
+| TFIDF-06 | Unigram TF-IDF | Linear SVM |
+| TFIDF-07 | Uni+Bi TF-IDF | Linear SVM |
+| TFIDF-08 | Uni+Bi+Tri TF-IDF | Linear SVM |
+
+Additional experiments should be added only when justified.
+
+============================================================
+13. PREPROCESSING COMPARISON
+============================================================
+
+Use the preprocessing variants from Phase 3.
+
+Priority variants:
+
+P1:
+Minimal social-media preprocessing
+
+P2:
+Lowercase
+
+P3:
+Lemmatized
+
+P4:
+Classical clean
+
+Do not immediately run every preprocessing variant against
+every TF-IDF/model combination.
+
+First identify strong configurations.
+
+Then perform focused comparisons.
+
+The objective is controlled experimentation.
+
+============================================================
+14. BASELINE COMPARISON
+============================================================
+
+Compare Phase 5 against Phase 4.
+
+For example:
+
+Phase 4:
+BoW + Logistic Regression
+
+versus
+
+Phase 5:
+TF-IDF + Logistic Regression
+
+and:
+
+Phase 4:
+BoW + Linear SVM
+
+versus
+
+Phase 5:
+TF-IDF + Linear SVM
+
+The comparison must use the same evaluation methodology.
+
+============================================================
+15. LINGUISTIC FEATURE ENGINEERING
+============================================================
+
+Phase 2 identified social-media characteristics.
+
+Phase 3 created reusable feature extraction.
+
+Now incorporate selected features into the classical NLP model.
+
+Potential features:
+
+TEXT:
+- character_count
+- word_count
+- average_word_length
+
+PUNCTUATION:
+- punctuation_count
+- exclamation_count
+- question_count
+- repeated_punctuation_count
+
+SOCIAL MEDIA:
+- url_count
+- mention_count
+- hashtag_count
+- emoji_count
+
+CAPITALIZATION:
+- uppercase_count
+- uppercase_ratio
+
+REPETITION:
+- repeated_character_count
+
+These features must be generated consistently.
+
+============================================================
+16. FEATURE ENGINEERING PRINCIPLE
+============================================================
+
+Do not include every possible feature automatically.
+
+Use Phase 2 EDA to justify features.
+
+For example:
+
+If exclamation marks are common and differ across classes,
+test exclamation_count.
+
+If emojis show useful class differences,
+test emoji_count.
+
+If a feature contains little information, it may be excluded.
+
+Every feature included in the final experiment should have a reason.
+
+============================================================
+17. COMBINING TF-IDF WITH NUMERIC FEATURES
+============================================================
+
+Use:
+
+TF-IDF sparse matrix
++
+numeric linguistic/social-media features
+
+The correct approach should preserve sparse representation.
+
+Possible implementation:
+
+scipy.sparse.hstack
+
+or:
+
+sklearn.compose / FeatureUnion
+
+depending on the architecture.
+
+Avoid converting the complete TF-IDF matrix into a dense matrix.
+
+============================================================
+18. NUMERIC FEATURE SCALING
+============================================================
+
+Investigate whether numeric features should be scaled.
+
+For linear models, scaling can be useful.
+
+However, scaling must be implemented without breaking sparse
+matrices.
+
+Use appropriate sparse-compatible techniques where necessary.
+
+Do NOT standardize the TF-IDF matrix unnecessarily.
+
+The scaling strategy must be documented.
+
+============================================================
+19. FEATURE SET EXPERIMENTS
+============================================================
+
+Create controlled feature sets.
+
+FEATURE SET A — TEXT ONLY
+
+TF-IDF only.
+
+FEATURE SET B — TEXT + BASIC TEXT FEATURES
+
+TF-IDF
++
+word_count
++
+character_count
+
+FEATURE SET C — TEXT + SOCIAL MEDIA
+
+TF-IDF
++
+URL
++
+mention
++
+hashtag
++
+emoji features
+
+FEATURE SET D — TEXT + STYLE
+
+TF-IDF
++
+punctuation
++
+capitalization
++
+repeated-character features
+
+FEATURE SET E — FULL ENGINEERED FEATURES
+
+TF-IDF
++
+selected text
++
+social-media
++
+stylistic features
+
+Do not assume FEATURE SET E is best.
+
+Evaluate it.
+
+============================================================
+20. N-GRAM FEATURE ENGINEERING
+============================================================
+
+Use:
+
+Unigram
+Bigram
+Trigram
+
+The rationale:
+
+Unigrams:
+capture individual lexical information.
+
+Bigrams:
+capture local word combinations.
+
+Trigrams:
+capture short phrase-level patterns.
+
+Sarcasm and irony may depend on combinations rather than isolated
+words.
+
+However, higher n-grams increase dimensionality.
+
+Measure this trade-off.
+
+============================================================
+21. FEATURE DIMENSION ANALYSIS
+============================================================
+
+For every important TF-IDF configuration record:
+
+- vocabulary size
+- number of non-zero values if useful
+- sparsity
+- training time
+- memory usage where practical
+
+Example:
+
+Unigram:
+X features
+
+Unigram + Bigram:
+Y features
+
+Unigram + Bigram + Trigram:
+Z features
+
+Analyze whether the additional features justify their computational
+cost.
+
+============================================================
+22. MODEL TRAIN/VALIDATION/TEST STRATEGY
+============================================================
+
+Use the same strategy as Phase 4.
+
+Training dataset:
+
+train_clean.csv
+
+Split training into:
+
+TRAIN
+VALIDATION
+
+using stratification.
+
+Recommended:
+
+80% train
+20% validation
+
+Use a fixed random seed.
+
+Official test/evaluation data remains untouched.
+
+============================================================
+23. DATA LEAKAGE PREVENTION
+============================================================
+
+This is NON-NEGOTIABLE.
+
+TF-IDF:
+
+fit only on training.
+
+Numeric feature transformations:
+
+fit only on training where fitting is required.
+
+Feature selection:
+
+fit only on training.
+
+Hyperparameter tuning:
+
+use validation/cross-validation.
+
+Official test:
+
+use only for final evaluation.
+
+Never use test performance to choose a configuration.
+
+============================================================
+24. CROSS-VALIDATION
+============================================================
+
+Where computationally feasible, use stratified cross-validation
+for important final classical experiments.
+
+Recommended:
+
+StratifiedKFold
+
+with:
+
+n_splits=5
+
+Use it primarily for comparing/tuning the strongest candidate
+configurations rather than every experiment.
+
+Do not make cross-validation unnecessarily expensive.
+
+============================================================
+25. HYPERPARAMETER TUNING
+============================================================
+
+Tune only meaningful parameters.
+
+LOGISTIC REGRESSION:
+
+C:
+0.1
+1
+10
+
+LINEAR SVM:
+
+C:
+0.1
+1
+10
+
+NAIVE BAYES:
+
+alpha:
+0.1
+0.5
+1.0
+
+TF-IDF:
+
+ngram_range:
+(1,1)
+(1,2)
+(1,3)
+
+min_df:
+small controlled values
+
+sublinear_tf:
+True/False where justified
+
+Do not perform an enormous grid search.
+
+============================================================
+26. PRIMARY EVALUATION METRICS
+============================================================
+
+For every important experiment calculate:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Macro Precision
+- Macro Recall
+- Macro F1
+
+Also calculate:
+
+Per-class precision
+Per-class recall
+Per-class F1
+Support
+
+Primary comparison metric:
+
+MACRO F1
+
+Secondary:
+
+Accuracy
+
+============================================================
+27. CONFUSION MATRIX
+============================================================
+
+Generate confusion matrices for strong candidate models.
+
+Class order:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+Analyze:
+
+Sarcasm → Irony
+Irony → Sarcasm
+Sarcasm → Figurative
+Irony → Figurative
+
+Also analyze:
+
+Regular → non-Regular
+Figurative → other classes
+
+============================================================
+28. ERROR ANALYSIS
+============================================================
+
+Collect representative errors from strong TF-IDF models.
+
+Store:
+
+text
+actual_label
+predicted_label
+experiment_id
+
+Focus on:
+
+- sarcasm/irony confusion
+- figurative ambiguity
+- short tweets
+- contextual ambiguity
+- punctuation-related cases
+- emoji-related cases
+- hashtag-related cases
+
+Detailed research error analysis will happen in Phase 9.
+
+============================================================
+29. MODEL CONFIDENCE
+============================================================
+
+Logistic Regression:
+
+Use predict_proba where supported.
+
+Naive Bayes:
+
+Use predict_proba.
+
+Linear SVM:
+
+Do NOT call decision_function a probability.
+
+If confidence calibration is required later,
+perform it as a separate experiment.
+
+Do not display fake probabilities.
+
+============================================================
+30. RESULTS STORAGE
+============================================================
+
+Create:
+
+results/
+└── tfidf/
+    ├── model_results.csv
+    ├── classification_reports/
+    ├── confusion_matrices/
+    └── feature_analysis.csv
+
+model_results.csv should include:
+
+experiment_id
+preprocessing_variant
+feature_set
+ngram_range
+min_df
+max_df
+sublinear_tf
+model
+hyperparameters
+vocabulary_size
+accuracy
+macro_precision
+macro_recall
+macro_f1
+training_time
+notes
+
+All values must be generated programmatically.
+
+============================================================
+31. FEATURE ANALYSIS FILE
+============================================================
+
+Create:
+
+feature_analysis.csv
+
+Possible fields:
+
+experiment_id
+feature_type
+feature_count
+vocabulary_size
+sparsity
+training_time
+
+This allows later analysis of:
+
+performance
+versus
+feature complexity.
+
+============================================================
+32. VISUALIZATIONS
+============================================================
+
+Generate:
+
+1. BoW vs TF-IDF comparison
+2. TF-IDF model comparison
+3. N-gram comparison
+4. Feature-set comparison
+5. Macro F1 comparison
+6. Accuracy comparison
+7. Confusion matrices
+8. Vocabulary-size comparison
+9. Training-time comparison if useful
+
+All charts must use actual experiment results.
+
+============================================================
+33. IMPORTANT COMPARISON
+============================================================
+
+Create a direct comparison:
+
+PHASE 4:
+Best BoW model
+
+versus
+
+PHASE 5:
+Best TF-IDF text-only model
+
+versus
+
+PHASE 5:
+Best TF-IDF + engineered-features model
+
+Example table:
+
+| Model | Representation | Features | Accuracy | Macro F1 |
+|-------|----------------|----------|----------|----------|
+| ... | BoW | ... | ... | ... |
+| ... | TF-IDF | ... | ... | ... |
+| ... | TF-IDF + Features | ... | ... | ... |
+
+Use actual values.
+
+============================================================
+34. DETERMINE WHETHER FEATURE ENGINEERING HELPS
+============================================================
+
+The research question is:
+
+Does adding linguistic and social-media features to TF-IDF
+improve classification?
+
+Compare:
+
+TF-IDF only
+
+versus:
+
+TF-IDF + engineered features
+
+Use the same classifier where possible.
+
+For example:
+
+TF-IDF + Linear SVM
+
+versus:
+
+TF-IDF + engineered features + Linear SVM
+
+This provides a scientifically meaningful comparison.
+
+============================================================
+35. DETERMINE WHETHER N-GRAMS HELP
+============================================================
+
+Compare:
+
+TF-IDF unigram
+
+vs
+
+TF-IDF unigram + bigram
+
+vs
+
+TF-IDF unigram + bigram + trigram
+
+Measure:
+
+- Macro F1
+- Accuracy
+- vocabulary size
+- training time
+
+The objective is to determine whether additional context helps
+enough to justify the increased feature space.
+
+============================================================
+36. DETERMINE WHETHER PREPROCESSING HELPS
+============================================================
+
+Compare strong preprocessing variants.
+
+Example:
+
+Minimal preprocessing
+vs
+Lowercase
+vs
+Lemmatization
+vs
+Classical cleaning
+
+Do this on a controlled model/configuration.
+
+For example:
+
+TF-IDF (1,2) + Linear SVM
+
+This avoids mixing too many variables at once.
+
+============================================================
+37. AVOID EXPERIMENTAL CONFUSION
+============================================================
+
+Do not simultaneously change:
+
+- preprocessing
+- n-gram range
+- TF-IDF parameters
+- classifier
+- feature set
+- hyperparameters
+
+and then claim one factor caused the improvement.
+
+Use controlled comparisons.
+
+Example:
+
+To test n-grams:
+
+Keep:
+preprocessing = same
+model = same
+TF-IDF parameters = same
+
+Change only:
+
+ngram_range
+
+============================================================
+38. EXPERIMENT TRACKING
+============================================================
+
+Every experiment must have a unique ID.
+
+Examples:
+
+TFIDF-001
+TFIDF-002
+FEATURE-001
+NGRAM-001
+
+Record:
+
+- configuration
+- result
+- notes
+
+Never overwrite experiment results.
+
+============================================================
+39. MODEL ARTIFACTS
+============================================================
+
+Save important final candidate models.
+
+Recommended:
+
+models/
+└── classical/
+    └── tfidf/
+        ├── tfidf_lr/
+        ├── tfidf_nb/
+        ├── tfidf_svm/
+        └── tfidf_features_svm/
+
+Each artifact should include:
+
+- model
+- vectorizer
+- label mapping
+- preprocessing configuration
+- feature configuration
+
+Use joblib where appropriate.
+
+============================================================
+40. FINAL CANDIDATE MODEL
+============================================================
+
+At the end of Phase 5, select:
+
+BEST TF-IDF TEXT-ONLY MODEL
+
+and:
+
+BEST TF-IDF + ENGINEERED-FEATURE MODEL
+
+Do NOT yet declare the overall project winner.
+
+These are:
+
+"Best traditional NLP candidates."
+
+Later they will be compared against:
+
+Bi-LSTM
+BERT
+
+============================================================
+41. TRAINING ON FULL TRAINING DATA
+============================================================
+
+After selecting candidate configurations using validation/CV:
+
+Fit the selected pipeline on the complete training dataset.
+
+Then transform and evaluate the official clean test/evaluation
+dataset.
+
+Important:
+
+The TF-IDF vectorizer must be fit on the complete training dataset,
+not on test data.
+
+The test data must only be transformed.
+
+============================================================
+42. TEST EVALUATION
+============================================================
+
+For the final candidate models, calculate:
+
+Accuracy
+Macro Precision
+Macro Recall
+Macro F1
+Per-class metrics
+Confusion matrix
+
+Save all results.
+
+Do not modify the test data based on test results.
+
+============================================================
+43. RESEARCH INTERPRETATION
+============================================================
+
+At the end, answer:
+
+1. Does TF-IDF outperform BoW?
+2. Do bigrams help?
+3. Do trigrams help?
+4. Does lemmatization help?
+5. Does lowercase help?
+6. Do social-media features help?
+7. Do punctuation features help?
+8. Do emoji features help?
+9. Does capitalization help?
+10. Which classical model performs best?
+11. What is the cost of additional feature dimensions?
+12. Which traditional NLP configuration should be carried forward?
+
+Answers MUST be based on actual experiment results.
+
+============================================================
+44. NO FABRICATED RESULTS
+============================================================
+
+Never invent:
+
+- accuracy
+- precision
+- recall
+- F1
+- Macro F1
+- vocabulary size
+- training time
+- confusion matrix values
+- feature importance
+
+Every result must come from actual execution.
+
+============================================================
+45. FEATURE INTERPRETABILITY
+============================================================
+
+For Linear SVM or Logistic Regression, optionally inspect important
+features.
+
+Identify:
+
+- strongly weighted words
+- strongly weighted n-grams
+- class-associated features
+
+If coefficients are analyzed:
+
+Do not claim that a feature "causes" sarcasm.
+
+Say:
+
+"The model assigned a strong weight to this feature."
+
+For multiclass models, analyze coefficients per class.
+
+============================================================
+46. FEATURE IMPORTANCE OUTPUT
+============================================================
+
+If implemented, create:
+
+results/tfidf/important_features/
+
+Files:
+
+regular_features.csv
+sarcasm_features.csv
+irony_features.csv
+figurative_features.csv
+
+Possible columns:
+
+feature
+coefficient
+
+This is useful for academic interpretation.
+
+Do not generate this for models where coefficient-based
+interpretation is not appropriate.
+
+============================================================
+47. CODE STRUCTURE
+============================================================
+
+Recommended:
+
+ml-service/
+└── src/
+    ├── classical/
+    │
+    └── tfidf/
+        ├── __init__.py
+        ├── vectorizer.py
+        ├── feature_engineering.py
+        ├── train_lr.py
+        ├── train_nb.py
+        ├── train_svm.py
+        ├── evaluate.py
+        ├── experiments.py
+        ├── feature_analysis.py
+        └── save_artifacts.py
+
+Reuse Phase 4 evaluation utilities where possible.
+
+Do not duplicate existing code unnecessarily.
+
+============================================================
+48. FEATURE ENGINEERING MODULE
+============================================================
+
+Create reusable functions for:
+
+- character count
+- word count
+- average word length
+- punctuation count
+- exclamation count
+- question count
+- URL count
+- mention count
+- hashtag count
+- emoji count
+- uppercase count
+- uppercase ratio
+- repeated character count
+
+These functions should produce a deterministic feature matrix.
+
+============================================================
+49. SPARSE MATRIX REQUIREMENT
+============================================================
+
+TF-IDF produces sparse high-dimensional matrices.
+
+Maintain sparse representations.
+
+When combining with numeric features:
+
+Use sparse-compatible methods.
+
+Do NOT convert the entire TF-IDF matrix to dense.
+
+This is especially important because the dataset contains tens of
+thousands of tweets and n-grams can significantly increase
+dimensionality.
+
+============================================================
+50. COMPUTATIONAL EFFICIENCY
+============================================================
+
+If memory becomes an issue:
+
+1. Reduce max_features.
+2. Increase min_df.
+3. Run experiments sequentially.
+4. Delete unnecessary matrices from memory.
+5. Use sparse matrices.
+6. Avoid unnecessary copies.
+
+Do NOT silently reduce the dataset size.
+
+Do NOT randomly sample the dataset for final evaluation.
+
+Sampling is allowed only for debugging/prototyping and must be
+clearly identified as such.
+
+============================================================
+51. NOTEBOOK
+============================================================
+
+Create:
+
+notebooks/05_tfidf_feature_engineering.ipynb
+
+Sections:
+
+1. Imports
+2. Load data
+3. Load Phase 3 preprocessing
+4. Train/validation split
+5. TF-IDF setup
+6. Unigram experiment
+7. Bigram experiment
+8. Trigram experiment
+9. Model comparison
+10. Linguistic features
+11. Social-media features
+12. Combined features
+13. Hyperparameter experiments
+14. Validation results
+15. Test evaluation
+16. Feature interpretation
+17. Comparison with Phase 4
+18. Conclusions
+
+============================================================
+52. DOCUMENTATION
+============================================================
+
+Create:
+
+docs/research/phase5_tfidf_features.md
+
+Include:
+
+1. Objective
+2. TF-IDF theory
+3. Why TF-IDF is appropriate
+4. N-gram methodology
+5. Feature engineering
+6. Social-media features
+7. Model configurations
+8. Experimental design
+9. Leakage prevention
+10. Results
+11. Comparison with BoW
+12. Feature analysis
+13. Error observations
+14. Best traditional NLP candidates
+15. Limitations
+16. Transition to deep learning
+
+============================================================
+53. REQUIRED OUTPUT FILES
+============================================================
+
+Expected:
+
+ml-service/
+│
+├── models/
+│   └── classical/
+│       └── tfidf/
+│
+├── results/
+│   └── tfidf/
+│       ├── model_results.csv
+│       ├── feature_analysis.csv
+│       ├── classification_reports/
+│       ├── confusion_matrices/
+│       └── important_features/
+│
+├── notebooks/
+│   └── 05_tfidf_feature_engineering.ipynb
+│
+├── src/
+│   └── tfidf/
+│       ├── vectorizer.py
+│       ├── feature_engineering.py
+│       ├── train_lr.py
+│       ├── train_nb.py
+│       ├── train_svm.py
+│       ├── evaluate.py
+│       ├── experiments.py
+│       └── feature_analysis.py
+│
+└── docs/
+    └── research/
+        └── phase5_tfidf_features.md
+
+============================================================
+54. PHASE 5 SUCCESS CRITERIA
+============================================================
+
+Phase 5 is complete ONLY when:
+
+[ ] TF-IDF implemented.
+[ ] Unigram TF-IDF tested.
+[ ] Bigram TF-IDF tested.
+[ ] Trigram TF-IDF tested where practical.
+[ ] Logistic Regression tested.
+[ ] Multinomial Naive Bayes tested.
+[ ] Linear SVM tested.
+[ ] TF-IDF parameters documented.
+[ ] Preprocessing variants compared.
+[ ] Linguistic features implemented.
+[ ] Social-media features implemented.
+[ ] Feature sets compared.
+[ ] TF-IDF + engineered features tested.
+[ ] Vocabulary sizes recorded.
+[ ] Sparse representation maintained.
+[ ] No data leakage.
+[ ] Validation strategy maintained.
+[ ] Test evaluation performed only after configuration selection.
+[ ] Accuracy calculated.
+[ ] Precision calculated.
+[ ] Recall calculated.
+[ ] Macro F1 calculated.
+[ ] Per-class metrics calculated.
+[ ] Confusion matrices generated.
+[ ] Feature interpretation performed where appropriate.
+[ ] Phase 4 comparison completed.
+[ ] Best TF-IDF text-only candidate identified.
+[ ] Best TF-IDF + feature-engineering candidate identified.
+[ ] Models/artifacts saved.
+[ ] Results saved automatically.
+[ ] Notebook created.
+[ ] Documentation created.
+[ ] No external dataset used.
+[ ] No deep learning implemented.
+[ ] No BERT implemented.
+[ ] No deployment implemented.
+[ ] No fabricated results.
+
+============================================================
+55. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 5 report:
+
+1. TF-IDF configurations tested.
+2. N-gram configurations tested.
+3. Models tested.
+4. Preprocessing variants tested.
+5. Feature sets tested.
+6. Best TF-IDF text-only model.
+7. Best TF-IDF + engineered-feature model.
+8. Best Macro F1.
+9. Accuracy.
+10. Per-class performance.
+11. Confusion-matrix observations.
+12. Whether n-grams improved performance.
+13. Whether feature engineering improved performance.
+14. Whether preprocessing affected performance.
+15. Vocabulary-size trade-offs.
+16. Comparison with Phase 4 BoW.
+17. Saved artifacts.
+18. Important research findings.
+19. Limitations.
+20. Recommended candidates for deep-learning comparison.
+
+Do NOT declare the overall project winner.
+
+============================================================
+56. TRANSITION TO PHASE 6
+============================================================
+
+Phase 6 will implement:
+
+GloVe
++
+Bi-LSTM
+
+The Phase 5 results will become the strongest traditional NLP
+baseline against which the Bi-LSTM model will be compared.
+
+The comparison will eventually include:
+
+BoW + Classical ML
+        ↓
+TF-IDF + Classical ML
+        ↓
+TF-IDF + Feature Engineering
+        ↓
+GloVe + Bi-LSTM
+        ↓
+BERT
+
+============================================================
+57. STOP CONDITION
+============================================================
+
+After Phase 5 is completed:
+
+STOP.
+
+Do NOT automatically begin:
+
+- Bi-LSTM
+- FastText
+- Attention
+- BERT
+- FastAPI
+- Node.js
+- Express
+- MongoDB
+- React
+
+Wait for explicit instruction to begin Phase 6.
+
+============================================================
+END OF PHASE 5 MASTER PROMPT
+============================================================
+
+Phase 5 position
+
+
+PHASE 1
+Dataset Validation
+        ↓
+PHASE 2
+EDA
+        ↓
+PHASE 3
+NLP Preprocessing
+        ↓
+PHASE 4
+BoW + Classical ML
+        ↓
+PHASE 5 ← NOW
+TF-IDF + N-Grams + Feature Engineering
+        ↓
+PHASE 6
+GloVe + Bi-LSTM
+        ↓
+PHASE 7
+FastText / Attention
+        ↓
+PHASE 8
+BERT
+        ↓
+PHASE 9
+Model Comparison + Error Analysis
+        ↓
+PHASE 10
+Final Model + Artifacts
+        ↓
+PHASE 11+
+FastAPI → Express → MongoDB → React

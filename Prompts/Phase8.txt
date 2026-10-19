@@ -1,0 +1,2096 @@
+============================================================
+PHASE 8 — BERT-BASED TRANSFORMER CLASSIFICATION
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+ROLE:
+Act as a senior NLP engineer, transformer/LLM engineer,
+machine-learning researcher, deep-learning engineer, and
+academic project mentor.
+
+You are responsible for implementing Phase 8.
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+The objective of Phase 8 is to implement a BERT-based transformer
+classifier for the four-class sarcasm/irony detection problem.
+
+This phase investigates whether contextual transformer
+representations can outperform:
+
+PHASE 4:
+BoW + Classical ML
+
+PHASE 5:
+TF-IDF + N-grams + Feature Engineering
+
+PHASE 6:
+GloVe + Bi-LSTM
+
+PHASE 7:
+FastText + Bi-LSTM
+FastText + Bi-LSTM + Attention
+
+The primary architecture is:
+
+TEXT
+ ↓
+BERT TOKENIZER
+ ↓
+INPUT IDs + ATTENTION MASK
+ ↓
+PRETRAINED BERT
+ ↓
+CLASSIFICATION HEAD
+ ↓
+SOFTMAX
+ ↓
+4 CLASSES
+
+Classes:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+============================================================
+2. IMPORTANT PROJECT CONSTRAINT
+============================================================
+
+Use ONLY the approved four-class Kaggle classification dataset.
+
+DO NOT use:
+
+- Reddit dataset
+- another Kaggle classification dataset
+- another sarcasm dataset
+- another irony dataset
+- synthetic classification data
+- generated training examples
+- merged classification datasets
+
+The project classification dataset remains unchanged.
+
+The pretrained BERT model is an external pretrained language
+model and is NOT considered an additional classification dataset.
+
+============================================================
+3. PREVIOUS PHASES
+============================================================
+
+Phase 1:
+Dataset Validation
+
+Phase 2:
+EDA
+
+Phase 3:
+NLP Preprocessing
+
+Phase 4:
+BoW + Classical ML
+
+Phase 5:
+TF-IDF + N-grams + Feature Engineering
+
+Phase 6:
+GloVe + Bi-LSTM
+
+Phase 7:
+FastText + Bi-LSTM + Attention
+
+Phase 8:
+BERT
+
+Do not replace the previous experiments.
+
+They are required for the final comparative research analysis.
+
+============================================================
+4. PRIMARY RESEARCH QUESTION
+============================================================
+
+Phase 8 must answer:
+
+"Can contextual transformer-based representations from BERT
+improve four-class sarcasm and irony classification compared with
+traditional NLP and recurrent neural-network approaches?"
+
+The final comparison should eventually include:
+
+BoW
+TF-IDF
+TF-IDF + engineered features
+GloVe + Bi-LSTM
+FastText + Bi-LSTM
+FastText + Bi-LSTM + Attention
+BERT
+
+Do not assume BERT will be the best model.
+
+============================================================
+5. WHY BERT
+============================================================
+
+The documentation must explain BERT conceptually.
+
+BERT is a transformer-based pretrained language model that
+produces contextual representations.
+
+Unlike traditional:
+
+BoW
+TF-IDF
+
+the meaning of a token can be represented in relation to its
+surrounding context.
+
+BERT is also different from a standard one-directional sequence
+representation because it uses bidirectional contextual
+information through Transformer attention.
+
+For this project, BERT is useful because sarcasm and irony often
+depend on:
+
+- context
+- word relationships
+- contradiction
+- phrase meaning
+- surrounding words
+- subtle linguistic patterns
+
+Do NOT claim that BERT inherently "understands" sarcasm.
+
+It is being fine-tuned to learn patterns associated with the four
+classes.
+
+============================================================
+6. MODEL TO USE
+============================================================
+
+Use a standard pretrained English BERT model.
+
+Primary model:
+
+bert-base-uncased
+
+Use the corresponding pretrained tokenizer.
+
+Do not automatically replace it with:
+
+- RoBERTa
+- DistilBERT
+- ALBERT
+- DeBERTa
+- XLNet
+
+Those are different transformer architectures.
+
+This phase is specifically:
+
+BERT
+
+If hardware constraints make the primary model impractical,
+document the issue before changing the architecture.
+
+============================================================
+7. TRANSFORMERS LIBRARY
+============================================================
+
+Use the Hugging Face Transformers ecosystem together with the
+deep-learning framework already established for the project.
+
+Primary components:
+
+AutoTokenizer
+AutoModelForSequenceClassification
+
+or equivalent BERT-specific classes.
+
+Use a stable, compatible version of:
+
+transformers
+torch
+
+and record the installed versions.
+
+Do not mix incompatible framework APIs.
+
+============================================================
+8. DATA INPUT
+============================================================
+
+Use:
+
+data/processed/train_clean.csv
+data/processed/test_clean.csv
+
+Use:
+
+text
+label_id
+
+or the project's established equivalent.
+
+Do not alter the class mapping.
+
+============================================================
+9. LABEL MAPPING
+============================================================
+
+The exact Phase 1 mapping must be preserved.
+
+Example:
+
+0 → Regular
+1 → Sarcasm
+2 → Irony
+3 → Figurative
+
+The actual project mapping must be loaded from the existing
+configuration rather than recreated manually.
+
+Save and reuse:
+
+label_mapping.json
+
+============================================================
+10. TRAIN / VALIDATION / TEST
+============================================================
+
+Use the same fundamental strategy as previous phases.
+
+Original training data:
+
+train_clean.csv
+
+Split into:
+
+TRAIN
+VALIDATION
+
+Recommended:
+
+80% TRAIN
+20% VALIDATION
+
+Use:
+
+stratification
+
+and:
+
+random_state = 42
+
+The official test dataset remains untouched.
+
+============================================================
+11. DATA LEAKAGE
+============================================================
+
+This is NON-NEGOTIABLE.
+
+Do not use the official test dataset during:
+
+- tokenizer fitting
+- model selection
+- hyperparameter tuning
+- early stopping
+- checkpoint selection
+- architecture selection
+
+BERT's pretrained vocabulary/tokenizer is already provided by the
+pretrained model.
+
+The project data must still remain separated.
+
+============================================================
+12. IMPORTANT BERT TOKENIZATION DIFFERENCE
+============================================================
+
+DO NOT use:
+
+- Keras Tokenizer
+- GloVe tokenizer
+- FastText tokenizer
+
+for BERT.
+
+Use the pretrained BERT tokenizer.
+
+Conceptually:
+
+TEXT
+ ↓
+BERT TOKENIZER
+ ↓
+input_ids
+attention_mask
+token_type_ids if required
+ ↓
+BERT
+
+BERT uses subword tokenization.
+
+Example conceptually:
+
+"amazing"
+
+may be represented as one or more subword tokens depending on the
+tokenizer vocabulary.
+
+============================================================
+13. SPECIAL TOKENS
+============================================================
+
+The BERT tokenizer automatically handles special tokens such as:
+
+[CLS]
+[SEP]
+[PAD]
+[UNK]
+
+Do not manually insert them unless the tokenizer API specifically
+requires it.
+
+Use the tokenizer's standard behavior.
+
+============================================================
+14. MAXIMUM SEQUENCE LENGTH
+============================================================
+
+Analyze the actual dataset before selecting:
+
+MAX_LENGTH
+
+Use Phase 2 text-length analysis as a reference.
+
+Because tweets are generally short, avoid unnecessarily large
+sequence lengths.
+
+Possible initial value:
+
+128
+
+But:
+
+128 is an example, not an assumed final value.
+
+Determine whether:
+
+64
+128
+
+or another reasonable length adequately covers the dataset.
+
+Record:
+
+- selected MAX_LENGTH
+- percentage truncated
+- average tokenized length
+- median tokenized length
+
+============================================================
+15. TRUNCATION
+============================================================
+
+Use tokenizer truncation.
+
+Conceptually:
+
+truncation=True
+max_length=MAX_LENGTH
+
+Do not silently remove important information.
+
+Measure:
+
+percentage of samples truncated.
+
+If truncation is substantial, investigate whether MAX_LENGTH
+should be increased.
+
+============================================================
+16. PADDING
+============================================================
+
+Use appropriate BERT padding.
+
+For batch processing:
+
+padding="max_length"
+
+may be used for a simple reproducible baseline.
+
+Alternatively, dynamic padding may be used for memory efficiency.
+
+If dynamic padding is used, document it.
+
+Do not mix padding strategies without recording the configuration.
+
+============================================================
+17. ATTENTION MASK
+============================================================
+
+BERT requires an attention mask to distinguish:
+
+real tokens
+
+from:
+
+padding tokens
+
+The model must receive:
+
+input_ids
+attention_mask
+
+Do not ignore the attention mask.
+
+============================================================
+18. TOKEN TYPE IDS
+============================================================
+
+For single-sentence classification, token_type_ids may not provide
+additional information.
+
+Use them only if required by the selected BERT implementation.
+
+Do not add unnecessary inputs.
+
+============================================================
+19. BERT ARCHITECTURE
+============================================================
+
+Primary architecture:
+
+BERT Encoder
+ ↓
+Classification Head
+ ↓
+Dropout if appropriate
+ ↓
+Linear Layer
+ ↓
+4-Class Logits
+ ↓
+Softmax for probabilities
+
+Use:
+
+AutoModelForSequenceClassification
+
+with:
+
+num_labels = 4
+
+where practical.
+
+============================================================
+20. CLASSIFICATION HEAD
+============================================================
+
+The final classification layer MUST produce:
+
+4 logits
+
+corresponding to:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+The model should internally produce logits.
+
+Softmax should be applied for probability interpretation.
+
+During training, use the appropriate cross-entropy loss on logits.
+
+Do NOT manually apply softmax before a loss function that expects
+raw logits.
+
+============================================================
+21. LOSS FUNCTION
+============================================================
+
+Use multiclass cross-entropy appropriate for four integer labels.
+
+For the standard BERT sequence-classification model:
+
+CrossEntropyLoss
+
+is appropriate.
+
+If class weights are used, apply them carefully to the loss.
+
+============================================================
+22. BASELINE BERT MODEL
+============================================================
+
+The first experiment must be a straightforward baseline:
+
+bert-base-uncased
++
+standard BERT tokenizer
++
+4-class classification head
+
+Do not immediately add:
+
+- class weights
+- custom attention
+- extra feature vectors
+- ensemble models
+- additional neural layers
+
+First establish the clean BERT baseline.
+
+============================================================
+23. FINE-TUNING STRATEGY
+============================================================
+
+BERT must be fine-tuned on the project classification task.
+
+The initial approach should fine-tune the pretrained BERT parameters
+along with the classification head.
+
+Do NOT freeze the entire BERT model for the primary experiment.
+
+The purpose of this phase is to evaluate BERT fine-tuning.
+
+============================================================
+24. LEARNING RATE
+============================================================
+
+Use a small transformer-compatible learning rate.
+
+A reasonable starting point:
+
+2e-5
+
+Possible controlled experiments:
+
+1e-5
+2e-5
+3e-5
+
+Do not run a huge learning-rate search.
+
+Record the selected value.
+
+============================================================
+25. EPOCHS
+============================================================
+
+Use a small number of epochs.
+
+Recommended maximum:
+
+3–5 epochs
+
+BERT fine-tuning can overfit relatively quickly on a task-specific
+dataset.
+
+Do not automatically train for 20–30 epochs.
+
+Use early stopping or validation-based checkpoint selection.
+
+============================================================
+26. BATCH SIZE
+============================================================
+
+Start with:
+
+8 or 16
+
+depending on available GPU/CPU memory.
+
+If GPU memory allows:
+
+32
+
+may be tested.
+
+Record:
+
+batch_size
+
+and:
+
+gradient accumulation
+
+if used.
+
+============================================================
+27. GRADIENT ACCUMULATION
+============================================================
+
+If GPU memory prevents a sufficiently useful effective batch size,
+gradient accumulation may be used.
+
+If used, record:
+
+per_device_batch_size
+gradient_accumulation_steps
+effective_batch_size
+
+Do not claim the effective batch size equals the physical batch
+size.
+
+============================================================
+28. WEIGHT DECAY
+============================================================
+
+Use a small weight decay where appropriate.
+
+A common starting point:
+
+0.01
+
+Document the actual optimizer configuration.
+
+============================================================
+29. WARMUP
+============================================================
+
+Use a small warmup proportion or number of warmup steps if
+appropriate.
+
+Example:
+
+warmup_ratio = 0.1
+
+This is an initial recommendation.
+
+Record the actual configuration.
+
+============================================================
+30. LEARNING-RATE SCHEDULER
+============================================================
+
+Use an appropriate transformer fine-tuning scheduler.
+
+For example:
+
+linear warmup/decay
+
+Do not arbitrarily combine multiple incompatible schedulers.
+
+Document:
+
+- scheduler
+- warmup configuration
+- total training steps
+
+============================================================
+31. OPTIMIZER
+============================================================
+
+Use an optimizer appropriate for BERT fine-tuning.
+
+Recommended:
+
+AdamW
+
+Do not simply reuse the Phase 6/7 Adam configuration without
+considering transformer fine-tuning requirements.
+
+============================================================
+32. RANDOM SEEDS
+============================================================
+
+Set reproducibility seeds for:
+
+- Python
+- NumPy
+- PyTorch
+
+Use:
+
+42
+
+where practical.
+
+Record:
+
+random seed
+
+in experiment configuration.
+
+Transformer training may still have small nondeterministic
+differences depending on hardware/backend.
+
+============================================================
+33. CLASS IMBALANCE
+============================================================
+
+Inspect Phase 2 class distribution.
+
+Do not automatically use class weights.
+
+First train the standard BERT baseline.
+
+If imbalance significantly affects minority-class performance,
+perform a controlled class-weight experiment.
+
+Compare:
+
+BERT unweighted
+
+vs
+
+BERT weighted
+
+Do not automatically oversample.
+
+============================================================
+34. TRAINING FRAMEWORK
+============================================================
+
+Use a clean training framework.
+
+Either:
+
+Hugging Face Trainer
+
+or:
+
+a custom PyTorch training loop
+
+may be used.
+
+For this project, prefer Hugging Face Trainer if it simplifies:
+
+- evaluation
+- checkpointing
+- logging
+- scheduling
+- reproducibility
+
+If using a custom loop, maintain the same evaluation and
+checkpointing requirements.
+
+============================================================
+35. EVALUATION DURING TRAINING
+============================================================
+
+Evaluate on validation data during training.
+
+Track:
+
+validation loss
+validation accuracy
+validation Macro F1
+
+Macro F1 should be treated as the important model-selection metric.
+
+Do not use the official test set during training.
+
+============================================================
+36. CHECKPOINT SELECTION
+============================================================
+
+Save the best checkpoint based on:
+
+validation Macro F1
+
+if implemented reliably.
+
+Otherwise:
+
+validation loss
+
+may be used as the checkpoint criterion, while Macro F1 is still
+reported.
+
+Never select the checkpoint based on test performance.
+
+============================================================
+37. EARLY STOPPING
+============================================================
+
+Use early stopping where supported.
+
+Example:
+
+patience = 1–2 evaluation cycles
+
+because BERT fine-tuning is relatively short.
+
+Do not stop based on test results.
+
+============================================================
+38. MODEL EVALUATION METRICS
+============================================================
+
+Calculate:
+
+1. Accuracy
+2. Precision
+3. Recall
+4. F1-score
+5. Macro Precision
+6. Macro Recall
+7. Macro F1
+8. Weighted F1
+9. Per-class Precision
+10. Per-class Recall
+11. Per-class F1
+
+Primary metric:
+
+Macro F1
+
+Secondary:
+
+Accuracy
+
+============================================================
+39. CONFUSION MATRIX
+============================================================
+
+Generate a confusion matrix.
+
+Class order:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+Analyze:
+
+Sarcasm → Irony
+Irony → Sarcasm
+Sarcasm → Figurative
+Irony → Figurative
+Regular → other
+Figurative → other
+
+Compare the BERT confusion matrix against Phase 6 and Phase 7.
+
+============================================================
+40. CLASSIFICATION REPORT
+============================================================
+
+Generate a classification report containing:
+
+precision
+recall
+f1-score
+support
+
+for all four classes.
+
+Also include:
+
+macro average
+weighted average
+
+============================================================
+41. PREDICTION PROBABILITIES
+============================================================
+
+Obtain BERT logits.
+
+Convert them to probabilities using:
+
+softmax(logits)
+
+For each prediction optionally store:
+
+text
+actual_label
+predicted_label
+probability_regular
+probability_sarcasm
+probability_irony
+probability_figurative
+confidence
+
+where:
+
+confidence =
+maximum predicted probability
+
+Clearly state:
+
+These are model probabilities, not guaranteed real-world
+probabilities.
+
+============================================================
+42. ERROR ANALYSIS
+============================================================
+
+Collect BERT misclassifications.
+
+Store:
+
+text
+actual_label
+predicted_label
+probabilities
+
+Focus on:
+
+1. Sarcasm ↔ Irony
+2. Sarcasm ↔ Figurative
+3. Irony ↔ Figurative
+4. Regular ↔ Figurative
+5. Very short tweets
+6. Context-dependent sarcasm
+7. Implicit sarcasm
+8. Ambiguous annotations
+9. Social-media slang
+10. Emoji/punctuation-dependent meaning
+
+Do not modify the dataset based on errors.
+
+============================================================
+43. BERT ATTENTION ANALYSIS
+============================================================
+
+DO NOT automatically claim that BERT attention weights are
+explanations.
+
+If attention visualization is implemented as an optional analysis:
+
+- extract attention from the model
+- align tokens correctly
+- visualize selected examples
+- clearly label it as attention analysis
+
+Do NOT say:
+
+"BERT looked at this word, therefore this word caused the decision."
+
+Instead say:
+
+"This attention visualization shows the relative attention
+weights produced by the selected BERT layer/head."
+
+Primary evaluation must rely on classification performance,
+not attention visualization.
+
+============================================================
+44. OPTIONAL ERROR INTERPRETATION
+============================================================
+
+For representative examples, compare:
+
+Original text
+Actual class
+BERT prediction
+Confidence
+Relevant linguistic observations
+
+Example structure:
+
+Text:
+...
+
+Actual:
+Sarcasm
+
+Predicted:
+Irony
+
+Observation:
+The text contains ambiguity between sarcastic and ironic
+interpretation.
+
+Do not invent contextual information that is not present.
+
+============================================================
+45. BERT TOKEN ANALYSIS
+============================================================
+
+Record:
+
+- tokenizer vocabulary
+- average tokenized sequence length
+- median tokenized sequence length
+- maximum selected length
+- truncation percentage
+- padding strategy
+
+This allows comparison with:
+
+GloVe
+FastText
+
+============================================================
+46. COMPUTATIONAL REQUIREMENTS
+============================================================
+
+Record:
+
+- model name
+- parameter count
+- batch size
+- sequence length
+- training time
+- hardware
+- GPU availability
+- maximum memory usage where practical
+
+Use:
+
+model.num_parameters()
+
+or the appropriate framework equivalent.
+
+============================================================
+47. GPU SUPPORT
+============================================================
+
+Automatically detect GPU.
+
+If available:
+
+use GPU.
+
+If unavailable:
+
+allow CPU execution.
+
+The project must not hard-code a specific GPU device.
+
+Record the training environment.
+
+============================================================
+48. MEMORY MANAGEMENT
+============================================================
+
+BERT is significantly more memory-intensive than classical models.
+
+If memory problems occur:
+
+1. reduce batch size
+2. reduce MAX_LENGTH
+3. use gradient accumulation
+4. use mixed precision if supported
+5. clear unnecessary tensors
+6. train experiments sequentially
+
+Do NOT reduce the classification dataset.
+
+============================================================
+49. MIXED PRECISION
+============================================================
+
+If a compatible GPU is available, optionally use mixed precision.
+
+For example:
+
+FP16
+
+or:
+
+BF16
+
+depending on hardware support.
+
+Do not enable an unsupported precision mode.
+
+Record whether mixed precision was used.
+
+============================================================
+50. MODEL PARAMETERS
+============================================================
+
+Record:
+
+- total parameters
+- trainable parameters
+- non-trainable parameters
+
+For standard fine-tuning:
+
+most BERT parameters should remain trainable.
+
+============================================================
+51. EXPERIMENT MATRIX
+============================================================
+
+At minimum run:
+
+BERT-01
+
+bert-base-uncased
++
+standard tokenizer
++
+standard fine-tuning
++
+4 classes
+
+Optional controlled experiments:
+
+BERT-02
+
+BERT + class weights
+
+BERT-03
+
+BERT with a carefully selected MAX_LENGTH variation
+
+BERT-04
+
+BERT with another learning rate
+
+Only perform additional experiments when justified.
+
+Do NOT turn Phase 8 into an enormous hyperparameter search.
+
+============================================================
+52. FAIR COMPARISON
+============================================================
+
+Keep these factors consistent across model comparisons:
+
+- dataset
+- class mapping
+- test set
+- evaluation metrics
+
+The models naturally differ in representation and architecture.
+
+Do not unfairly compare models using different test datasets.
+
+============================================================
+53. COMPARISON WITH ALL PREVIOUS PHASES
+============================================================
+
+Create a complete model progression table:
+
+| Phase | Model | Representation | Macro F1 | Accuracy |
+|-------|-------|----------------|----------|----------|
+| 4 | Best BoW model | BoW | X | X |
+| 5 | Best TF-IDF model | TF-IDF | X | X |
+| 5 | Best engineered model | TF-IDF + Features | X | X |
+| 6 | Best Bi-LSTM | GloVe | X | X |
+| 7 | Best FastText Bi-LSTM | FastText | X | X |
+| 7 | Best Attention model | FastText + Attention | X | X |
+| 8 | BERT | BERT | X | X |
+
+All X values MUST come from actual experiments.
+
+============================================================
+54. BERT VS PREVIOUS MODELS
+============================================================
+
+The analysis must answer:
+
+1. Does BERT outperform BoW?
+2. Does BERT outperform TF-IDF?
+3. Does BERT outperform TF-IDF + engineered features?
+4. Does BERT outperform GloVe + Bi-LSTM?
+5. Does BERT outperform FastText + Bi-LSTM?
+6. Does BERT outperform FastText + Attention?
+7. Which classes benefit most?
+8. Does BERT reduce Sarcasm ↔ Irony confusion?
+9. What is the computational cost of BERT?
+10. Is the performance improvement large enough to justify the cost?
+
+Do not assume BERT wins.
+
+============================================================
+55. MODEL SELECTION
+============================================================
+
+At the end of Phase 8 identify:
+
+BEST BERT CONFIGURATION
+
+based on validation Macro F1.
+
+Only after configuration selection:
+
+1. retrain/finalize using the complete training dataset as
+   appropriate
+2. evaluate once on the official test dataset
+
+Do not use test results to tune the model.
+
+============================================================
+56. FINAL BERT TEST EVALUATION
+============================================================
+
+For the selected BERT configuration report:
+
+Accuracy
+Macro Precision
+Macro Recall
+Macro F1
+Weighted F1
+Per-class metrics
+Confusion matrix
+
+Store predictions.
+
+Do not modify the model after seeing test results.
+
+============================================================
+57. RESULTS STORAGE
+============================================================
+
+Create:
+
+results/
+└── bert/
+    ├── model_results.csv
+    ├── classification_report.csv
+    ├── confusion_matrix.csv
+    ├── predictions.csv
+    ├── training_history.csv
+    ├── architecture_comparison.csv
+    └── environment.json
+
+============================================================
+58. TRAINING HISTORY
+============================================================
+
+Record:
+
+epoch
+training loss
+validation loss
+validation accuracy
+validation Macro F1
+
+If the training framework provides these automatically,
+save the logs in structured form.
+
+============================================================
+59. VISUALIZATIONS
+============================================================
+
+Generate:
+
+1. Training loss curve
+2. Validation loss curve
+3. Validation accuracy curve
+4. Validation Macro F1 curve
+5. BERT confusion matrix
+6. Complete model Macro F1 comparison
+7. Complete model accuracy comparison
+8. Optional parameter-count comparison
+9. Optional training-time comparison
+
+Use actual values.
+
+============================================================
+60. MODEL COMPARISON VISUALIZATION
+============================================================
+
+Create a final comparison chart containing:
+
+BoW
+TF-IDF
+TF-IDF + Features
+GloVe + Bi-LSTM
+FastText + Bi-LSTM
+FastText + Attention
+BERT
+
+Primary chart:
+
+Macro F1
+
+Secondary chart:
+
+Accuracy
+
+Do not use test results from configurations that were not
+legitimately selected.
+
+============================================================
+61. ERROR COMPARISON
+============================================================
+
+Compare representative errors between:
+
+Best traditional model
+Best Bi-LSTM model
+Best FastText/Attention model
+BERT
+
+Look especially at:
+
+Sarcasm ↔ Irony
+
+This should help explain where contextual transformers help
+and where they still fail.
+
+============================================================
+62. COMPUTATIONAL COMPARISON
+============================================================
+
+Create:
+
+results/model_computational_comparison.csv
+
+Include:
+
+model
+parameter_count
+training_time
+batch_size
+sequence_length
+hardware
+memory_notes
+
+Compare:
+
+TF-IDF model
+Bi-LSTM
+FastText + Attention
+BERT
+
+This demonstrates the trade-off between:
+
+performance
+vs
+computational cost.
+
+============================================================
+63. RESEARCH INTERPRETATION
+============================================================
+
+The Phase 8 discussion must distinguish:
+
+Performance improvement
+
+from:
+
+Computational complexity.
+
+For example:
+
+If BERT improves Macro F1 by a small amount but requires
+significantly more computational resources, state this objectively.
+
+If BERT substantially improves classification, explain that too.
+
+Never claim "BERT is better" without comparing actual metrics.
+
+============================================================
+64. NO FABRICATED RESULTS
+============================================================
+
+NEVER invent:
+
+- accuracy
+- precision
+- recall
+- F1
+- Macro F1
+- confusion matrices
+- training time
+- parameter counts
+- memory usage
+- confidence scores
+
+All values must come from actual execution.
+
+============================================================
+65. MODEL SAVING
+============================================================
+
+Save the selected BERT model.
+
+Recommended:
+
+models/
+└── transformers/
+    └── bert/
+        ├── model/
+        ├── tokenizer/
+        └── config.json
+
+Use the Hugging Face save_pretrained mechanism where appropriate.
+
+The saved model MUST include the exact tokenizer required for
+inference.
+
+============================================================
+66. LABEL CONFIGURATION
+============================================================
+
+Save:
+
+label_mapping.json
+
+Example:
+
+{
+    "0": "Regular",
+    "1": "Sarcasm",
+    "2": "Irony",
+    "3": "Figurative"
+}
+
+Use the actual project mapping.
+
+============================================================
+67. INFERENCE TEST
+============================================================
+
+After saving the model, create an inference test.
+
+Input:
+
+a single text string
+
+Output:
+
+predicted class
+probabilities
+confidence
+
+Example conceptual result:
+
+Input:
+"Fantastic, another three-hour meeting."
+
+Prediction:
+Sarcasm
+
+Probabilities:
+Regular: ...
+Sarcasm: ...
+Irony: ...
+Figurative: ...
+
+The actual probabilities must come from the model.
+
+============================================================
+68. BATCH INFERENCE TEST
+============================================================
+
+Also test:
+
+multiple text inputs
+
+and verify that:
+
+N inputs
+
+produce:
+
+N predictions.
+
+============================================================
+69. INFERENCE CONSISTENCY
+============================================================
+
+Verify that:
+
+training tokenizer
+and
+saved tokenizer
+
+produce consistent tokenization.
+
+Verify that:
+
+saved BERT model
++
+saved tokenizer
+
+produce valid predictions after reloading.
+
+============================================================
+70. REPRODUCIBILITY
+============================================================
+
+Create:
+
+results/bert/environment.json
+
+Record:
+
+- Python version
+- PyTorch version
+- Transformers version
+- CUDA version if available
+- GPU name if available
+- random seed
+- model name
+- tokenizer name
+- training configuration
+
+This is important for academic reproducibility.
+
+============================================================
+71. NOTEBOOK
+============================================================
+
+Create:
+
+notebooks/08_bert_classification.ipynb
+
+Sections:
+
+1. Imports
+2. Environment check
+3. Load dataset
+4. Class distribution
+5. Train/validation/test split
+6. BERT tokenizer
+7. Token-length analysis
+8. Dataset preparation
+9. BERT model
+10. Training configuration
+11. Training
+12. Validation results
+13. Training curves
+14. Test evaluation
+15. Classification report
+16. Confusion matrix
+17. Error analysis
+18. Model comparison
+19. Computational comparison
+20. Inference test
+21. Conclusions
+
+============================================================
+72. CODE STRUCTURE
+============================================================
+
+Recommended:
+
+ml-service/
+│
+├── src/
+│   └── transformers/
+│       └── bert/
+│           ├── __init__.py
+│           ├── tokenizer.py
+│           ├── dataset.py
+│           ├── model.py
+│           ├── train.py
+│           ├── evaluate.py
+│           ├── predict.py
+│           ├── experiments.py
+│           └── utils.py
+│
+├── models/
+│   └── transformers/
+│       └── bert/
+│
+├── results/
+│   └── bert/
+│
+├── notebooks/
+│   └── 08_bert_classification.ipynb
+│
+└── docs/
+    └── research/
+        └── phase8_bert.md
+
+Adapt this to the existing project structure.
+
+Do not unnecessarily restructure completed phases.
+
+============================================================
+73. TESTING
+============================================================
+
+Create tests for:
+
+1. BERT tokenizer
+2. Dataset encoding
+3. Attention mask
+4. Label mapping
+5. Input shapes
+6. Model output shape
+7. Four-class prediction
+8. Probability calculation
+9. Saved model reload
+10. Saved tokenizer reload
+11. Single-text inference
+12. Batch inference
+
+Verify:
+
+input_ids.shape
+
+attention_mask.shape
+
+and:
+
+logits.shape[-1] == 4
+
+============================================================
+74. MODEL SANITY CHECK
+============================================================
+
+Before full training:
+
+1. Load a very small subset.
+2. Tokenize.
+3. Create one batch.
+4. Run BERT forward pass.
+5. Verify logits shape.
+6. Calculate loss.
+7. Run one backward pass.
+8. Confirm gradients exist.
+9. Run a few training steps.
+
+Only then begin full training.
+
+============================================================
+75. MEMORY SANITY CHECK
+============================================================
+
+Before full training:
+
+Measure whether:
+
+batch_size
++
+MAX_LENGTH
+
+fit available memory.
+
+If not:
+
+reduce batch size first.
+
+Then consider:
+
+gradient accumulation
+mixed precision
+smaller MAX_LENGTH
+
+Do not reduce the dataset.
+
+============================================================
+76. DOCUMENTATION
+============================================================
+
+Create:
+
+docs/research/phase8_bert.md
+
+Include:
+
+1. Objective
+2. Why BERT
+3. Transformer overview
+4. BERT architecture
+5. Pretraining concept
+6. Fine-tuning concept
+7. BERT tokenizer
+8. Special tokens
+9. Attention masks
+10. Dataset
+11. Data split
+12. Sequence-length selection
+13. Model configuration
+14. Hyperparameters
+15. Training methodology
+16. Evaluation metrics
+17. Results
+18. Confusion matrix
+19. Error analysis
+20. Computational analysis
+21. Comparison with previous phases
+22. Limitations
+23. Final BERT conclusion
+24. Transition to Phase 9
+
+============================================================
+77. ACADEMIC EXPLANATION
+============================================================
+
+The documentation must explain BERT at a level appropriate for an
+MCA NLP project.
+
+Explain:
+
+Tokenization
+↓
+Input embeddings
+↓
+Positional information
+↓
+Transformer encoder
+↓
+Self-attention
+↓
+Feed-forward layers
+↓
+Contextual representations
+↓
+Classification head
+
+Do not copy long text from external sources.
+
+Use original explanations and cite sources where required.
+
+============================================================
+78. SELF-ATTENTION EXPLANATION
+============================================================
+
+Explain the conceptual mechanism:
+
+Query
+Key
+Value
+
+and:
+
+Attention(Q,K,V)
+
+The exact mathematical explanation should be sufficient for
+academic/viva purposes but should remain understandable.
+
+Do not confuse:
+
+BERT's internal self-attention
+
+with:
+
+the custom attention mechanism implemented in Phase 7.
+
+They are different concepts.
+
+============================================================
+79. BERT VS PHASE 7 ATTENTION
+============================================================
+
+Clearly distinguish:
+
+PHASE 7:
+
+Bi-LSTM hidden states
+↓
+custom attention
+↓
+context vector
+
+PHASE 8:
+
+Transformer self-attention
+↓
+contextual token representations
+↓
+BERT classification head
+
+Do not describe them as the same architecture.
+
+============================================================
+80. IMPORTANT: NO CUSTOM DATA AUGMENTATION
+============================================================
+
+Do not use:
+
+- paraphrase augmentation
+- back translation
+- synthetic sarcasm generation
+- external text generation
+- manually generated training examples
+
+The classification dataset must remain unchanged.
+
+============================================================
+81. IMPORTANT: NO DATASET MIXING
+============================================================
+
+Do not combine the current Kaggle four-class dataset with the
+previous Reddit dataset or any other dataset.
+
+Even if another dataset appears useful, do not use it in Phase 8.
+
+============================================================
+82. FINAL MODEL PROGRESSION
+============================================================
+
+Create:
+
+results/final_progression/
+
+containing:
+
+model_comparison.csv
+
+and comparison charts.
+
+The progression must include:
+
+Phase 4:
+BoW + Classical ML
+
+Phase 5:
+TF-IDF + Classical ML
+
+Phase 5:
+TF-IDF + Engineered Features
+
+Phase 6:
+GloVe + Bi-LSTM
+
+Phase 7:
+FastText + Bi-LSTM
+
+Phase 7:
+FastText + Bi-LSTM + Attention
+
+Phase 8:
+BERT
+
+============================================================
+83. FINAL COMPARISON TABLE
+============================================================
+
+Create:
+
+| Rank | Model | Representation | Accuracy | Macro F1 |
+|------|-------|----------------|----------|----------|
+| ... | ... | ... | ... | ... |
+
+Rank models primarily using:
+
+Macro F1
+
+Do not rank using accuracy alone.
+
+The ranking must be generated from actual test results of
+legitimately selected final candidates.
+
+============================================================
+84. RESEARCH QUESTIONS AFTER PHASE 8
+============================================================
+
+The complete experimental study should now answer:
+
+RQ1:
+Does BoW provide a useful baseline?
+
+RQ2:
+Does TF-IDF improve over BoW?
+
+RQ3:
+Do n-grams improve classification?
+
+RQ4:
+Do linguistic/social-media features improve TF-IDF?
+
+RQ5:
+Does GloVe + Bi-LSTM improve over traditional NLP?
+
+RQ6:
+Does FastText improve over GloVe?
+
+RQ7:
+Does attention improve FastText + Bi-LSTM?
+
+RQ8:
+Does BERT outperform recurrent and classical models?
+
+RQ9:
+Which classes remain difficult?
+
+RQ10:
+What is the performance-versus-computation trade-off?
+
+These questions will be formally analyzed in Phase 9.
+
+============================================================
+85. PHASE 8 SUCCESS CRITERIA
+============================================================
+
+Phase 8 is complete ONLY when:
+
+[ ] BERT model selected.
+[ ] BERT tokenizer implemented.
+[ ] Dataset prepared correctly.
+[ ] Four-class mapping preserved.
+[ ] Train/validation/test split preserved.
+[ ] No test leakage.
+[ ] Maximum sequence length justified.
+[ ] Input IDs implemented.
+[ ] Attention masks implemented.
+[ ] BERT classification model implemented.
+[ ] Four-class output implemented.
+[ ] Cross-entropy loss implemented.
+[ ] AdamW implemented.
+[ ] Learning-rate schedule configured.
+[ ] Early stopping/checkpoint selection implemented.
+[ ] Validation evaluation implemented.
+[ ] Accuracy calculated.
+[ ] Precision calculated.
+[ ] Recall calculated.
+[ ] Macro F1 calculated.
+[ ] Weighted F1 calculated.
+[ ] Per-class metrics calculated.
+[ ] Confusion matrix generated.
+[ ] Error analysis completed.
+[ ] Training history recorded.
+[ ] Computational metrics recorded.
+[ ] Parameter count recorded.
+[ ] Final test evaluation performed only after model selection.
+[ ] Saved model created.
+[ ] Saved tokenizer created.
+[ ] Configuration saved.
+[ ] Inference tested.
+[ ] Batch inference tested.
+[ ] Reloaded-model test passed.
+[ ] Results stored.
+[ ] Notebook created.
+[ ] Documentation created.
+[ ] Unit tests created.
+[ ] Complete model progression created.
+[ ] No external classification dataset used.
+[ ] No fabricated results.
+[ ] No deployment implemented.
+
+============================================================
+86. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 8 report:
+
+1. BERT model used.
+2. Tokenizer used.
+3. Maximum sequence length.
+4. Training configuration.
+5. Number of epochs actually completed.
+6. Best checkpoint.
+7. Validation performance.
+8. Final test performance.
+9. Per-class metrics.
+10. Confusion matrix observations.
+11. Important error patterns.
+12. Parameter count.
+13. Training time.
+14. Hardware used.
+15. BERT vs GloVe comparison.
+16. BERT vs FastText comparison.
+17. BERT vs TF-IDF comparison.
+18. Complete model progression.
+19. Best current model.
+20. Limitations.
+21. Recommended Phase 9 analysis.
+
+Do NOT automatically deploy the model.
+
+Do NOT automatically begin final model selection beyond the
+research comparison.
+
+============================================================
+87. TRANSITION TO PHASE 9
+============================================================
+
+Phase 9 will perform:
+
+COMPLETE MODEL COMPARISON
++
+DETAILED ERROR ANALYSIS
++
+RESEARCH ANALYSIS
++
+MODEL SELECTION
+
+It will compare all major approaches:
+
+BoW
+TF-IDF
+TF-IDF + Features
+GloVe + Bi-LSTM
+FastText + Bi-LSTM
+FastText + Attention
+BERT
+
+Phase 9 will determine the strongest candidate based on the
+project's evaluation criteria.
+
+============================================================
+88. STOP CONDITION
+============================================================
+
+After completing Phase 8:
+
+STOP.
+
+Do NOT automatically begin:
+
+- final model selection
+- ensemble
+- FastAPI
+- Express
+- MongoDB
+- React
+- deployment
+
+Wait for explicit instruction to begin Phase 9.
+
+============================================================
+END OF PHASE 8 MASTER PROMPT
+============================================================
+
+Current complete NLP experimentation pipeline
+
+                 APPROVED 4-CLASS DATASET
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 1             │
+              │ Dataset Validation  │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 2             │
+              │ EDA                 │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 3             │
+              │ NLP Preprocessing   │
+              └──────────┬──────────┘
+                         ▼
+        ┌────────────────────────────────────┐
+        │                                    │
+        ▼                                    ▼
+┌──────────────────┐              ┌──────────────────────┐
+│ PHASE 4          │              │ PHASE 5              │
+│ BoW              │              │ TF-IDF                │
+│ + Classical ML   │              │ + N-grams             │
+│                  │              │ + Features            │
+└────────┬─────────┘              └──────────┬───────────┘
+         │                                   │
+         └────────────────┬──────────────────┘
+                          ▼
+              ┌─────────────────────┐
+              │ PHASE 6             │
+              │ GloVe + Bi-LSTM     │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 7             │
+              │ FastText + Bi-LSTM  │
+              │ + Attention         │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 8             │
+              │ BERT                │
+              └──────────┬──────────┘
+                         ▼
+              ┌─────────────────────┐
+              │ PHASE 9             │
+              │ Comparison +        │
+              │ Error Analysis      │
+              └─────────────────────┘

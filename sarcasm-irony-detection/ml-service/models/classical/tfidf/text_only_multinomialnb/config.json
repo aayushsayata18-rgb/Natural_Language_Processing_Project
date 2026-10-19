@@ -1,0 +1,18 @@
+{
+  "model": "MultinomialNB",
+  "preprocessing": "classical",
+  "ngram_range": "(1, 2)",
+  "feature_set": "A",
+  "hyperparameters": {
+    "alpha": 1.0
+  },
+  "vocab_size": 50000,
+  "test_macro_f1": 0.6837384314621135,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "experiment_id": "TFIDF-05"
+}

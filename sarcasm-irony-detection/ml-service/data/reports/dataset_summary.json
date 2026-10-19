@@ -1,0 +1,215 @@
+{
+  "dataset_name": "Kaggle 4-class Sarcasm and Irony Dataset",
+  "files": {
+    "train.csv": {
+      "exists": true,
+      "size_bytes": 9294987,
+      "path": "D:\\Natural_Language_Processing_Project\\sarcasm-irony-detection\\ml-service\\data\\raw\\train.csv"
+    },
+    "test.csv": {
+      "exists": true,
+      "size_bytes": 928603,
+      "path": "D:\\Natural_Language_Processing_Project\\sarcasm-irony-detection\\ml-service\\data\\raw\\test.csv"
+    }
+  },
+  "train_records_original": 81408,
+  "test_records_original": 8128,
+  "columns": {
+    "text_column": "tweets",
+    "label_column": "class"
+  },
+  "classes": [
+    "Regular",
+    "Sarcasm",
+    "Irony",
+    "Figurative"
+  ],
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "text_statistics": {
+    "train": {
+      "total_rows": 81408,
+      "null_values": 0,
+      "empty_strings": 0,
+      "whitespace_only": 0,
+      "non_string_values": 0,
+      "duplicate_texts": 13411,
+      "unique_texts": 67997,
+      "char_length_min": 6,
+      "char_length_max": 161,
+      "char_length_mean": 102.5,
+      "char_length_median": 107.0,
+      "word_count_min": 1,
+      "word_count_max": 35,
+      "word_count_mean": 15.2,
+      "word_count_median": 15.0,
+      "extremely_short_texts": 0,
+      "extremely_long_texts": 0
+    },
+    "test": {
+      "total_rows": 8128,
+      "null_values": 2,
+      "empty_strings": 0,
+      "whitespace_only": 0,
+      "non_string_values": 0,
+      "duplicate_texts": 133,
+      "unique_texts": 7993,
+      "char_length_min": 6,
+      "char_length_max": 152,
+      "char_length_mean": 102.6,
+      "char_length_median": 107.0,
+      "word_count_min": 1,
+      "word_count_max": 34,
+      "word_count_mean": 15.2,
+      "word_count_median": 15.0,
+      "extremely_short_texts": 0,
+      "extremely_long_texts": 0
+    }
+  },
+  "label_validation": {
+    "train": {
+      "unique_labels": [
+        "figurative",
+        "irony",
+        "regular",
+        "sarcasm"
+      ],
+      "nan_count": 0,
+      "value_counts": {
+        "figurative": 21238,
+        "irony": 20894,
+        "sarcasm": 20681,
+        "regular": 18595
+      }
+    },
+    "test": {
+      "unique_labels": [
+        "figurative",
+        "irony",
+        "regular",
+        "sarcasm"
+      ],
+      "nan_count": 9,
+      "value_counts": {
+        "irony": 2111,
+        "sarcasm": 2105,
+        "figurative": 2044,
+        "regular": 1859,
+        "nan": 9
+      }
+    }
+  },
+  "missing_data": {
+    "train": {
+      "tweets": 0,
+      "class": 0
+    },
+    "test": {
+      "tweets": 2,
+      "class": 9
+    }
+  },
+  "duplicates": {
+    "train": {
+      "dataset": "train",
+      "total_rows": 81408,
+      "exact_duplicate_rows": 49,
+      "duplicate_texts": 13411,
+      "unique_texts": 67997,
+      "duplicate_text_label_pairs": 49,
+      "conflicting_label_texts": 13362
+    },
+    "test": {
+      "dataset": "test",
+      "total_rows": 8128,
+      "exact_duplicate_rows": 1,
+      "duplicate_texts": 133,
+      "unique_texts": 7993,
+      "duplicate_text_label_pairs": 0,
+      "conflicting_label_texts": 133
+    }
+  },
+  "train_test_overlap": {
+    "unique_train_texts": 67997,
+    "unique_test_texts": 7993,
+    "overlapping_unique_texts": 2592,
+    "affected_train_rows": 2607,
+    "affected_test_rows": 2592,
+    "same_label_overlaps": 2,
+    "different_label_overlaps": 2590,
+    "leakage_risk": "HIGH"
+  },
+  "class_distribution": {
+    "train_original": {
+      "ratio": 1.14,
+      "balance": "balanced"
+    },
+    "test_original": {
+      "ratio": 234.56,
+      "balance": "heavily imbalanced"
+    }
+  },
+  "train_records_clean": 81359,
+  "test_records_clean": 5527,
+  "cleaning_decisions": [
+    {
+      "step": "Label Standardization",
+      "action": "Standardized label capitalization/whitespace to: Regular, Sarcasm, Irony, Figurative",
+      "justification": "Ensures consistent label format across pipeline",
+      "impact": "No records removed, only label formatting changed"
+    },
+    {
+      "step": "Remove Missing Text",
+      "action": "Removed records with null/empty/whitespace-only text",
+      "justification": "Text is required for NLP classification; no text = unusable record",
+      "impact": "Train: -0, Test: -2"
+    },
+    {
+      "step": "Remove Missing Labels",
+      "action": "Removed records with missing class labels",
+      "justification": "Supervised classification requires labels; cannot fabricate or infer them",
+      "impact": "Train: -0, Test: -7"
+    },
+    {
+      "step": "Remove Invalid Labels",
+      "action": "Removed records with labels not in {Regular, Sarcasm, Irony, Figurative}",
+      "justification": "Only four-class labels are valid for this project",
+      "impact": "Train: -0, Test: -0"
+    },
+    {
+      "step": "Remove Exact Duplicate Rows",
+      "action": "Removed rows where all columns are identical (keeping first occurrence)",
+      "justification": "Exact duplicates add no information and can bias model training",
+      "impact": "Train: -49, Test: -0"
+    },
+    {
+      "step": "Train/Test Overlap Removal (Leakage Control)",
+      "action": "Removed 2592 test rows whose text appears in training data",
+      "justification": "Identical text in both train and test creates evaluation leakage, inflating metrics. Removed from test (not train) to preserve maximum training data.",
+      "impact": "Test: 8119 -> 5527 (2592 unique overlapping texts)"
+    }
+  ],
+  "clean_train_class_distribution": {
+    "Figurative": 21235,
+    "Irony": 20877,
+    "Sarcasm": 20678,
+    "Regular": 18569
+  },
+  "clean_test_class_distribution": {
+    "Regular": 1858,
+    "Sarcasm": 1602,
+    "Irony": 1301,
+    "Figurative": 766
+  },
+  "clean_columns": [
+    "text",
+    "label",
+    "label_id"
+  ],
+  "integrity_checks_passed": true,
+  "phase1_completed": "2026-08-14T14:05:20.665989"
+}

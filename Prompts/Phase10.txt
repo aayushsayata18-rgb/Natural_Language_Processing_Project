@@ -1,0 +1,1769 @@
+============================================================
+PHASE 10 — FINAL MODEL PACKAGING + PRODUCTION-READY INFERENCE
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+ROLE:
+Act as a senior ML engineer, NLP engineer, MLOps engineer,
+software architect, and academic project mentor.
+
+You are responsible for implementing Phase 10.
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+The objective of Phase 10 is to take the SINGLE FINAL MODEL
+selected in Phase 9 and convert it into a reliable, reusable,
+versioned inference package.
+
+Phase 9 determined:
+
+- which model is final
+- why it was selected
+- its performance
+- its limitations
+
+Phase 10 prepares that model for:
+
+1. Local inference
+2. Programmatic inference
+3. Backend/API integration
+4. React frontend integration later
+5. Reproducible deployment
+
+The model must be treated as a reusable ML service component.
+
+============================================================
+2. CRITICAL RULE
+============================================================
+
+DO NOT introduce a new ML architecture.
+
+DO NOT compare models again.
+
+DO NOT retrain all previous models.
+
+DO NOT change the final model architecture unless a genuine
+packaging/inference problem requires it.
+
+The final model selected in Phase 9 is the model to package.
+
+============================================================
+3. FINAL MODEL SOURCE
+============================================================
+
+Read:
+
+models/final/model_metadata.json
+
+and the Phase 9 final-selection documentation.
+
+Determine:
+
+- selected model
+- model type
+- representation
+- preprocessing requirements
+- tokenizer/vectorizer requirements
+- label mapping
+- expected input format
+- output format
+
+Do NOT assume the final model is BERT.
+
+The implementation must support whichever model Phase 9 actually
+selected.
+
+Possible final model types:
+
+- Classical ML
+- GloVe + Bi-LSTM
+- FastText + Bi-LSTM
+- FastText + Attention
+- BERT
+
+============================================================
+4. FINAL MODEL PACKAGE
+============================================================
+
+Create a clean final model directory.
+
+Recommended:
+
+models/
+└── final/
+    ├── model/
+    ├── tokenizer/
+    ├── config.json
+    ├── label_mapping.json
+    ├── model_metadata.json
+    └── preprocessing_config.json
+
+The exact contents depend on the selected model.
+
+============================================================
+5. MODEL ARTIFACTS
+============================================================
+
+Package every artifact required for inference.
+
+Possible artifacts:
+
+Classical model:
+
+- trained classifier
+- TF-IDF vectorizer
+- preprocessing configuration
+- label mapping
+
+Bi-LSTM:
+
+- .keras model
+- tokenizer
+- sequence length
+- embedding configuration
+- label mapping
+
+BERT:
+
+- model/
+- tokenizer/
+- config
+- label mapping
+
+The final inference system must NOT depend on temporary notebook
+objects.
+
+============================================================
+6. NO NOTEBOOK DEPENDENCY
+============================================================
+
+The final model must be usable without opening:
+
+Jupyter Notebook
+
+or:
+
+Google Colab
+
+or:
+
+training notebook.
+
+Inference must work through Python source code.
+
+============================================================
+7. VERSIONING
+============================================================
+
+Assign a final model version.
+
+Example:
+
+SIC-v1.0
+
+where:
+
+SIC = Sarcasm Irony Classifier
+
+Use a meaningful version.
+
+Save:
+
+model_version
+
+inside:
+
+model_metadata.json
+
+============================================================
+8. MODEL METADATA
+============================================================
+
+Create:
+
+models/final/model_metadata.json
+
+Example structure:
+
+{
+    "project_name": "Sarcasm & Irony Detection System",
+    "model_name": "...",
+    "model_version": "...",
+    "model_type": "...",
+    "representation": "...",
+    "dataset": "...",
+    "num_classes": 4,
+    "classes": [
+        "Regular",
+        "Sarcasm",
+        "Irony",
+        "Figurative"
+    ],
+    "accuracy": ...,
+    "macro_f1": ...,
+    "training_date": "...",
+    "selected_reason": "..."
+}
+
+Use actual Phase 9 values.
+
+Do NOT fabricate metrics.
+
+============================================================
+9. LABEL MAPPING
+============================================================
+
+Save:
+
+models/final/label_mapping.json
+
+The mapping MUST exactly match the project's established mapping.
+
+Example:
+
+{
+    "0": "Regular",
+    "1": "Sarcasm",
+    "2": "Irony",
+    "3": "Figurative"
+}
+
+Do not recreate a different label order.
+
+============================================================
+10. PREPROCESSING CONFIGURATION
+============================================================
+
+Create:
+
+models/final/preprocessing_config.json
+
+Record every transformation required before inference.
+
+Depending on the final model, this may include:
+
+- text normalization
+- URL handling
+- mention handling
+- whitespace normalization
+- punctuation treatment
+- tokenizer
+- vocabulary
+- max sequence length
+- padding
+- truncation
+- special tokens
+
+The inference pipeline MUST use the same preprocessing assumptions
+as the selected model.
+
+============================================================
+11. TRAINING VS INFERENCE
+============================================================
+
+Clearly separate:
+
+TRAINING CODE
+
+from:
+
+INFERENCE CODE
+
+The final inference code must NOT:
+
+- fit a vectorizer
+- fit a tokenizer
+- train a model
+- calculate training statistics
+- modify the model
+
+Inference only performs:
+
+INPUT
+ ↓
+VALIDATION
+ ↓
+PREPROCESSING
+ ↓
+TOKENIZATION/VECTORIZATION
+ ↓
+MODEL PREDICTION
+ ↓
+OUTPUT FORMATTING
+
+============================================================
+12. INFERENCE MODULE
+============================================================
+
+Create:
+
+src/inference/
+
+Recommended:
+
+src/inference/
+├── __init__.py
+├── predictor.py
+├── preprocessing.py
+├── loader.py
+├── schemas.py
+└── utils.py
+
+The central class should be something like:
+
+SarcasmIronyPredictor
+
+The exact name may be adjusted.
+
+============================================================
+13. MODEL LOADING
+============================================================
+
+Implement a model loader.
+
+Conceptually:
+
+load_model()
+
+must:
+
+1. Load model.
+2. Load tokenizer/vectorizer.
+3. Load configuration.
+4. Load label mapping.
+5. Validate artifacts.
+6. Prepare inference pipeline.
+7. Return a ready predictor.
+
+The model should be loaded ONCE when the service starts.
+
+Do not reload the model for every prediction.
+
+============================================================
+14. MODEL INITIALIZATION
+============================================================
+
+The system should support:
+
+predictor = SarcasmIronyPredictor()
+
+Then:
+
+predictor.predict(text)
+
+This should return a structured result.
+
+============================================================
+15. SINGLE TEXT PREDICTION
+============================================================
+
+Implement:
+
+predict(text)
+
+Input:
+
+string
+
+Output:
+
+{
+    "text": "...",
+    "predicted_class": "...",
+    "confidence": ...,
+    "probabilities": {
+        "Regular": ...,
+        "Sarcasm": ...,
+        "Irony": ...,
+        "Figurative": ...
+    }
+}
+
+The exact probabilities depend on the selected model.
+
+If the final model does not provide calibrated probabilities,
+document that clearly.
+
+============================================================
+16. EMPTY INPUT HANDLING
+============================================================
+
+Handle:
+
+""
+
+"   "
+
+None
+
+invalid input types.
+
+Do not send empty input into the model.
+
+Return a clear validation error.
+
+Example:
+
+"Text input cannot be empty."
+
+============================================================
+17. INPUT TYPE VALIDATION
+============================================================
+
+Accept:
+
+string
+
+Reject or safely handle:
+
+None
+integer
+list
+dictionary
+binary data
+
+unless the API layer explicitly defines another format.
+
+Do not allow malformed input to crash the service.
+
+============================================================
+18. TEXT LENGTH VALIDATION
+============================================================
+
+Define a reasonable input-length policy.
+
+If the final model has:
+
+MAX_LENGTH
+
+handle excessively long input consistently.
+
+Options:
+
+- truncate according to model configuration
+- reject input above a defined limit
+
+Choose one based on the final model.
+
+Document it.
+
+Do not silently behave differently from training.
+
+============================================================
+19. PREPROCESSING CONSISTENCY
+============================================================
+
+The same preprocessing assumptions used during training must be
+used during inference.
+
+Example:
+
+If training used:
+
+URL normalization
+
+then inference must also normalize URLs.
+
+If training preserved:
+
+emojis
+
+then inference must not unexpectedly remove them.
+
+Consistency is more important than adding new preprocessing.
+
+============================================================
+20. TOKENIZER CONSISTENCY
+============================================================
+
+For:
+
+BERT:
+
+use the exact saved pretrained tokenizer.
+
+For:
+
+Bi-LSTM:
+
+use the exact saved tokenizer.
+
+For:
+
+TF-IDF:
+
+use the exact fitted vectorizer.
+
+DO NOT:
+
+fit a new tokenizer
+
+or:
+
+fit a new TF-IDF vectorizer
+
+during inference.
+
+============================================================
+21. SEQUENCE CONSISTENCY
+============================================================
+
+For neural sequence models, use the saved:
+
+MAX_LEN
+
+padding strategy
+
+truncation strategy
+
+OOV handling
+
+Do not invent new values.
+
+============================================================
+22. BERT-SPECIFIC INFERENCE
+============================================================
+
+If the final model is BERT:
+
+INPUT
+ ↓
+saved BERT tokenizer
+ ↓
+input_ids
+attention_mask
+ ↓
+saved BERT model
+ ↓
+logits
+ ↓
+softmax
+ ↓
+4 classes
+
+Use:
+
+model.eval()
+
+during inference.
+
+Use:
+
+torch.no_grad()
+
+where appropriate.
+
+Do not perform gradient calculations during normal prediction.
+
+============================================================
+23. BILSTM-SPECIFIC INFERENCE
+============================================================
+
+If the final model is Bi-LSTM:
+
+INPUT
+ ↓
+saved preprocessing
+ ↓
+saved tokenizer
+ ↓
+integer sequence
+ ↓
+padding
+ ↓
+saved model
+ ↓
+softmax
+ ↓
+4 classes
+
+Ensure the exact embedding configuration required by the model
+is available.
+
+============================================================
+24. CLASSICAL MODEL INFERENCE
+============================================================
+
+If the final model is classical:
+
+INPUT
+ ↓
+saved preprocessing
+ ↓
+saved TF-IDF/vectorizer
+ ↓
+saved classifier
+ ↓
+prediction
+ ↓
+probability if supported
+ ↓
+label
+
+Do not fit the vectorizer again.
+
+============================================================
+25. CONFIDENCE
+============================================================
+
+Where the model provides probability estimates:
+
+confidence =
+maximum class probability
+
+Do not call this:
+
+"certainty"
+
+or:
+
+"true probability of correctness."
+
+Use:
+
+model confidence
+
+or:
+
+predicted probability.
+
+============================================================
+26. PROBABILITY VALIDATION
+============================================================
+
+Where probabilities are available:
+
+verify:
+
+0 <= probability <= 1
+
+and:
+
+sum(probabilities) ≈ 1
+
+Allow small floating-point tolerance.
+
+============================================================
+27. PREDICTION VALIDATION
+============================================================
+
+Verify:
+
+predicted class ∈
+{
+    Regular,
+    Sarcasm,
+    Irony,
+    Figurative
+}
+
+If not:
+
+raise an internal error.
+
+Do not return an unknown class silently.
+
+============================================================
+28. OUTPUT SCHEMA
+============================================================
+
+Create a standardized internal prediction schema.
+
+Recommended:
+
+PredictionResult
+
+Fields:
+
+text
+predicted_class
+confidence
+probabilities
+model_name
+model_version
+
+Optional:
+
+processing_time_ms
+
+Example:
+
+{
+    "text": "...",
+    "predicted_class": "Sarcasm",
+    "confidence": 0.87,
+    "probabilities": {
+        "Regular": 0.03,
+        "Sarcasm": 0.87,
+        "Irony": 0.07,
+        "Figurative": 0.03
+    },
+    "model_name": "BERT",
+    "model_version": "SIC-v1.0"
+}
+
+Use actual model outputs.
+
+============================================================
+29. BATCH PREDICTION
+============================================================
+
+Implement:
+
+predict_batch(texts)
+
+Input:
+
+list of strings
+
+Output:
+
+list of PredictionResult
+
+The order of predictions must match the input order.
+
+Example:
+
+Input:
+[
+    text1,
+    text2,
+    text3
+]
+
+Output:
+
+[
+    result1,
+    result2,
+    result3
+]
+
+============================================================
+30. BATCH VALIDATION
+============================================================
+
+Handle:
+
+empty list
+invalid list items
+None values
+mixed data types
+
+Do not silently discard invalid inputs.
+
+Return clear errors or validation information.
+
+============================================================
+31. PERFORMANCE MEASUREMENT
+============================================================
+
+Measure:
+
+single prediction time
+
+and:
+
+batch prediction time
+
+where practical.
+
+Do NOT include model-loading time in every prediction measurement.
+
+Measure:
+
+cold start
+
+separately from:
+
+warm inference
+
+if useful.
+
+============================================================
+32. MODEL LOADING PERFORMANCE
+============================================================
+
+Measure:
+
+model load time
+
+once.
+
+Record:
+
+model_loading_time_ms
+
+This will help later when designing the backend service.
+
+============================================================
+33. MEMORY USAGE
+============================================================
+
+Check that the model can remain loaded in memory.
+
+Document approximate memory requirements where reliable.
+
+Do not make unsupported claims.
+
+============================================================
+34. DEVICE HANDLING
+============================================================
+
+Support:
+
+CPU
+
+and:
+
+GPU
+
+where the selected framework permits.
+
+The inference module should automatically determine the available
+device.
+
+Do not hard-code:
+
+cuda:0
+
+without checking availability.
+
+============================================================
+35. DEVICE CONSISTENCY
+============================================================
+
+Ensure:
+
+model
+and:
+
+input tensors
+
+are on the same device.
+
+Avoid:
+
+CPU/GPU tensor mismatch errors.
+
+============================================================
+36. MODEL EVALUATION REGRESSION TEST
+============================================================
+
+After packaging, run the final test dataset through the packaged
+inference pipeline.
+
+Compare:
+
+packaged inference predictions
+
+against:
+
+Phase 9 final predictions.
+
+They should match, subject to framework numerical differences.
+
+If predictions differ significantly:
+
+STOP.
+
+Investigate:
+
+- preprocessing
+- tokenizer
+- model version
+- label mapping
+- sequence length
+- probability conversion
+
+Do not proceed until the discrepancy is understood.
+
+============================================================
+37. GOLDEN TEST CASES
+============================================================
+
+Create:
+
+tests/data/golden_cases.json
+
+containing a small set of fixed test inputs.
+
+These are NOT training examples.
+
+They are regression tests.
+
+Each case may contain:
+
+text
+expected_prediction_if_stable
+
+Use expected labels only when they were established reliably.
+
+Do not treat subjective sarcasm interpretation as absolute ground
+truth.
+
+============================================================
+38. REGRESSION TESTS
+============================================================
+
+Create tests to verify:
+
+1. Model loads.
+2. Tokenizer loads.
+3. Label mapping loads.
+4. Single prediction works.
+5. Batch prediction works.
+6. Empty input is rejected.
+7. Invalid input is rejected.
+8. Probability sum is valid.
+9. Predicted class is valid.
+10. Saved model reload works.
+11. Packaged predictions match Phase 9 predictions.
+12. API-ready output schema is valid.
+
+============================================================
+39. MODEL INTEGRITY CHECK
+============================================================
+
+Create a simple artifact validation process.
+
+Verify:
+
+model exists
+tokenizer/vectorizer exists
+config exists
+label mapping exists
+metadata exists
+
+If an artifact is missing:
+
+fail clearly.
+
+Do not silently continue with incomplete artifacts.
+
+============================================================
+40. CHECKSUM / FILE INTEGRITY
+============================================================
+
+Where practical, create:
+
+models/final/checksums.json
+
+containing SHA-256 hashes for important model artifacts.
+
+This allows later verification that model files were not
+accidentally modified.
+
+============================================================
+41. MODEL MANIFEST
+============================================================
+
+Create:
+
+models/final/manifest.json
+
+containing:
+
+model_name
+model_version
+artifact_paths
+created_at
+framework
+framework_version
+python_version
+checksum_file
+
+============================================================
+42. ENVIRONMENT
+============================================================
+
+Create:
+
+models/final/environment.json
+
+Record:
+
+Python version
+framework version
+transformers version if applicable
+TensorFlow version if applicable
+PyTorch version if applicable
+NumPy version
+Pandas version
+scikit-learn version
+other inference dependencies
+
+Only include libraries actually used.
+
+============================================================
+43. REQUIREMENTS
+============================================================
+
+Create or update:
+
+requirements-inference.txt
+
+This file should contain ONLY the dependencies required for
+inference.
+
+Do not automatically include every training dependency.
+
+Separate:
+
+training requirements
+
+from:
+
+inference requirements.
+
+============================================================
+44. INFERENCE README
+============================================================
+
+Create:
+
+models/final/README.md
+
+Include:
+
+1. Model name
+2. Version
+3. Purpose
+4. Classes
+5. Input format
+6. Output format
+7. Model architecture
+8. Preprocessing
+9. Required artifacts
+10. Installation
+11. Local inference example
+12. Known limitations
+
+============================================================
+45. LOCAL CLI
+============================================================
+
+Create a simple command-line inference tool.
+
+Recommended:
+
+src/inference/cli.py
+
+Example usage:
+
+python -m src.inference.cli \
+    --text "Fantastic, another three-hour meeting."
+
+Output:
+
+Predicted class:
+...
+
+Confidence:
+...
+
+Probabilities:
+Regular: ...
+Sarcasm: ...
+Irony: ...
+Figurative: ...
+
+Use the actual saved model.
+
+============================================================
+46. CLI BATCH MODE
+============================================================
+
+Optionally support:
+
+--file input.csv
+
+where the input CSV contains:
+
+text
+
+Output:
+
+predictions.csv
+
+with:
+
+text
+predicted_class
+confidence
+probability_regular
+probability_sarcasm
+probability_irony
+probability_figurative
+
+Do not modify the original input file.
+
+============================================================
+47. API-READY FUNCTION
+============================================================
+
+Create a clean Python function:
+
+predict_text(text)
+
+and:
+
+predict_batch(texts)
+
+These functions will later be called by the backend.
+
+Do not build the HTTP API in this phase.
+
+============================================================
+48. ERROR HANDLING
+============================================================
+
+Handle errors gracefully.
+
+Possible errors:
+
+ModelNotFoundError
+TokenizerNotFoundError
+InvalidInputError
+ArtifactValidationError
+InferenceError
+
+Error messages should be understandable to developers.
+
+Do not expose sensitive internal paths or stack traces to future
+end users.
+
+============================================================
+49. LOGGING
+============================================================
+
+Implement appropriate application logging.
+
+Log:
+
+- model loaded
+- model version
+- inference errors
+- processing time where useful
+
+Do NOT log:
+
+- unnecessary personal information
+- sensitive user data
+- full user text by default in production logging
+
+The model service should minimize unnecessary data retention.
+
+============================================================
+50. NO DATABASE
+============================================================
+
+Do NOT introduce MongoDB in Phase 10.
+
+The model package must work independently.
+
+Database integration comes later.
+
+============================================================
+51. NO REACT
+============================================================
+
+Do NOT implement React in Phase 10.
+
+The purpose of this phase is:
+
+ML model packaging
++
+inference interface
+
+React integration comes later.
+
+============================================================
+52. NO EXPRESS
+============================================================
+
+Do NOT implement Node.js/Express API in Phase 10.
+
+The backend/API integration is a later phase.
+
+============================================================
+53. NO FASTAPI YET
+============================================================
+
+Do NOT build the final HTTP API unless explicitly requested.
+
+Create the Python inference interface that the later API can call.
+
+============================================================
+54. MODEL SERVICE CONTRACT
+============================================================
+
+Define the future API contract now.
+
+Request:
+
+{
+    "text": "..."
+}
+
+Response:
+
+{
+    "predicted_class": "...",
+    "confidence": ...,
+    "probabilities": {
+        "Regular": ...,
+        "Sarcasm": ...,
+        "Irony": ...,
+        "Figurative": ...
+    },
+    "model_name": "...",
+    "model_version": "..."
+}
+
+This is a contract specification only.
+
+Do not implement the HTTP endpoint yet.
+
+============================================================
+55. SECURITY CONSIDERATIONS
+============================================================
+
+The future API must eventually handle:
+
+- input length limits
+- malformed requests
+- rate limiting
+- error handling
+- model file protection
+- dependency security
+
+For Phase 10:
+
+document these requirements.
+
+Do not build the complete security layer yet.
+
+============================================================
+56. INPUT NORMALIZATION
+============================================================
+
+Do not introduce new preprocessing simply because it seems useful.
+
+Use the exact final model preprocessing configuration.
+
+If additional validation is necessary:
+
+keep it separate from model preprocessing.
+
+Example:
+
+Input validation:
+"Is this a string?"
+
+Model preprocessing:
+"How is the text normalized/tokenized?"
+
+Keep these concepts separate.
+
+============================================================
+57. MODEL OUTPUT CONTRACT
+============================================================
+
+The final model must always return a consistent structure.
+
+At minimum:
+
+predicted_class
+
+If available:
+
+confidence
+probabilities
+
+Also include:
+
+model_name
+model_version
+
+Do not change the response schema between predictions.
+
+============================================================
+58. UNKNOWN/UNCERTAIN PREDICTIONS
+============================================================
+
+Do NOT automatically introduce an:
+
+"Unknown"
+
+class.
+
+The trained model has exactly four classes.
+
+If confidence is low:
+
+return the predicted class with its probability.
+
+Optionally provide:
+
+low_confidence = true
+
+if a threshold is defined.
+
+Do not invent an uncertainty threshold without validation.
+
+============================================================
+59. CONFIDENCE THRESHOLD
+============================================================
+
+Do NOT create a confidence threshold such as:
+
+confidence < 0.5 → Unknown
+
+unless explicitly researched and validated.
+
+If thresholding is desired later:
+
+calibration and validation must be performed first.
+
+============================================================
+60. MODEL VERSION CONTROL
+============================================================
+
+If the model changes:
+
+increment version.
+
+Example:
+
+SIC-v1.0
+SIC-v1.1
+
+Do not overwrite the previous final model without preserving the
+old version.
+
+============================================================
+61. MODEL CHANGE LOG
+============================================================
+
+Create:
+
+models/final/CHANGELOG.md
+
+Record:
+
+version
+date
+model
+changes
+performance
+reason
+
+Example:
+
+v1.0
+BERT
+Initial final model selected from Phase 9.
+
+Use actual information.
+
+============================================================
+62. FINAL INFERENCE BENCHMARK
+============================================================
+
+Create:
+
+results/final_model/inference_benchmark.csv
+
+Measure:
+
+- model loading time
+- single inference time
+- batch inference time
+- batch size
+- hardware
+- device
+
+Use a reproducible benchmark procedure.
+
+============================================================
+63. FINAL REGRESSION REPORT
+============================================================
+
+Create:
+
+results/final_model/regression_report.csv
+
+Include:
+
+test_case
+expected
+actual
+match
+notes
+
+For cases without objectively stable expected labels:
+
+mark:
+
+expected = "Not predefined"
+
+Do not force subjective labels.
+
+============================================================
+64. FINAL MODEL VALIDATION
+============================================================
+
+Run the packaged model against the official test dataset.
+
+Verify:
+
+- prediction count
+- class labels
+- metrics
+- confusion matrix
+
+Compare with Phase 9.
+
+The purpose is to confirm packaging did not change the model
+behavior.
+
+============================================================
+65. FINAL MODEL PERFORMANCE
+============================================================
+
+Create:
+
+results/final_model/final_performance.json
+
+Include:
+
+accuracy
+macro_precision
+macro_recall
+macro_f1
+weighted_f1
+per_class_metrics
+
+These values must match the selected Phase 9 model within expected
+numerical tolerance.
+
+============================================================
+66. DOCUMENTATION
+============================================================
+
+Create:
+
+docs/model/final_model_packaging.md
+
+Include:
+
+1. Selected model
+2. Why it was selected
+3. Model artifacts
+4. Preprocessing
+5. Tokenizer/vectorizer
+6. Label mapping
+7. Inference pipeline
+8. Input validation
+9. Output schema
+10. Model loading
+11. Performance verification
+12. Regression testing
+13. Benchmarking
+14. Limitations
+15. Future API integration
+
+============================================================
+67. PROJECT STRUCTURE
+============================================================
+
+Expected structure:
+
+ml-service/
+│
+├── src/
+│   └── inference/
+│       ├── __init__.py
+│       ├── predictor.py
+│       ├── preprocessing.py
+│       ├── loader.py
+│       ├── schemas.py
+│       ├── cli.py
+│       └── utils.py
+│
+├── models/
+│   └── final/
+│       ├── model/
+│       ├── tokenizer/
+│       ├── config.json
+│       ├── label_mapping.json
+│       ├── preprocessing_config.json
+│       ├── model_metadata.json
+│       ├── manifest.json
+│       ├── checksums.json
+│       ├── environment.json
+│       ├── README.md
+│       └── CHANGELOG.md
+│
+├── results/
+│   └── final_model/
+│       ├── final_performance.json
+│       ├── inference_benchmark.csv
+│       └── regression_report.csv
+│
+├── tests/
+│   ├── test_predictor.py
+│   ├── test_artifacts.py
+│   ├── test_validation.py
+│   └── data/
+│       └── golden_cases.json
+│
+├── requirements-inference.txt
+│
+└── docs/
+    └── model/
+        └── final_model_packaging.md
+
+Adapt this to the existing project structure.
+
+Do NOT unnecessarily restructure previous phases.
+
+============================================================
+68. TESTING REQUIREMENTS
+============================================================
+
+All tests must pass:
+
+[ ] Model loading
+[ ] Tokenizer/vectorizer loading
+[ ] Configuration loading
+[ ] Label mapping loading
+[ ] Single prediction
+[ ] Batch prediction
+[ ] Empty input validation
+[ ] Invalid input validation
+[ ] Probability validation
+[ ] Class validation
+[ ] Artifact validation
+[ ] Model reload
+[ ] Regression prediction consistency
+[ ] CLI inference
+
+============================================================
+69. SANITY TESTS
+============================================================
+
+Test at least:
+
+1. A regular statement
+2. An obvious sarcastic statement
+3. An ironic-looking statement
+4. A figurative statement
+5. Empty text
+6. Very short text
+7. Long text
+8. Multiple texts
+
+Do not claim these examples represent the complete model behavior.
+
+They are functional tests.
+
+============================================================
+70. FINAL MODEL RELOAD TEST
+============================================================
+
+Completely unload the model.
+
+Reload it from:
+
+models/final/
+
+Then run:
+
+predict_text()
+
+again.
+
+The system must work without access to the training notebook.
+
+============================================================
+71. FINAL ACCEPTANCE TEST
+============================================================
+
+Phase 10 passes only if:
+
+1. Final model loads.
+2. All required artifacts load.
+3. Single prediction works.
+4. Batch prediction works.
+5. Invalid inputs are handled.
+6. Output schema is consistent.
+7. Probability outputs are valid where applicable.
+8. Label mapping is correct.
+9. Model reload works.
+10. Packaged predictions match Phase 9.
+11. CLI works.
+12. Tests pass.
+13. Documentation exists.
+14. Model metadata exists.
+15. Versioning exists.
+16. Requirements file exists.
+17. No training occurs during inference.
+18. No external classification dataset is introduced.
+
+============================================================
+72. NO PERFORMANCE IMPROVEMENT CLAIMS
+============================================================
+
+Phase 10 is NOT a model-development phase.
+
+Do not claim:
+
+"the model improved"
+
+unless an explicit, controlled retraining experiment was performed.
+
+The goal is:
+
+REPRODUCIBLE INFERENCE
+
+not:
+
+MODEL IMPROVEMENT.
+
+============================================================
+73. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 10 report:
+
+1. Final selected model.
+2. Model version.
+3. Model architecture.
+4. Required artifacts.
+5. Preprocessing pipeline.
+6. Tokenizer/vectorizer.
+7. Label mapping.
+8. Inference interface.
+9. Single prediction test.
+10. Batch prediction test.
+11. Model reload test.
+12. Regression-test results.
+13. Final performance verification.
+14. Inference benchmark.
+15. Environment.
+16. Known limitations.
+17. API contract.
+18. Next phase recommendation.
+
+============================================================
+74. TRANSITION TO PHASE 11
+============================================================
+
+Phase 11 will implement the ML backend/API layer.
+
+The planned architecture is:
+
+React Frontend
+       ↓
+Node.js / Express Backend
+       ↓
+Python ML Service
+       ↓
+Final NLP Model
+
+The exact communication method between Express and the Python
+service must be designed carefully.
+
+Phase 11 will focus on:
+
+- API architecture
+- Python ML service
+- request/response handling
+- backend integration
+- validation
+- error handling
+- model inference endpoint
+
+MongoDB integration will be introduced in the appropriate later
+phase.
+
+============================================================
+75. STOP CONDITION
+============================================================
+
+After completing Phase 10:
+
+STOP.
+
+Do NOT automatically implement:
+
+- FastAPI
+- Express
+- Node.js
+- MongoDB
+- React
+- authentication
+- deployment
+- cloud hosting
+
+Wait for explicit instruction to begin Phase 11.
+
+============================================================
+END OF PHASE 10 MASTER PROMPT
+============================================================
+
+
+Current project flow
+
+PHASE 1
+Dataset Validation
+        ↓
+PHASE 2
+EDA
+        ↓
+PHASE 3
+NLP Preprocessing
+        ↓
+PHASE 4
+BoW + Classical ML
+        ↓
+PHASE 5
+TF-IDF + N-grams + Features
+        ↓
+PHASE 6
+GloVe + Bi-LSTM
+        ↓
+PHASE 7
+FastText + Bi-LSTM + Attention
+        ↓
+PHASE 8
+BERT
+        ↓
+PHASE 9
+Complete Comparison
++ Error Analysis
++ Final Model Selection
+        ↓
+PHASE 10 ← NOW
+FINAL MODEL PACKAGING
++ REPRODUCIBLE INFERENCE
+        ↓
+PHASE 11
+ML API / Backend Integration
+        ↓
+PHASE 12+
+Node/Express + MongoDB + React
+        ↓
+FINAL APPLICATION
+
+
+

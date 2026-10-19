@@ -1,0 +1,19 @@
+{
+  "model": "MultinomialNB",
+  "preprocessing": "classical",
+  "ngram_range": "(1, 1)",
+  "hyperparameters": {
+    "alpha": 1.0
+  },
+  "vocab_size": 28077,
+  "validation_macro_f1": 0.6331,
+  "test_macro_f1": 0.6948688168826191,
+  "random_state": 42,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "experiment_id": "BOW-15"
+}

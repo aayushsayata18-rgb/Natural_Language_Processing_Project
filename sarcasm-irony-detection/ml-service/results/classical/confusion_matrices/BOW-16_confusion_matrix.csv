@@ -1,0 +1,5 @@
+Actual,Regular,Sarcasm,Irony,Figurative
+Regular,3714,0,0,0
+Sarcasm,0,3649,0,487
+Irony,1,0,3529,645
+Figurative,0,2020,2010,217

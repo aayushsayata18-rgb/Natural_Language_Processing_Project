@@ -1,0 +1,20 @@
+experiment_id,split,preprocessing,vectorizer,ngram_range,model,hyperparameters,accuracy,macro_precision,macro_recall,macro_f1,regular_f1,sarcasm_f1,irony_f1,figurative_f1,training_time,vocab_size
+BOW-01,validation,minimal,CountVectorizer,"(1, 1)",LogisticRegression,{'C': 0.1},0.7127,0.6218,0.7241,0.6466,0.9996,0.7703,0.7668,0.0496,2.51,27344
+BOW-02,validation,minimal,CountVectorizer,"(1, 2)",LogisticRegression,{'C': 0.1},0.6742,0.6011,0.6864,0.6305,0.9997,0.7366,0.7176,0.0679,4.33,50000
+BOW-03,validation,minimal,CountVectorizer,"(1, 3)",LogisticRegression,{'C': 0.1},0.6716,0.5992,0.6839,0.6288,0.9997,0.7337,0.7151,0.0667,4.36,50000
+BOW-04,validation,minimal,CountVectorizer,"(1, 1)",MultinomialNB,{'alpha': 1.0},0.6403,0.6176,0.6504,0.6257,0.9511,0.7116,0.6694,0.1709,0.01,27344
+BOW-05,validation,minimal,CountVectorizer,"(1, 2)",MultinomialNB,{'alpha': 1.0},0.6215,0.6004,0.6317,0.6092,0.9404,0.6939,0.6547,0.1477,0.02,50000
+BOW-06,validation,minimal,CountVectorizer,"(1, 1)",LinearSVM,{'C': 0.1},0.6742,0.6075,0.6863,0.6337,0.9996,0.7382,0.7132,0.0837,4.92,27344
+BOW-07,validation,minimal,CountVectorizer,"(1, 2)",LinearSVM,{'C': 0.1},0.6063,0.5783,0.6197,0.596,0.9996,0.6632,0.6263,0.0947,7.34,50000
+BOW-08,validation,lowercase,CountVectorizer,"(1, 1)",LogisticRegression,{'C': 0.1},0.7127,0.6218,0.7241,0.6466,0.9996,0.7703,0.7668,0.0496,2.4,27344
+BOW-09,validation,lowercase,CountVectorizer,"(1, 1)",MultinomialNB,{'alpha': 1.0},0.6403,0.6176,0.6504,0.6257,0.9511,0.7116,0.6694,0.1709,0.01,27344
+BOW-10,validation,lowercase,CountVectorizer,"(1, 1)",LinearSVM,{'C': 0.1},0.6742,0.6075,0.6863,0.6337,0.9996,0.7382,0.7132,0.0837,4.95,27344
+BOW-11,validation,lemmatized,CountVectorizer,"(1, 1)",LogisticRegression,{'C': 0.1},0.7154,0.6277,0.7267,0.6487,0.9996,0.7728,0.7693,0.0532,2.45,25020
+BOW-12,validation,lemmatized,CountVectorizer,"(1, 1)",MultinomialNB,{'alpha': 1.0},0.6424,0.6171,0.6524,0.626,0.9499,0.7121,0.6779,0.1639,0.01,25020
+BOW-13,validation,lemmatized,CountVectorizer,"(1, 1)",LinearSVM,{'C': 0.1},0.6802,0.6081,0.6923,0.6354,0.9995,0.7435,0.7223,0.0764,4.98,25020
+BOW-14,validation,classical,CountVectorizer,"(1, 1)",LogisticRegression,{'C': 0.1},0.7181,0.631,0.7294,0.6498,0.9996,0.774,0.7737,0.0521,1.97,23689
+BOW-15,validation,classical,CountVectorizer,"(1, 1)",MultinomialNB,{'alpha': 1.0},0.6517,0.6222,0.6622,0.6331,0.9644,0.7198,0.6824,0.1658,0.01,23689
+BOW-16,validation,classical,CountVectorizer,"(1, 1)",LinearSVM,{'C': 0.1},0.6827,0.6103,0.6947,0.6371,0.9999,0.7443,0.7266,0.0776,3.02,23689
+BOW-14,test,classical,CountVectorizer,"(1, 1)",LogisticRegression,{'C': 0.1},0.8542,0.7225,0.7475,0.7053,0.9997,0.8514,0.9072,0.0629,2.6,28077
+BOW-15,test,classical,CountVectorizer,"(1, 1)",MultinomialNB,{'alpha': 1.0},0.7849,0.6941,0.7009,0.6949,0.9641,0.7951,0.8295,0.1908,0.01,28077
+BOW-16,test,classical,CountVectorizer,"(1, 1)",LinearSVM,{'C': 0.1},0.8457,0.7285,0.7455,0.7187,0.9995,0.8457,0.8917,0.1378,2.51,28077

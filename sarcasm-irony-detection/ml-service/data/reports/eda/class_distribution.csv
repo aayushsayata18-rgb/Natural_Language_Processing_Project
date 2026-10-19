@@ -1,0 +1,9 @@
+Dataset,Class,Count,Percentage
+Train,Regular,18569,22.82
+Train,Sarcasm,20678,25.42
+Train,Irony,20877,25.66
+Train,Figurative,21235,26.1
+Test,Regular,1858,33.62
+Test,Sarcasm,1602,28.98
+Test,Irony,1301,23.54
+Test,Figurative,766,13.86

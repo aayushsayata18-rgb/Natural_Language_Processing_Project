@@ -1,0 +1,2 @@
+total_vocabulary,glove_matched,oov_count,coverage_pct,oov_strategy,embedding_dim,matrix_shape
+30000,14212,15788,47.37,random,100,"(30002, 100)"

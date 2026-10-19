@@ -1,0 +1,72 @@
+{
+  "phase": "Phase 4 \u2014 BoW + Classical ML",
+  "total_experiments": 16,
+  "best_validation": {
+    "experiment_id": "BOW-14",
+    "model": "LogisticRegression",
+    "preprocessing": "classical",
+    "ngram_range": "(1, 1)",
+    "macro_f1": 0.6498,
+    "accuracy": 0.7181
+  },
+  "test_results": [
+    {
+      "experiment_id": "BOW-14",
+      "split": "test",
+      "preprocessing": "classical",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": "(1, 1)",
+      "model": "LogisticRegression",
+      "hyperparameters": "{'C': 0.1}",
+      "accuracy": 0.8542,
+      "macro_precision": 0.7225,
+      "macro_recall": 0.7475,
+      "macro_f1": 0.7053,
+      "regular_f1": 0.9997,
+      "sarcasm_f1": 0.8514,
+      "irony_f1": 0.9072,
+      "figurative_f1": 0.0629,
+      "training_time": 2.6,
+      "vocab_size": 28077
+    },
+    {
+      "experiment_id": "BOW-15",
+      "split": "test",
+      "preprocessing": "classical",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": "(1, 1)",
+      "model": "MultinomialNB",
+      "hyperparameters": "{'alpha': 1.0}",
+      "accuracy": 0.7849,
+      "macro_precision": 0.6941,
+      "macro_recall": 0.7009,
+      "macro_f1": 0.6949,
+      "regular_f1": 0.9641,
+      "sarcasm_f1": 0.7951,
+      "irony_f1": 0.8295,
+      "figurative_f1": 0.1908,
+      "training_time": 0.01,
+      "vocab_size": 28077
+    },
+    {
+      "experiment_id": "BOW-16",
+      "split": "test",
+      "preprocessing": "classical",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": "(1, 1)",
+      "model": "LinearSVM",
+      "hyperparameters": "{'C': 0.1}",
+      "accuracy": 0.8457,
+      "macro_precision": 0.7285,
+      "macro_recall": 0.7455,
+      "macro_f1": 0.7187,
+      "regular_f1": 0.9995,
+      "sarcasm_f1": 0.8457,
+      "irony_f1": 0.8917,
+      "figurative_f1": 0.1378,
+      "training_time": 2.51,
+      "vocab_size": 28077
+    }
+  ],
+  "random_state": 42
+}

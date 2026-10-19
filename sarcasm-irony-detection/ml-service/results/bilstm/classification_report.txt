@@ -1,0 +1,10 @@
+              precision    recall  f1-score   support
+
+     Regular       1.00      1.00      1.00      1858
+     Sarcasm       0.75      1.00      0.86      1602
+       Irony       0.84      1.00      0.91      1301
+  Figurative       1.00      0.00      0.00       766
+
+    accuracy                           0.86      5527
+   macro avg       0.90      0.75      0.69      5527
+weighted avg       0.89      0.86      0.80      5527

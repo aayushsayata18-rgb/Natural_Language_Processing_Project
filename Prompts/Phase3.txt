@@ -1,0 +1,1606 @@
+============================================================
+PHASE 3 — NLP TEXT PREPROCESSING
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+ROLE:
+Act as a senior NLP engineer, machine-learning engineer, and
+research-oriented NLP mentor.
+
+Your responsibility in this phase is to design and implement the
+complete NLP text-preprocessing layer for the four-class sarcasm
+and irony classification project.
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+Phase 3 converts the validated dataset from Phase 1 and the
+findings from Phase 2 into reusable NLP preprocessing pipelines.
+
+The goal is NOT to create one blindly cleaned dataset.
+
+Instead, investigate and implement preprocessing strategies that
+preserve information potentially useful for sarcasm and irony.
+
+The main pipeline is:
+
+RAW/CLEAN TEXT
+      ↓
+TEXT NORMALIZATION
+      ↓
+SOCIAL-MEDIA NORMALIZATION
+      ↓
+TOKENIZATION
+      ↓
+OPTIONAL STOPWORD HANDLING
+      ↓
+OPTIONAL LEMMATIZATION
+      ↓
+OPTIONAL STEMMING
+      ↓
+N-GRAM READY TEXT
+      ↓
+MODEL-SPECIFIC REPRESENTATION
+
+The output of this phase will be used by later phases for:
+
+- Bag of Words
+- TF-IDF
+- N-grams
+- Classical ML
+- Linguistic feature engineering
+- Bi-LSTM
+- BERT
+
+============================================================
+2. IMPORTANT PROJECT RULE
+============================================================
+
+Do NOT assume that aggressive preprocessing improves sarcasm
+detection.
+
+For example, do NOT automatically:
+
+- remove punctuation
+- remove emojis
+- remove hashtags
+- remove capitalization
+- remove repeated characters
+- remove negations
+- remove all stopwords
+- stem everything
+- lemmatize everything
+
+These can carry useful sarcastic/ironic signals.
+
+Instead, create controlled preprocessing variants and compare them
+later during model experiments.
+
+============================================================
+3. INPUT DATA
+============================================================
+
+Use the cleaned dataset created in Phase 1:
+
+ml-service/
+└── data/
+    └── processed/
+        ├── train_clean.csv
+        └── test_clean.csv
+
+Use Phase 2 EDA findings to guide the preprocessing design.
+
+Do NOT use another dataset.
+
+Do NOT modify the original raw files.
+
+============================================================
+4. FOUR CLASSES
+============================================================
+
+The target classes remain:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+Use the exact label mapping established in Phase 1.
+
+Do not change class names or class IDs.
+
+============================================================
+5. IMPORTANT DATA LEAKAGE RULE
+============================================================
+
+Any preprocessing component that LEARNS information from text must
+be fitted only on training data.
+
+Examples:
+
+- vocabulary
+- TF-IDF vocabulary
+- tokenizer vocabulary
+- frequency-based feature selection
+- embedding vocabulary where learned from project data
+
+Correct:
+
+TRAIN
+ ↓
+FIT preprocessing
+ ↓
+Transform validation
+ ↓
+Transform test
+
+Never:
+
+TRAIN + TEST
+ ↓
+FIT preprocessing
+
+The official test set must remain unseen for model development.
+
+============================================================
+6. PREPROCESSING DESIGN
+============================================================
+
+Implement the following preprocessing stages as separate,
+reusable functions.
+
+1. Basic text validation
+2. Whitespace normalization
+3. URL handling
+4. Mention handling
+5. Hashtag handling
+6. Emoji handling
+7. Repeated-character handling
+8. Case normalization
+9. Punctuation handling
+10. Negation handling
+11. Tokenization
+12. Stopword handling
+13. Lemmatization
+14. Stemming
+15. N-gram preparation
+
+Not every operation should necessarily be enabled simultaneously.
+
+============================================================
+7. TEXT VALIDATION
+============================================================
+
+Create a function such as:
+
+validate_text(text)
+
+It must safely handle:
+
+- None
+- NaN
+- empty strings
+- whitespace-only strings
+- non-string input
+
+Return a safe normalized representation.
+
+Since Phase 1 should already have removed invalid records,
+unexpected invalid input should be logged rather than silently
+ignored.
+
+============================================================
+8. WHITESPACE NORMALIZATION
+============================================================
+
+Normalize:
+
+- repeated spaces
+- tabs
+- unnecessary line breaks
+
+Example:
+
+"this    is   great"
+
+→
+
+"this is great"
+
+Do not remove meaningful punctuation or social-media signals.
+
+============================================================
+9. URL NORMALIZATION
+============================================================
+
+URLs should generally be normalized rather than simply deleted.
+
+Example:
+
+"https://example.com/page"
+
+→
+
+"URL"
+
+or an equivalent consistent placeholder.
+
+The exact placeholder must be consistent throughout the project.
+
+Recommended:
+
+URL
+
+Reason:
+
+A URL may carry little lexical information for sarcasm classification,
+but the presence of a URL can still be useful as a structural signal.
+
+Also preserve a binary/count feature for later feature engineering:
+
+has_url
+url_count
+
+Do not discard the information completely.
+
+============================================================
+10. USER MENTION NORMALIZATION
+============================================================
+
+Normalize:
+
+@username
+
+to:
+
+USER_MENTION
+
+Do not retain individual usernames as vocabulary features.
+
+Reason:
+
+Usernames are usually not useful for generalization.
+
+Also preserve:
+
+has_mention
+mention_count
+
+for later feature engineering.
+
+============================================================
+11. HASHTAG HANDLING
+============================================================
+
+Do NOT simply remove hashtags.
+
+Investigate two representations.
+
+Representation A:
+
+Keep hashtag as a token.
+
+Example:
+
+#sarcasm
+
+→
+
+#sarcasm
+
+Representation B:
+
+Separate hashtag marker from its lexical content where possible.
+
+Example:
+
+#sarcasm
+
+→
+
+sarcasm
+
+For compound hashtags:
+
+#WhatAGreatIdea
+
+attempt reasonable segmentation only if reliable.
+
+Do not use an unreliable word-segmentation algorithm that damages
+the text.
+
+Preserve:
+
+hashtag_count
+
+for later feature engineering.
+
+The final strategy should be selected based on experiments in later
+phases.
+
+============================================================
+12. EMOJI HANDLING
+============================================================
+
+Do NOT remove emojis blindly.
+
+Sarcasm frequently uses:
+
+- 😂
+- 🙃
+- 😒
+- 😐
+- etc.
+
+Create an option to:
+
+A. Preserve emojis.
+
+B. Convert emojis to textual descriptions if appropriate.
+
+Do not force emoji-to-text conversion for all models.
+
+The primary classical pipeline should preserve emoji information
+where technically practical.
+
+Also calculate:
+
+emoji_count
+has_emoji
+
+for later feature engineering.
+
+============================================================
+13. PUNCTUATION HANDLING
+============================================================
+
+Do NOT automatically remove punctuation.
+
+Important patterns may include:
+
+!!!
+???
+!?
+...
+""
+'"
+
+Examples:
+
+"Great!!!"
+
+"Really???"
+
+"Oh... wonderful."
+
+Punctuation can convey tone.
+
+Create preprocessing variants:
+
+Variant A:
+Punctuation preserved.
+
+Variant B:
+Limited punctuation normalization.
+
+Do not create a default variant that deletes all punctuation
+without experimental justification.
+
+============================================================
+14. CAPITALIZATION
+============================================================
+
+Do not blindly lowercase the original dataset.
+
+Create two possible representations:
+
+A. Case-preserving text.
+
+B. Lowercase text.
+
+Reason:
+
+Capitalization can indicate emphasis.
+
+Example:
+
+"WHAT A GREAT IDEA"
+
+may carry a different tone from:
+
+"what a great idea"
+
+The classical baseline can later compare both approaches.
+
+============================================================
+15. REPEATED CHARACTER HANDLING
+============================================================
+
+Social-media text may contain:
+
+soooo
+goooood
+loooool
+greatttt
+
+Do not automatically reduce all repeated characters.
+
+Create an optional normalization function.
+
+Example:
+
+"sooooo good"
+
+could become:
+
+"soo good"
+
+or another controlled representation.
+
+However, the original repeated-character information should remain
+available for feature engineering.
+
+Preserve:
+
+repeated_character_count
+
+where practical.
+
+============================================================
+16. NEGATION HANDLING
+============================================================
+
+Do NOT remove negation words blindly.
+
+Important negations include:
+
+not
+no
+never
+n't
+nothing
+nobody
+
+For sentiment-like and sarcasm-related classification,
+negation can be important.
+
+Create preprocessing logic that preserves negation.
+
+If stopword removal is tested later, make sure negation words are
+protected.
+
+============================================================
+17. TOKENIZATION
+============================================================
+
+Implement tokenization appropriate for social-media text.
+
+Use an NLP library such as:
+
+NLTK
+
+or another approved library if technically better.
+
+The tokenizer should handle:
+
+- words
+- punctuation
+- hashtags
+- mentions
+- URLs
+- contractions
+- emojis where supported
+
+Do not use a simplistic split(" ") as the final NLP tokenizer.
+
+Whitespace splitting may be used only for simple EDA statistics.
+
+============================================================
+18. STOPWORD HANDLING
+============================================================
+
+Do NOT permanently remove stopwords.
+
+Create two preprocessing configurations:
+
+CONFIG A:
+Stopwords retained.
+
+CONFIG B:
+Stopwords removed.
+
+IMPORTANT:
+
+Protect negation words.
+
+For example:
+
+not
+never
+no
+
+should not disappear simply because they appear in a stopword list.
+
+The effect of stopword removal will be tested later using actual
+classification experiments.
+
+============================================================
+19. LEMMATIZATION
+============================================================
+
+Implement optional lemmatization.
+
+Example:
+
+running
+runs
+ran
+
+may be mapped toward:
+
+run
+
+Use an appropriate NLP library.
+
+Do not make lemmatization mandatory for all model pipelines.
+
+Create:
+
+lemmatization_enabled = True/False
+
+The effect will be evaluated later.
+
+============================================================
+20. STEMMING
+============================================================
+
+Implement optional stemming for experimental comparison.
+
+Possible tool:
+
+NLTK PorterStemmer
+
+However:
+
+Do not automatically use stemming in the final pipeline.
+
+Reason:
+
+Stemming can damage informal social-media words and may remove
+useful semantic information.
+
+Stemming is an experiment, not a default.
+
+============================================================
+21. LEMMATIZATION VS STEMMING
+============================================================
+
+Maintain separate variants:
+
+Variant L:
+Lemmatization
+
+Variant S:
+Stemming
+
+Variant N:
+Neither
+
+Later experiments will determine which representation performs best.
+
+Do not claim that lemmatization is automatically superior.
+
+============================================================
+22. PREPROCESSING CONFIGURATION SYSTEM
+============================================================
+
+Create a configurable preprocessing class or configuration object.
+
+Example conceptual configuration:
+
+PreprocessingConfig(
+    lowercase=False,
+    normalize_urls=True,
+    normalize_mentions=True,
+    preserve_hashtags=True,
+    preserve_emojis=True,
+    preserve_punctuation=True,
+    normalize_repeated_chars=False,
+    remove_stopwords=False,
+    protect_negations=True,
+    lemmatize=False,
+    stem=False
+)
+
+The exact implementation may differ.
+
+The important requirement is:
+
+DO NOT hard-code one irreversible preprocessing pipeline.
+
+============================================================
+23. PREPROCESSING VARIANTS
+============================================================
+
+Create at least the following controlled variants.
+
+VARIANT A — MINIMAL SOCIAL MEDIA
+
+Purpose:
+Preserve maximum linguistic information.
+
+Settings:
+
+- normalize whitespace
+- normalize URLs
+- normalize mentions
+- preserve hashtags
+- preserve emojis
+- preserve punctuation
+- preserve capitalization
+- preserve negation
+- no stemming
+- no lemmatization
+- no stopword removal
+
+This should be the primary information-preserving pipeline.
+
+------------------------------------------------------------
+
+VARIANT B — LOWERCASE
+
+Same as Variant A, but:
+
+lowercase=True
+
+------------------------------------------------------------
+
+VARIANT C — LEMMATIZED
+
+Variant A plus:
+
+lemmatization=True
+
+------------------------------------------------------------
+
+VARIANT D — STOPWORD EXPERIMENT
+
+Variant A plus:
+
+stopword removal=True
+
+while protecting negation words.
+
+------------------------------------------------------------
+
+VARIANT E — STEMMED
+
+Variant A plus:
+
+stemming=True
+
+------------------------------------------------------------
+
+VARIANT F — CLASSICAL CLEAN
+
+A more conventional NLP representation:
+
+- lowercase
+- normalize URLs
+- normalize mentions
+- tokenize
+- stopword removal
+- lemmatization
+- controlled punctuation handling
+
+This variant is for comparison only.
+
+Do not assume it will perform best.
+
+============================================================
+24. DO NOT CREATE EXCESSIVE VARIANTS
+============================================================
+
+Do not create dozens of preprocessing combinations.
+
+The purpose is controlled experimentation.
+
+The main comparison should remain understandable:
+
+Minimal
+Lowercase
+Lemmatized
+Stopword-removal
+Stemmed
+Classical-clean
+
+Later model experiments can determine which representation is useful.
+
+============================================================
+25. MODEL-SPECIFIC PREPROCESSING
+============================================================
+
+This is extremely important.
+
+Do NOT force the same preprocessing pipeline onto every model.
+
+There will eventually be three major model families.
+
+------------------------------------------------------------
+CLASSICAL ML:
+
+Use:
+
+Text
+ ↓
+Preprocessing
+ ↓
+TF-IDF / BoW
+ ↓
+Classifier
+
+Classical preprocessing can include:
+
+- URL normalization
+- mention normalization
+- tokenization
+- optional lowercase
+- optional lemmatization
+- controlled punctuation
+- n-grams
+
+------------------------------------------------------------
+BI-LSTM:
+
+Use:
+
+Text
+ ↓
+Appropriate normalization
+ ↓
+Tokenizer
+ ↓
+Integer sequences
+ ↓
+Padding
+ ↓
+Embedding
+ ↓
+Bi-LSTM
+
+Do not over-clean the text.
+
+------------------------------------------------------------
+BERT:
+
+Use:
+
+Minimal normalization
+ ↓
+BERT tokenizer
+ ↓
+Subword tokens
+ ↓
+BERT
+
+Do NOT perform:
+
+- stemming
+- aggressive stopword removal
+- aggressive punctuation removal
+- aggressive lemmatization
+
+before BERT.
+
+============================================================
+26. TEXT REPRESENTATION PREPARATION
+============================================================
+
+Phase 3 prepares text.
+
+Actual:
+
+Bag of Words
+TF-IDF
+N-grams
+
+will be implemented in later phases.
+
+However, preprocessing functions must be compatible with them.
+
+The output should be clean text strings suitable for vectorization.
+
+============================================================
+27. TOKENIZATION OUTPUT
+============================================================
+
+Provide tokenized output for analysis.
+
+Example:
+
+Original:
+
+"Great!!! Another exam tomorrow 😒"
+
+Possible tokens:
+
+["Great", "!", "!", "!", "Another", "exam",
+ "tomorrow", "😒"]
+
+The exact tokenizer output depends on the selected library.
+
+Do not hard-code this example as an expected dataset output.
+
+============================================================
+28. NLP LIBRARIES
+============================================================
+
+Recommended:
+
+Python
+Pandas
+NumPy
+NLTK
+spaCy where useful
+Regex
+
+Use only libraries that provide real value.
+
+Do not add unnecessary NLP libraries.
+
+If spaCy is used:
+
+Document the model/package required.
+
+============================================================
+29. RESOURCE MANAGEMENT
+============================================================
+
+If NLTK resources are required:
+
+Download required resources through a setup script.
+
+Examples may include:
+
+punkt/punkt_tab
+stopwords
+wordnet
+omw
+
+Use the resource names appropriate for the installed NLTK version.
+
+Do not assume an old NLTK resource name will always work.
+
+The project must provide a clear setup process.
+
+============================================================
+30. PREPROCESSING PIPELINE CODE
+============================================================
+
+Create modular files such as:
+
+ml-service/
+└── src/
+    └── preprocessing/
+        ├── __init__.py
+        ├── config.py
+        ├── text_cleaner.py
+        ├── tokenizer.py
+        ├── social_media.py
+        ├── normalization.py
+        ├── lemmatization.py
+        ├── stemming.py
+        └── pipeline.py
+
+Adapt to the existing Phase 1 structure if necessary.
+
+Do not unnecessarily restructure working Phase 1 code.
+
+============================================================
+31. RECOMMENDED RESPONSIBILITIES
+============================================================
+
+config.py:
+
+Store preprocessing configurations.
+
+social_media.py:
+
+- URL detection
+- mention detection
+- hashtag handling
+- emoji detection
+- social-media feature extraction
+
+normalization.py:
+
+- whitespace normalization
+- case normalization
+- punctuation normalization
+- repeated-character handling
+
+lemmatization.py:
+
+- lemmatization logic
+
+stemming.py:
+
+- stemming logic
+
+tokenizer.py:
+
+- tokenization
+
+pipeline.py:
+
+- combine configurable preprocessing stages
+
+============================================================
+32. SOCIAL MEDIA FEATURE EXTRACTION
+============================================================
+
+Create reusable functions to extract:
+
+- url_count
+- mention_count
+- hashtag_count
+- emoji_count
+- exclamation_count
+- question_count
+- punctuation_count
+- uppercase_count
+- uppercase_ratio
+- repeated_character_count
+
+These features will later be used in Phase 5.
+
+Do not train a model using them yet.
+
+============================================================
+33. FEATURE OUTPUT
+============================================================
+
+Create an analytical feature file:
+
+data/reports/preprocessing/
+
+or:
+
+data/processed/features/
+
+Example:
+
+social_media_features.csv
+
+Fields:
+
+text
+label
+label_id
+url_count
+mention_count
+hashtag_count
+emoji_count
+exclamation_count
+question_count
+punctuation_count
+uppercase_count
+uppercase_ratio
+repeated_character_count
+
+Do not replace the original text with feature values.
+
+============================================================
+34. PREPROCESSING COMPARISON
+============================================================
+
+Run all preprocessing variants on a sample first.
+
+Before processing the full dataset:
+
+Select a small representative sample.
+
+Include examples containing:
+
+- hashtags
+- mentions
+- URLs
+- emojis
+- punctuation
+- capitalization
+- repeated characters
+- negations
+- contractions
+
+Print:
+
+Original
+Variant A
+Variant B
+Variant C
+Variant D
+Variant E
+Variant F
+
+This is a mandatory sanity check.
+
+============================================================
+35. FULL DATASET PROCESSING
+============================================================
+
+After the sample output is verified:
+
+Run preprocessing over the complete training and test datasets.
+
+Maintain separate outputs for each preprocessing configuration.
+
+Example:
+
+data/processed/preprocessed/
+
+├── minimal/
+│   ├── train.csv
+│   └── test.csv
+│
+├── lowercase/
+│   ├── train.csv
+│   └── test.csv
+│
+├── lemmatized/
+│   ├── train.csv
+│   └── test.csv
+│
+├── stopword/
+│   ├── train.csv
+│   └── test.csv
+│
+├── stemmed/
+│   ├── train.csv
+│   └── test.csv
+│
+└── classical/
+    ├── train.csv
+    └── test.csv
+
+If storage becomes excessive, generate these variants on demand
+through the preprocessing pipeline rather than permanently storing
+all copies.
+
+============================================================
+36. IMPORTANT TEST-SET RULE
+============================================================
+
+Preprocessing that is deterministic can be applied to test text.
+
+However, any learned component must be fitted only on training data.
+
+For example:
+
+Stopword list:
+fixed external resource → okay.
+
+TF-IDF vocabulary:
+learned from training → MUST fit on training only.
+
+Tokenizer vocabulary:
+learned from training → MUST fit on training only.
+
+Do not fit learned transformations on test.
+
+============================================================
+37. PREPROCESSING QUALITY CHECKS
+============================================================
+
+After preprocessing, verify:
+
+- no unexpected nulls
+- no accidental empty text
+- label unchanged
+- number of records unchanged unless explicitly documented
+- class distribution unchanged
+- original text preserved
+- preprocessing configuration recorded
+
+Check:
+
+before row count
+=
+after row count
+
+unless a deliberate, documented filtering operation occurred.
+
+============================================================
+38. INFORMATION LOSS CHECK
+============================================================
+
+Measure whether preprocessing accidentally removes too much.
+
+For each variant calculate:
+
+- percentage of empty texts
+- average character count
+- average word count
+- vocabulary size
+- percentage of tweets containing emojis after processing
+- percentage containing hashtags after processing
+- percentage containing punctuation after processing
+
+Compare against the original clean dataset.
+
+This will reveal overly aggressive preprocessing.
+
+============================================================
+39. NEGATION PRESERVATION TEST
+============================================================
+
+Explicitly test:
+
+not
+never
+no
+n't
+
+Ensure that the chosen stopword-removal pipeline does not remove
+important negation terms.
+
+Create a test such as:
+
+"I do not like this"
+
+and verify that:
+
+not
+
+remains available when the protected-negation option is enabled.
+
+============================================================
+40. SOCIAL MEDIA PRESERVATION TEST
+============================================================
+
+Test examples containing:
+
+@user
+#sarcasm
+😂
+!!!
+???
+https://example.com
+SO GREAT
+soooo good
+
+Verify the configured behavior.
+
+Do not assume the output.
+
+Show actual output in the Phase 3 report.
+
+============================================================
+41. PREPROCESSING METRICS
+============================================================
+
+For each variant report:
+
+- records processed
+- empty outputs
+- average characters
+- average words
+- vocabulary size
+- hashtags retained
+- emojis retained
+- punctuation retained
+- URLs normalized
+- mentions normalized
+
+Create:
+
+preprocessing_comparison.csv
+
+Example:
+
+| Variant | Avg Words | Avg Chars | Vocab | Empty |
+|---------|----------:|----------:|------:|------:|
+| Minimal | ... | ... | ... | ... |
+| Lowercase | ... | ... | ... | ... |
+| Lemmatized | ... | ... | ... | ... |
+| Stopword | ... | ... | ... | ... |
+| Stemmed | ... | ... | ... | ... |
+| Classical | ... | ... | ... | ... |
+
+Use actual values.
+
+============================================================
+42. NO MODEL PERFORMANCE YET
+============================================================
+
+Do NOT say:
+
+"Variant X is the best."
+
+based only on preprocessing statistics.
+
+The best preprocessing strategy will be determined through
+classification experiments in later phases.
+
+You may say:
+
+"Variant X preserves more social-media information."
+
+But do not claim that this improves classification until tested.
+
+============================================================
+43. RESEARCH EXPERIMENT DESIGN
+============================================================
+
+Phase 3 should prepare the following future experiments:
+
+Experiment P1:
+Minimal preprocessing
+
+Experiment P2:
+Lowercase
+
+Experiment P3:
+Lemmatization
+
+Experiment P4:
+Stopword removal
+
+Experiment P5:
+Stemming
+
+Experiment P6:
+Classical cleaning
+
+Later Phase 4/5 will evaluate these through actual ML performance.
+
+============================================================
+44. DOCUMENTATION
+============================================================
+
+Create:
+
+docs/research/phase3_preprocessing.md
+
+Include:
+
+1. Purpose
+2. Preprocessing challenges
+3. Social-media characteristics
+4. Preprocessing techniques
+5. Why aggressive cleaning is avoided
+6. Configuration variants
+7. Tokenization
+8. Stopword handling
+9. Lemmatization
+10. Stemming
+11. Negation handling
+12. URL handling
+13. Mention handling
+14. Hashtag handling
+15. Emoji handling
+16. Punctuation handling
+17. Model-specific preprocessing
+18. Leakage considerations
+19. Sample outputs
+20. Preprocessing comparison
+21. Recommendations for later experiments
+
+============================================================
+45. NOTEBOOK
+============================================================
+
+Create:
+
+notebooks/03_nlp_preprocessing.ipynb
+
+Sections:
+
+1. Imports
+2. Load data
+3. Load preprocessing configuration
+4. Sample inspection
+5. URL handling
+6. Mention handling
+7. Hashtag handling
+8. Emoji handling
+9. Punctuation handling
+10. Capitalization
+11. Repeated characters
+12. Negation handling
+13. Tokenization
+14. Stopword experiment
+15. Lemmatization
+16. Stemming
+17. Variant comparison
+18. Feature extraction
+19. Quality checks
+20. Conclusions
+
+============================================================
+46. TESTING
+============================================================
+
+Create preprocessing unit tests.
+
+Test:
+
+1. Empty text
+2. Null text
+3. Normal sentence
+4. URL
+5. Mention
+6. Hashtag
+7. Emoji
+8. Punctuation
+9. Capitalization
+10. Repeated characters
+11. Negation
+12. Contractions
+13. Mixed social-media text
+
+Example:
+
+Input:
+"@john WOW!!! #sarcasm 😂 https://example.com"
+
+Verify each preprocessing stage behaves as configured.
+
+============================================================
+47. REPRODUCIBILITY
+============================================================
+
+All preprocessing must be reproducible.
+
+Record:
+
+- preprocessing version
+- library versions
+- configuration
+- timestamp if useful
+- dataset version
+
+Save configuration in a machine-readable format.
+
+Example:
+
+preprocessing_config.json
+
+Do not manually modify processed datasets.
+
+They should be regeneratable from:
+
+raw/clean dataset
++
+configuration
++
+preprocessing scripts
+
+============================================================
+48. FINAL OUTPUT STRUCTURE
+============================================================
+
+Expected structure:
+
+ml-service/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   │   ├── train_clean.csv
+│   │   ├── test_clean.csv
+│   │   └── preprocessed/
+│   │
+│   └── reports/
+│       └── preprocessing/
+│           ├── preprocessing_comparison.csv
+│           ├── social_media_features.csv
+│           └── preprocessing_summary.json
+│
+├── notebooks/
+│   └── 03_nlp_preprocessing.ipynb
+│
+├── src/
+│   └── preprocessing/
+│       ├── __init__.py
+│       ├── config.py
+│       ├── text_cleaner.py
+│       ├── tokenizer.py
+│       ├── social_media.py
+│       ├── normalization.py
+│       ├── lemmatization.py
+│       ├── stemming.py
+│       └── pipeline.py
+│
+└── tests/
+    └── test_preprocessing.py
+
+Documentation:
+
+docs/
+└── research/
+    └── phase3_preprocessing.md
+
+============================================================
+49. IMPORTANT DISTINCTION BETWEEN PHASES
+============================================================
+
+PHASE 1:
+Dataset validation and cleaning.
+
+PHASE 2:
+EDA and discovery.
+
+PHASE 3:
+NLP preprocessing pipeline.
+
+PHASE 4:
+Bag of Words + initial classical ML.
+
+PHASE 5:
+TF-IDF + N-grams + feature engineering.
+
+PHASE 6:
+Bi-LSTM.
+
+PHASE 7:
+FastText / Attention.
+
+PHASE 8:
+BERT.
+
+Therefore:
+
+DO NOT implement TF-IDF as the final model representation here.
+
+DO NOT train classifiers here.
+
+Phase 3 prepares the text and preprocessing infrastructure.
+
+============================================================
+50. IMPORTANT NLP PRINCIPLE
+============================================================
+
+Sarcasm and irony are difficult because the literal words may not
+represent the intended meaning.
+
+Therefore, preprocessing must preserve potentially useful signals:
+
+- punctuation
+- capitalization
+- emojis
+- hashtags
+- repeated characters
+- negations
+- informal language
+
+Do not treat these as noise automatically.
+
+The project should scientifically determine their usefulness through
+later experiments.
+
+============================================================
+51. PHASE 3 SUCCESS CRITERIA
+============================================================
+
+Phase 3 is complete ONLY when:
+
+[ ] Text validation pipeline implemented.
+[ ] Whitespace normalization implemented.
+[ ] URL normalization implemented.
+[ ] Mention normalization implemented.
+[ ] Hashtag handling implemented.
+[ ] Emoji handling implemented.
+[ ] Punctuation handling implemented.
+[ ] Capitalization variants implemented.
+[ ] Repeated-character handling implemented.
+[ ] Negation preservation implemented.
+[ ] Tokenization implemented.
+[ ] Stopword experiment implemented.
+[ ] Lemmatization implemented.
+[ ] Stemming implemented.
+[ ] Configurable preprocessing system implemented.
+[ ] Multiple preprocessing variants created.
+[ ] Sample outputs verified.
+[ ] Social-media feature extraction implemented.
+[ ] Preprocessing quality checks passed.
+[ ] Information-loss analysis completed.
+[ ] Preprocessing comparison generated.
+[ ] Unit tests created.
+[ ] Notebook created.
+[ ] Documentation created.
+[ ] No external dataset used.
+[ ] No model trained.
+[ ] No fabricated results.
+[ ] No test leakage introduced.
+
+============================================================
+52. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 3 report:
+
+1. What preprocessing techniques were implemented.
+2. Which social-media signals were preserved.
+3. Which preprocessing variants were created.
+4. How negation was handled.
+5. How URLs were handled.
+6. How mentions were handled.
+7. How hashtags were handled.
+8. How emojis were handled.
+9. How punctuation was handled.
+10. How stemming and lemmatization were implemented.
+11. Information-loss statistics.
+12. Files created.
+13. Unit-test status.
+14. Any issues encountered.
+15. Recommendations for Phase 4/5 experiments.
+
+IMPORTANT:
+
+Do not declare a preprocessing variant "best" yet.
+
+That decision must be based on actual model performance in later
+phases.
+
+============================================================
+53. STOP CONDITION
+============================================================
+
+After completing Phase 3:
+
+STOP.
+
+Do NOT automatically begin:
+
+- Bag of Words
+- TF-IDF
+- Logistic Regression
+- Naive Bayes
+- SVM
+- Bi-LSTM
+- BERT
+- FastAPI
+- React
+- Node.js
+- MongoDB
+
+Wait for explicit instruction to begin Phase 4.
+
+============================================================
+END OF PHASE 3 MASTER PROMPT
+============================================================
+
+Where Phase 3 fits
+
+PHASE 1
+Dataset Validation
+       ↓
+PHASE 2
+EDA
+       ↓
+PHASE 3  ← NOW
+NLP Preprocessing
+       ↓
+PHASE 4
+BoW + Classical ML
+       ↓
+PHASE 5
+TF-IDF + N-grams + Feature Engineering
+       ↓
+PHASE 6
+GloVe + Bi-LSTM
+       ↓
+PHASE 7
+FastText / Attention
+       ↓
+PHASE 8
+BERT
+       ↓
+PHASE 9
+Comparison + Error Analysis

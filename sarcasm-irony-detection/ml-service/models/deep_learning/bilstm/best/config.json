@@ -1,0 +1,29 @@
+{
+  "experiment_id": "BILSTM-02",
+  "vocabulary_size": 30002,
+  "max_sequence_length": 30,
+  "embedding_dimension": 100,
+  "embedding_source": "GloVe-6B-100d (Stanford NLP)",
+  "embedding_trainable": true,
+  "lstm_units": 64,
+  "dense_units": 64,
+  "dropout": 0.3,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "batch_size": 32,
+  "maximum_epochs": 30,
+  "early_stopping_patience": 5,
+  "random_seed": 42,
+  "oov_strategy": "random (uniform \u00b10.05)",
+  "class_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "test_accuracy": 0.8612,
+  "test_macro_f1": 0.694,
+  "glove_coverage_pct": 47.37,
+  "framework": "PyTorch 2.14.0+cpu",
+  "device": "cpu"
+}

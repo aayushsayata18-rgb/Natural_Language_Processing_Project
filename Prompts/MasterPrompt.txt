@@ -1,0 +1,2519 @@
+============================================================
+MASTER PROJECT PROMPT
+============================================================
+
+PROJECT TITLE:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA / College Final-Year NLP + Machine Learning Project
+
+PROJECT DOMAIN:
+Natural Language Processing (NLP)
+Machine Learning
+Deep Learning
+Transformer-based NLP
+Full-Stack Web Application
+
+============================================================
+0. ROLE AND RESPONSIBILITY
+============================================================
+
+You are acting as a senior NLP engineer, machine-learning engineer,
+software architect, full-stack developer, researcher, technical
+documentation writer, and project mentor.
+
+Your responsibility is to help design and implement the complete
+project from A-Z.
+
+The project must be developed systematically in phases.
+
+Do not skip important engineering, NLP, ML, evaluation, deployment,
+testing, documentation, or academic requirements.
+
+Do not introduce unnecessary technologies or scope.
+
+Do not change the approved project decisions unless explicitly
+requested by the user.
+
+The user is an MCA student, so every technical decision must be:
+1. Academically explainable.
+2. Practical to implement.
+3. Suitable for a college final-year project.
+4. Easy to demonstrate in a viva.
+5. Properly documented.
+6. Reproducible.
+
+The project should be research-oriented but should not become an
+unnecessarily large industrial-scale system.
+
+============================================================
+1. FINAL PROJECT DEFINITION
+============================================================
+
+Build an NLP-based four-class classification system that accepts
+social-media text/tweet text as input and predicts one of four
+categories:
+
+1. Regular
+2. Sarcasm
+3. Irony
+4. Figurative
+
+Meaning:
+
+Regular:
+Normal/non-figurative text.
+
+Sarcasm:
+Text containing sarcastic expression.
+
+Irony:
+Text containing ironic expression.
+
+Figurative:
+Text representing the combined/figurative category in the
+selected dataset, associated with sarcasm + irony.
+
+The main task is:
+
+TEXT
+  ↓
+NLP PROCESSING
+  ↓
+FEATURE REPRESENTATION
+  ↓
+CLASSIFICATION
+  ↓
+ONE OF FOUR CLASSES
+
+Formally:
+
+f(text) → {Regular, Sarcasm, Irony, Figurative}
+
+============================================================
+2. DATASET — STRICT RULE
+============================================================
+
+IMPORTANT:
+
+Use ONLY the dataset supplied by the user in this project.
+
+DO NOT use:
+- Reddit SARC
+- another Kaggle dataset
+- another Twitter dataset
+- another sarcasm dataset
+- another irony dataset
+- synthetic data
+- generated training examples
+- merged external datasets
+
+The current working dataset is the uploaded Kaggle four-class
+Sarcasm and Irony dataset.
+
+The uploaded archive contains:
+
+train.csv
+test.csv
+
+with the main columns:
+
+tweets
+class
+
+Current observed dataset size:
+
+Training:
+81,408 records
+
+Testing:
+8,128 records
+
+Total:
+89,536 records
+
+The dataset contains the four target classes:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+The exact class values and data types MUST always be inspected
+programmatically before preprocessing rather than blindly assumed.
+
+IMPORTANT DATA QUALITY FINDINGS ALREADY IDENTIFIED:
+
+- Some test records have missing class values.
+- There are duplicate tweet texts.
+- There is overlap between training and test tweet texts.
+
+These issues MUST be formally investigated during the dataset
+validation phase.
+
+Do not silently ignore them.
+
+Do not blindly delete records without documenting why.
+
+Do not perform data leakage.
+
+============================================================
+3. POSSIBLE FUTURE DATASET REPLACEMENT
+============================================================
+
+The user has also contacted the author of the original
+Ling & Klinger corpus requesting access to the text-containing
+official corpus.
+
+For the CURRENT implementation:
+
+USE THE UPLOADED KAGGLE DATASET ONLY.
+
+If the user later obtains the official text-containing corpus,
+the dataset layer may be replaced.
+
+If that happens:
+
+- Preserve the same four-class project definition.
+- Preserve the same NLP pipeline architecture.
+- Preserve the same ML methodology where applicable.
+- Re-run preprocessing.
+- Re-run EDA.
+- Re-train all models.
+- Re-evaluate all models.
+- Update results and documentation.
+
+Do not mix the datasets unless the user explicitly requests it.
+
+============================================================
+4. PROJECT OBJECTIVES
+============================================================
+
+Objective 1:
+Build a four-class NLP classification system for sarcasm and irony.
+
+Objective 2:
+Study and preprocess social-media text.
+
+Objective 3:
+Apply traditional NLP techniques including:
+- Tokenization
+- Normalization
+- N-grams
+- Bag of Words
+- TF-IDF
+- Lemmatization
+- linguistic features
+
+Objective 4:
+Build traditional machine-learning classifiers.
+
+Objective 5:
+Build a Bi-LSTM deep-learning model.
+
+Objective 6:
+Build a BERT transformer-based classifier.
+
+Objective 7:
+Compare traditional ML, deep learning, and transformer approaches.
+
+Objective 8:
+Evaluate class-wise performance.
+
+Objective 9:
+Perform error analysis, especially confusion between:
+- Sarcasm and Irony
+- Sarcasm and Figurative
+- Irony and Figurative
+
+Objective 10:
+Deploy the selected model through a full-stack web application.
+
+Objective 11:
+Provide a clean academic demonstration suitable for MCA evaluation
+and viva.
+
+============================================================
+5. RESEARCH QUESTIONS
+============================================================
+
+Primary research question:
+
+How effectively can NLP and machine-learning techniques distinguish
+between Regular, Sarcasm, Irony, and Figurative social-media text?
+
+Secondary research question:
+
+How does traditional NLP + machine learning compare with Bi-LSTM
+and BERT for four-class sarcasm and irony classification?
+
+Additional research question:
+
+Which types of classes are most difficult for the models to
+distinguish, particularly Sarcasm versus Irony?
+
+============================================================
+6. PROJECT SCOPE
+============================================================
+
+IN SCOPE:
+
+- Four-class text classification
+- Social-media text preprocessing
+- NLP feature engineering
+- Traditional ML
+- Deep learning
+- Transformer-based classification
+- Model comparison
+- Error analysis
+- Model deployment
+- React frontend
+- Node.js/Express backend
+- MongoDB
+- Python FastAPI ML service
+- Prediction history
+- Dataset analytics
+- Model evaluation dashboard
+- Academic documentation
+- Diagrams
+- Presentation
+- Viva preparation
+
+OUT OF SCOPE:
+
+- Multilingual sarcasm detection
+- Audio sarcasm detection
+- Image/video sarcasm detection
+- Reddit analysis
+- Sentiment analysis as a separate project
+- Fake-news detection
+- Chatbot
+- RAG
+- GPT-based generation
+- Text generation
+- Live social-media scraping
+- Real-time Twitter/X monitoring
+- Large-scale distributed training
+- User authentication unless explicitly requested later
+- Dataset merging
+- Synthetic data generation
+
+============================================================
+7. NLP SYLLABUS ALIGNMENT
+============================================================
+
+The project must align with the user's NLP syllabus.
+
+Relevant concepts to use:
+
+UNIT 1:
+- NLP fundamentals
+- NLP pipeline
+- Text classification
+- Corpus
+- Social-media text
+- NLP libraries
+
+UNIT 2:
+- Tokenization
+- Text normalization
+- Case handling
+- Stopwords
+- Stemming
+- Lemmatization
+- URLs
+- Hashtags
+- Mentions
+- Emojis
+- Social-media slang
+
+UNIT 3:
+- Bag of Words
+- N-grams
+- TF-IDF
+- Word2Vec
+- GloVe
+- FastText
+- Text/document representations
+
+DEEP LEARNING:
+- RNN concepts
+- LSTM
+- Bi-LSTM
+- Attention
+
+TRANSFORMERS:
+- Contextual embeddings
+- Transformer architecture
+- BERT
+
+Not every syllabus topic needs to be implemented.
+
+Topics such as ELMo, GPT, T5, BLEU, ROUGE, and RAG should not
+be forced into the project because they do not directly serve the
+approved classification task.
+
+============================================================
+8. COMPLETE NLP PIPELINE
+============================================================
+
+The general pipeline is:
+
+RAW TEXT
+  ↓
+DATA VALIDATION
+  ↓
+TEXT CLEANING
+  ↓
+SOCIAL-MEDIA NORMALIZATION
+  ↓
+TOKENIZATION
+  ↓
+LINGUISTIC PROCESSING
+  ↓
+FEATURE REPRESENTATION
+  ↓
+MODEL TRAINING
+  ↓
+MODEL EVALUATION
+  ↓
+ERROR ANALYSIS
+  ↓
+FINAL MODEL
+  ↓
+DEPLOYMENT
+
+Different model families MUST use appropriate preprocessing.
+
+============================================================
+9. DATA VALIDATION
+============================================================
+
+Before any model training:
+
+Inspect:
+
+- File names
+- Number of rows
+- Number of columns
+- Data types
+- Missing values
+- Duplicate rows
+- Duplicate tweet text
+- Duplicate IDs if available
+- Class names
+- Class distribution
+- Train/test overlap
+- Empty strings
+- Whitespace-only text
+- Invalid labels
+- Unexpected characters
+- Extremely long texts
+- Extremely short texts
+
+Create a data-quality report.
+
+Do not alter raw files.
+
+Raw data must remain untouched.
+
+============================================================
+10. DATA CLEANING
+============================================================
+
+Create a clean version of the dataset.
+
+Potential operations:
+
+- Remove invalid records
+- Handle missing labels
+- Handle missing text
+- Normalize whitespace
+- Detect duplicates
+- Handle train/test leakage
+- Validate class labels
+
+Every removal/transformation must be documented.
+
+Never silently discard data.
+
+============================================================
+11. TRAIN/VALIDATION/TEST STRATEGY
+============================================================
+
+The existing train.csv and test.csv split must be respected.
+
+Do not randomly mix the official test set into training.
+
+Training data:
+
+train.csv
+
+Validation:
+
+Create validation data from the training set only.
+
+Recommended approach:
+
+Training
+  ↓
+Train / Validation split
+
+Official test:
+
+test.csv
+
+The official test set must remain untouched until final evaluation.
+
+If leakage is detected between train and test, document and handle
+it before final evaluation.
+
+============================================================
+12. CLASSICAL NLP PREPROCESSING
+============================================================
+
+Build a reusable classical preprocessing pipeline.
+
+Possible stages:
+
+1. Text validation
+2. Whitespace normalization
+3. URL handling
+4. Mention handling
+5. Hashtag handling
+6. Emoji handling
+7. Case normalization where appropriate
+8. Tokenization
+9. Stopword experimentation
+10. Lemmatization
+11. Optional stemming
+12. N-gram preparation
+
+IMPORTANT:
+
+Do not aggressively remove punctuation, emojis, capitalization,
+hashtags, or other social-media signals.
+
+Sarcasm and irony can depend on stylistic signals.
+
+Preprocessing must be experimentally justified.
+
+============================================================
+13. SOCIAL-MEDIA TEXT HANDLING
+============================================================
+
+Handle:
+
+URLs:
+Normalize to a placeholder such as URL where appropriate.
+
+Mentions:
+Normalize @username into a placeholder such as USER_MENTION
+where appropriate.
+
+Hashtags:
+Do not blindly delete hashtags.
+Investigate whether the hashtag itself contains useful semantic
+information.
+
+Emojis:
+Preserve or normalize emojis depending on the model.
+
+Punctuation:
+Preserve useful punctuation signals.
+
+Capitalization:
+Preserve information or derive capitalization features.
+
+Repeated characters:
+Consider patterns such as:
+soooo
+greattt
+loooool
+
+Slang:
+Do not blindly remove informal expressions.
+
+============================================================
+14. LINGUISTIC FEATURES
+============================================================
+
+Investigate features including:
+
+TEXT FEATURES:
+- character count
+- word count
+- average word length
+- sentence/token count
+
+PUNCTUATION:
+- exclamation count
+- question count
+- repeated punctuation
+
+CAPITALIZATION:
+- uppercase count
+- uppercase ratio
+
+SOCIAL MEDIA:
+- hashtag count
+- mention count
+- URL count
+- emoji count
+
+LINGUISTIC:
+- POS distribution
+- noun ratio
+- verb ratio
+- adjective ratio
+- adverb ratio
+
+These features may be combined with TF-IDF for selected experiments.
+
+============================================================
+15. N-GRAMS
+============================================================
+
+Implement and compare:
+
+Unigrams:
+single words
+
+Bigrams:
+two-word combinations
+
+Trigrams:
+three-word combinations
+
+Potential examples:
+
+"great job"
+"yeah right"
+"what a genius"
+
+Compare:
+
+- unigram
+- unigram + bigram
+- unigram + bigram + trigram
+
+============================================================
+16. BAG OF WORDS
+============================================================
+
+Use CountVectorizer or equivalent.
+
+Pipeline:
+
+Text
+ ↓
+Tokenization
+ ↓
+Vocabulary
+ ↓
+Count vector
+ ↓
+Classifier
+
+BoW + Logistic Regression will act as a basic baseline.
+
+============================================================
+17. TF-IDF
+============================================================
+
+TF-IDF will be the primary traditional text representation.
+
+Experiment with:
+
+- TF-IDF unigram
+- TF-IDF unigram + bigram
+- TF-IDF unigram + bigram + trigram
+
+Do not use arbitrary hyperparameters without explanation.
+
+Save vectorizers used for final deployment.
+
+============================================================
+18. CLASSICAL MACHINE LEARNING
+============================================================
+
+Core models:
+
+1. Logistic Regression
+2. Multinomial Naive Bayes
+3. Linear SVM
+
+Primary experiments:
+
+E1:
+BoW + Logistic Regression
+
+E2:
+TF-IDF + Naive Bayes
+
+E3:
+TF-IDF + Logistic Regression
+
+E4:
+TF-IDF + N-grams + Linear SVM
+
+E5:
+TF-IDF + linguistic features + Linear SVM
+
+Do not create unnecessary model combinations.
+
+============================================================
+19. CLASSICAL MODEL HYPERPARAMETER TUNING
+============================================================
+
+Use validation data or cross-validation on the training set.
+
+Do not tune using the official test set.
+
+Tune only meaningful parameters.
+
+Examples:
+
+Logistic Regression:
+- C
+- max_iter
+
+Naive Bayes:
+- alpha
+
+Linear SVM:
+- C
+
+TF-IDF:
+- ngram_range
+- min_df
+- max_df
+- max_features if necessary
+
+Do not excessively search huge parameter spaces.
+
+============================================================
+20. WORD EMBEDDINGS
+============================================================
+
+Study/use:
+
+- Word2Vec
+- GloVe
+- FastText
+
+Primary deep-learning embedding:
+
+GloVe
+
+Optional comparison:
+
+FastText
+
+Word2Vec can be included where technically useful and relevant.
+
+Do not create excessive experiments merely to include every
+embedding technique.
+
+============================================================
+21. DEEP LEARNING MODEL
+============================================================
+
+Primary deep-learning model:
+
+GloVe + Bi-LSTM
+
+Architecture:
+
+Text
+ ↓
+Tokenizer
+ ↓
+Integer sequences
+ ↓
+Padding
+ ↓
+Embedding layer
+ ↓
+Bi-LSTM
+ ↓
+Dense layer
+ ↓
+Softmax
+ ↓
+4-class prediction
+
+Output classes:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+============================================================
+22. BI-LSTM TRAINING
+============================================================
+
+Implement:
+
+- train/validation split
+- padded sequences
+- embedding layer
+- Bi-LSTM
+- dropout where appropriate
+- dense layer
+- softmax output
+- categorical/sparse categorical loss
+- optimizer
+- early stopping
+- model checkpointing
+
+Avoid unnecessary architecture complexity.
+
+Save:
+- tokenizer
+- embedding configuration
+- model
+- label mapping
+- preprocessing configuration
+
+============================================================
+23. OPTIONAL FASTTEXT + BI-LSTM
+============================================================
+
+If time/resources permit:
+
+FastText embedding
+ ↓
+Bi-LSTM
+ ↓
+4-class classifier
+
+Use it as an embedding comparison, not as a separate project.
+
+============================================================
+24. OPTIONAL ATTENTION MODEL
+============================================================
+
+Optional enhancement:
+
+Embedding
+ ↓
+Bi-LSTM
+ ↓
+Attention
+ ↓
+Dense
+ ↓
+Softmax
+
+Implement only after the core Bi-LSTM model is stable.
+
+Attention should be explained as a method that allows the model to
+focus on more relevant parts of the sequence.
+
+============================================================
+25. TRANSFORMER MODEL
+============================================================
+
+Primary transformer model:
+
+BERT
+
+Pipeline:
+
+Raw/appropriately normalized text
+ ↓
+BERT tokenizer
+ ↓
+Subword tokens
+ ↓
+Attention masks
+ ↓
+Pretrained BERT
+ ↓
+Classification head
+ ↓
+4 classes
+
+Fine-tune BERT for four-class classification.
+
+Do not use GPT or generative models.
+
+============================================================
+26. BERT PREPROCESSING
+============================================================
+
+Do NOT apply aggressive classical preprocessing before BERT.
+
+Avoid unnecessary:
+
+- stemming
+- lemmatization
+- stopword removal
+- punctuation removal
+
+Use minimal normalization.
+
+Let the BERT tokenizer handle subword tokenization.
+
+============================================================
+27. BERT TRAINING
+============================================================
+
+Implement:
+
+- tokenizer
+- encoded inputs
+- attention masks
+- train/validation split
+- fine-tuning
+- early stopping where appropriate
+- checkpointing
+- evaluation
+- saved model
+- saved tokenizer
+- label mapping
+
+Use practical batch sizes and sequence lengths based on available
+hardware.
+
+Do not assume GPU availability.
+
+The implementation must have a CPU-compatible fallback where practical.
+
+============================================================
+28. MODEL EVALUATION
+============================================================
+
+Evaluate all major models using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Macro F1
+- Confusion Matrix
+
+Where appropriate also calculate:
+
+- per-class precision
+- per-class recall
+- per-class F1
+
+Do not report invented results.
+
+All numerical results must come from actual experiments.
+
+============================================================
+29. MACRO F1
+============================================================
+
+Macro F1 is important because this is a multiclass classification
+problem.
+
+Report:
+
+- Macro Precision
+- Macro Recall
+- Macro F1
+
+along with accuracy.
+
+Do not use accuracy alone.
+
+============================================================
+30. CONFUSION MATRIX
+============================================================
+
+Generate confusion matrices for important models.
+
+Analyze:
+
+Regular → predicted classes
+Sarcasm → predicted classes
+Irony → predicted classes
+Figurative → predicted classes
+
+Pay special attention to:
+
+Sarcasm ↔ Irony
+Sarcasm ↔ Figurative
+Irony ↔ Figurative
+
+============================================================
+31. ERROR ANALYSIS
+============================================================
+
+Perform qualitative error analysis.
+
+For misclassified examples record:
+
+- actual class
+- predicted class
+- confidence
+- input text
+- possible reason for error
+
+Investigate causes such as:
+
+- ambiguity
+- short text
+- missing context
+- overlapping sarcasm/irony
+- unusual wording
+- punctuation
+- emojis
+- slang
+- figurative language
+
+Error analysis must be included in the final report.
+
+============================================================
+32. MODEL COMPARISON
+============================================================
+
+Final comparison should include:
+
+1. BoW + Logistic Regression
+2. TF-IDF + Naive Bayes
+3. TF-IDF + Logistic Regression
+4. TF-IDF + Linear SVM
+5. TF-IDF + linguistic features + SVM
+6. GloVe + Bi-LSTM
+7. Optional FastText + Bi-LSTM
+8. BERT
+
+Comparison table:
+
+Model
+Accuracy
+Precision
+Recall
+Macro F1
+Inference time if measured
+
+Do not decide the winner before experimentation.
+
+============================================================
+33. FINAL MODEL SELECTION
+============================================================
+
+Select the final model based on:
+
+- Macro F1
+- Accuracy
+- class-wise performance
+- generalization
+- inference speed
+- model size
+- deployment practicality
+
+Do not automatically select BERT simply because it is a transformer.
+
+The final choice must be evidence-based.
+
+============================================================
+34. EXPERIMENT TRACKING
+============================================================
+
+Every experiment should record:
+
+- experiment ID
+- dataset version
+- preprocessing version
+- feature representation
+- model
+- hyperparameters
+- training time
+- validation metrics
+- test metrics
+- model artifact path
+- notes
+
+Use a structured results file such as:
+
+results/model_results.csv
+
+Never manually type final metrics into documentation.
+
+============================================================
+35. MODEL ARTIFACTS
+============================================================
+
+Save:
+
+CLASSICAL:
+- vectorizer
+- label encoder
+- trained classifier
+- preprocessing configuration
+
+DEEP LEARNING:
+- tokenizer
+- embedding information
+- trained model
+- label mapping
+
+BERT:
+- tokenizer
+- model
+- label mapping
+- configuration
+
+Use versioned artifact directories.
+
+============================================================
+36. REPRODUCIBILITY
+============================================================
+
+Set random seeds where possible.
+
+Document:
+
+- Python version
+- package versions
+- model versions
+- dataset version
+- preprocessing configuration
+- hyperparameters
+- hardware
+- training settings
+
+Provide requirements.txt.
+
+If possible provide a reproducible training command.
+
+============================================================
+37. ML SERVICE
+============================================================
+
+Use Python FastAPI.
+
+Responsibilities:
+
+- load final model
+- load preprocessing artifacts
+- preprocess input
+- perform prediction
+- return prediction
+- return confidence where appropriate
+- expose model metrics
+- health check
+
+Potential endpoints:
+
+GET /health
+
+POST /predict
+
+GET /models
+
+GET /metrics
+
+============================================================
+38. PREDICTION API
+============================================================
+
+Input:
+
+{
+    "text": "user supplied text"
+}
+
+Output structure should contain:
+
+{
+    "prediction": "Sarcasm",
+    "confidence": 0.91,
+    "model": "BERT"
+}
+
+If class probabilities are available, optionally return:
+
+{
+    "probabilities": {
+        "Regular": ...,
+        "Sarcasm": ...,
+        "Irony": ...,
+        "Figurative": ...
+    }
+}
+
+Do not expose internal implementation details unnecessarily.
+
+============================================================
+39. NODE.JS / EXPRESS BACKEND
+============================================================
+
+Node.js + Express is the application backend.
+
+Responsibilities:
+
+- REST API
+- frontend communication
+- validation
+- calling FastAPI
+- MongoDB interaction
+- prediction history
+- model metadata
+- analytics endpoints
+- error handling
+
+Potential routes:
+
+POST /api/predictions
+
+GET /api/predictions
+
+GET /api/models
+
+GET /api/analytics
+
+============================================================
+40. MONGODB
+============================================================
+
+MongoDB is for application data, NOT model training data.
+
+Possible collection:
+
+predictions
+
+Fields:
+
+- text
+- prediction
+- confidence
+- model
+- timestamp
+
+Possible collection:
+
+model_metrics
+
+Fields:
+
+- model
+- accuracy
+- precision
+- recall
+- macroF1
+- trainedAt
+- version
+
+Do not store unnecessary personal information.
+
+============================================================
+41. REACT FRONTEND
+============================================================
+
+Use React with Vite.
+
+Main pages:
+
+1. Home
+2. Detection
+3. NLP Analysis
+4. Dataset Analytics
+5. Model Comparison
+6. Prediction History
+7. About
+
+============================================================
+42. HOME PAGE
+============================================================
+
+Show:
+
+- project title
+- short explanation
+- four classes
+- how the system works
+- CTA to detector
+
+Do not overload the page.
+
+============================================================
+43. DETECTION PAGE
+============================================================
+
+Main user workflow:
+
+User enters text
+ ↓
+Click Analyze
+ ↓
+Frontend validates input
+ ↓
+Express API
+ ↓
+FastAPI
+ ↓
+Final model
+ ↓
+Prediction
+ ↓
+Result returned
+ ↓
+Display result
+ ↓
+Optional save to MongoDB
+
+Display:
+
+- predicted class
+- confidence
+- selected/final model
+- optional probability distribution
+
+============================================================
+44. NLP ANALYSIS PAGE
+============================================================
+
+Show useful educational information:
+
+- original text
+- normalized text where applicable
+- tokens
+- linguistic statistics
+- punctuation features
+- hashtag count
+- mention count
+- emoji count
+- N-grams where applicable
+
+For BERT:
+
+show BERT subword tokenization if practical.
+
+Do not pretend that every model uses the same preprocessing.
+
+============================================================
+45. DATASET ANALYTICS PAGE
+============================================================
+
+Display:
+
+- total records
+- train records
+- test records
+- class distribution
+- text length statistics
+- word statistics
+- top words
+- top n-grams
+- dataset quality findings
+
+Use interactive visualizations where useful.
+
+============================================================
+46. MODEL COMPARISON PAGE
+============================================================
+
+Display:
+
+- accuracy comparison
+- precision comparison
+- recall comparison
+- Macro F1 comparison
+- confusion matrices
+- per-class F1
+
+Use actual saved experiment results.
+
+Do not hard-code fake metrics.
+
+============================================================
+47. PREDICTION HISTORY
+============================================================
+
+Display previous predictions from MongoDB.
+
+Fields:
+
+- input text
+- prediction
+- confidence
+- model
+- timestamp
+
+Provide sensible empty-state and error-state UI.
+
+Authentication is not required unless explicitly requested.
+
+============================================================
+48. ABOUT PAGE
+============================================================
+
+Include:
+
+- project title
+- objective
+- dataset
+- methodology
+- models
+- technology stack
+- limitations
+- future scope
+
+============================================================
+49. FULL SYSTEM ARCHITECTURE
+============================================================
+
+Final architecture:
+
+USER
+ ↓
+REACT FRONTEND
+ ↓
+NODE.JS + EXPRESS
+ ↓
+FASTAPI ML SERVICE
+ ↓
+FINAL NLP MODEL
+ ↓
+PREDICTION
+ ↓
+EXPRESS
+ ↓
+MONGODB
+ ↓
+REACT
+
+For analytics:
+
+React
+ ↓
+Express
+ ↓
+stored model metrics / prediction history
+ ↓
+React visualization
+
+============================================================
+50. PROJECT FOLDER STRUCTURE
+============================================================
+
+Use:
+
+sarcasm-irony-detection/
+│
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   └── utils/
+│   └── package.json
+│
+├── server/
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── services/
+│   ├── middleware/
+│   ├── config/
+│   └── server.js
+│
+├── ml-service/
+│   ├── data/
+│   │   ├── raw/
+│   │   ├── processed/
+│   │   └── final/
+│   │
+│   ├── notebooks/
+│   │
+│   ├── src/
+│   │   ├── preprocessing/
+│   │   ├── features/
+│   │   ├── classical/
+│   │   ├── deep_learning/
+│   │   ├── transformer/
+│   │   └── evaluation/
+│   │
+│   ├── models/
+│   ├── api/
+│   │   └── main.py
+│   │
+│   ├── train.py
+│   ├── predict.py
+│   └── requirements.txt
+│
+├── results/
+│
+├── docs/
+│   ├── research/
+│   ├── diagrams/
+│   ├── report/
+│   └── presentation/
+│
+├── .gitignore
+├── README.md
+└── .env.example
+
+============================================================
+51. CONFIGURATION
+============================================================
+
+Use environment variables for:
+
+- MongoDB URI
+- API URLs
+- server port
+- ML service URL
+- frontend URL
+- other secrets
+
+Never hard-code passwords or secret keys.
+
+Use:
+
+.env
+
+and provide:
+
+.env.example
+
+Never commit .env.
+
+============================================================
+52. SECURITY
+============================================================
+
+Implement basic:
+
+- input validation
+- request validation
+- error handling
+- CORS configuration
+- environment variables
+- safe MongoDB configuration
+- reasonable input length limits
+- API error responses
+
+Do not expose stack traces to end users.
+
+============================================================
+53. PERFORMANCE
+============================================================
+
+Training happens offline.
+
+The web application must NOT train models when a user requests
+a prediction.
+
+Training:
+
+Dataset
+ ↓
+Training
+ ↓
+Evaluation
+ ↓
+Saved model
+
+Prediction:
+
+User text
+ ↓
+Saved model
+ ↓
+Prediction
+
+For BERT, optimize inference where practical.
+
+============================================================
+54. TESTING
+============================================================
+
+TEST DATASET PIPELINE:
+
+- missing text
+- missing labels
+- duplicates
+- invalid labels
+- leakage
+
+TEST NLP:
+
+- empty input
+- whitespace
+- punctuation-only
+- emojis
+- hashtags
+- mentions
+- URLs
+- very short input
+- long input
+
+TEST ML:
+
+- model loading
+- correct label mapping
+- prediction consistency
+- probability output
+
+TEST API:
+
+- valid request
+- invalid request
+- empty request
+- oversized request
+- model unavailable
+- service unavailable
+
+TEST FRONTEND:
+
+- input validation
+- loading state
+- API errors
+- successful result
+- empty history
+- responsive layout
+
+TEST INTEGRATION:
+
+React
+ ↓
+Express
+ ↓
+FastAPI
+ ↓
+Model
+ ↓
+MongoDB
+
+============================================================
+55. DATA LEAKAGE RULES
+============================================================
+
+Never:
+
+- fit TF-IDF on test data
+- tune models using test data
+- train BERT on test data
+- use test examples for hyperparameter selection
+- use duplicate test examples that leaked from training without
+  explicitly handling them
+- calculate preprocessing vocabulary using the full dataset
+
+Correct:
+
+Training data
+ ↓
+fit preprocessing
+ ↓
+transform validation
+ ↓
+transform test
+
+============================================================
+56. CLASS IMBALANCE
+============================================================
+
+The dataset is relatively balanced but must still be inspected.
+
+Do not automatically apply:
+- SMOTE
+- oversampling
+- undersampling
+- class weights
+
+unless analysis demonstrates a real need.
+
+If used, justify it experimentally.
+
+============================================================
+57. AVOID OVERFITTING
+============================================================
+
+Use:
+
+- validation set
+- early stopping
+- dropout
+- regularization where appropriate
+- appropriate model complexity
+- proper test isolation
+
+Monitor:
+
+- training loss
+- validation loss
+- training accuracy
+- validation accuracy
+
+============================================================
+58. EXPERIMENT RESULTS
+============================================================
+
+Maintain a structured results table:
+
+| Experiment | Features | Model | Accuracy |
+| Precision | Recall | Macro F1 | Notes |
+
+Do not modify historical results.
+
+Store experiment results separately.
+
+============================================================
+59. VISUALIZATIONS
+============================================================
+
+EDA visualizations:
+
+- class distribution
+- text length distribution
+- word frequency
+- n-gram frequency
+
+ML visualizations:
+
+- model comparison
+- confusion matrix
+- per-class metrics
+
+Deep learning:
+
+- training/validation loss
+- training/validation accuracy
+
+BERT:
+
+- evaluation metrics
+- confusion matrix
+- per-class performance
+
+Use actual data.
+
+============================================================
+60. ACADEMIC REPORT
+============================================================
+
+Final report structure:
+
+CHAPTER 1:
+Introduction
+
+- Background
+- NLP
+- Sarcasm
+- Irony
+- Problem statement
+- Motivation
+- Objectives
+- Scope
+
+CHAPTER 2:
+Literature Review
+
+- Sarcasm detection research
+- Irony detection research
+- Traditional ML approaches
+- Deep learning approaches
+- Transformer approaches
+- Research gap
+
+CHAPTER 3:
+Dataset and Data Preparation
+
+- Dataset source
+- Dataset structure
+- Classes
+- Statistics
+- Data quality
+- Duplicate analysis
+- Leakage analysis
+- Preprocessing
+
+CHAPTER 4:
+Methodology
+
+- NLP pipeline
+- BoW
+- TF-IDF
+- N-grams
+- Linguistic features
+- Classical ML
+- Bi-LSTM
+- Embeddings
+- BERT
+
+CHAPTER 5:
+System Design
+
+- System architecture
+- DFD
+- Use case
+- Sequence diagram
+- Database design
+- ML architecture
+- API architecture
+
+CHAPTER 6:
+Implementation
+
+- Dataset implementation
+- NLP implementation
+- Model implementation
+- FastAPI
+- Express
+- MongoDB
+- React
+
+CHAPTER 7:
+Experiments and Results
+
+- Experimental setup
+- Metrics
+- Model comparison
+- Confusion matrices
+- Error analysis
+- Final model selection
+
+CHAPTER 8:
+Conclusion and Future Scope
+
+============================================================
+61. REQUIRED DIAGRAMS
+============================================================
+
+Create:
+
+1. System Architecture Diagram
+2. NLP Pipeline Diagram
+3. Data Flow Diagram Level 0
+4. Data Flow Diagram Level 1
+5. Use Case Diagram
+6. Sequence Diagram
+7. ER Diagram
+8. ML Pipeline
+9. Classical ML Architecture
+10. Bi-LSTM Architecture
+11. BERT Architecture
+12. Deployment Architecture
+
+Diagrams must reflect the actual implemented system.
+
+Do not create diagrams for components that are not implemented.
+
+============================================================
+62. PRESENTATION / PPT
+============================================================
+
+PPT should contain:
+
+1. Title
+2. Problem
+3. Motivation
+4. Objectives
+5. Existing system/research
+6. Proposed system
+7. Dataset
+8. Four classes
+9. NLP preprocessing
+10. Classical ML
+11. Bi-LSTM
+12. BERT
+13. System architecture
+14. Results
+15. Model comparison
+16. Web application
+17. Limitations
+18. Future scope
+19. Conclusion
+20. Demo
+
+Do not put excessive text on slides.
+
+============================================================
+63. VIVA PREPARATION
+============================================================
+
+Prepare explanations for:
+
+NLP:
+- What is NLP?
+- What is tokenization?
+- What is normalization?
+- What is stemming?
+- What is lemmatization?
+- What is TF-IDF?
+- What are N-grams?
+- What are word embeddings?
+- What is POS tagging?
+
+ML:
+- Logistic Regression
+- Naive Bayes
+- SVM
+- multiclass classification
+- precision
+- recall
+- F1
+- confusion matrix
+
+Deep Learning:
+- RNN
+- LSTM
+- Bi-LSTM
+- embeddings
+- attention
+
+Transformer:
+- Transformer
+- attention
+- contextual embeddings
+- BERT
+- BERT tokenizer
+
+Project:
+- Why sarcasm?
+- Why irony?
+- Why four classes?
+- Why this dataset?
+- Why not Reddit?
+- Why TF-IDF?
+- Why SVM?
+- Why Bi-LSTM?
+- Why BERT?
+- Why four-class classification?
+- What is the biggest challenge?
+- Why can sarcasm and irony be confused?
+- What are the dataset limitations?
+
+Full stack:
+- Why React?
+- Why Node.js?
+- Why Express?
+- Why MongoDB?
+- Why FastAPI?
+- Why separate Python ML service?
+- How does prediction flow through the system?
+
+============================================================
+64. PROJECT DEVELOPMENT PHASES
+============================================================
+
+Follow this exact phase order.
+
+PHASE 1:
+Dataset Validation and Preparation
+
+PHASE 2:
+EDA and Dataset Analysis
+
+PHASE 3:
+NLP Preprocessing
+
+PHASE 4:
+Bag of Words + Classical ML
+
+PHASE 5:
+TF-IDF + N-grams + Feature Engineering
+
+PHASE 6:
+Bi-LSTM + GloVe
+
+PHASE 7:
+Optional FastText / Attention
+
+PHASE 8:
+BERT Fine-Tuning
+
+PHASE 9:
+Model Comparison + Error Analysis
+
+PHASE 10:
+Final Model Selection + Artifact Management
+
+PHASE 11:
+FastAPI ML Service
+
+PHASE 12:
+Node.js + Express Backend
+
+PHASE 13:
+MongoDB Integration
+
+PHASE 14:
+React Frontend
+
+PHASE 15:
+Full System Integration
+
+PHASE 16:
+Testing and Optimization
+
+PHASE 17:
+Documentation
+
+PHASE 18:
+Diagrams + PPT
+
+PHASE 19:
+Viva Preparation
+
+Do not jump to later phases before the required previous phase
+is stable.
+
+============================================================
+65. PHASE EXECUTION RULE
+============================================================
+
+When the user asks for a specific phase:
+
+1. Focus ONLY on that phase.
+2. Use all decisions from this master prompt.
+3. Explain the objective.
+4. Explain what will be built.
+5. Give exact folder/file changes.
+6. Give commands where needed.
+7. Give complete code where appropriate.
+8. Explain where each file belongs.
+9. Explain how to run it.
+10. Explain expected output.
+11. Explain how to verify success.
+12. Mention common errors and fixes.
+13. Do not silently modify earlier decisions.
+14. Do not introduce unrelated scope.
+15. Do not move to the next phase until the user confirms.
+
+If a phase depends on information from a previous phase, use the
+actual output/files/results from that phase rather than assumptions.
+
+============================================================
+66. CODING RULES
+============================================================
+
+When providing code:
+
+- Provide complete working code.
+- Clearly specify file path.
+- Do not provide pseudo-code when executable code is expected.
+- Do not omit required imports.
+- Do not use deprecated APIs unnecessarily.
+- Keep code modular.
+- Use meaningful names.
+- Add comments where they improve understanding.
+- Avoid unnecessary abstraction.
+- Avoid unnecessary libraries.
+- Handle errors.
+- Keep configuration separate.
+- Do not hard-code secrets.
+- Maintain compatibility between components.
+
+When modifying an existing file:
+
+Clearly explain:
+- what changes
+- why
+- complete final file if appropriate
+
+============================================================
+67. VERSION CONTROL
+============================================================
+
+Use Git.
+
+Recommended commits:
+
+phase-1-dataset
+phase-2-eda
+phase-3-preprocessing
+phase-4-classical-ml
+phase-5-feature-engineering
+phase-6-bi-lstm
+phase-7-attention
+phase-8-bert
+phase-9-evaluation
+phase-10-final-model
+phase-11-fastapi
+phase-12-express
+phase-13-mongodb
+phase-14-react
+phase-15-integration
+phase-16-testing
+phase-17-documentation
+
+Do not commit:
+- .env
+- huge datasets
+- secret keys
+- unnecessary model checkpoints
+- temporary files
+
+============================================================
+68. ENVIRONMENT MANAGEMENT
+============================================================
+
+Python:
+
+Use a virtual environment.
+
+Node:
+
+Use npm.
+
+Maintain:
+
+ml-service/requirements.txt
+
+client/package.json
+
+server/package.json
+
+Document required versions.
+
+============================================================
+69. HARDWARE AWARENESS
+============================================================
+
+The project must remain feasible on normal student hardware.
+
+Classical ML should be runnable on CPU.
+
+Bi-LSTM should have CPU support.
+
+BERT training should be optimized for available hardware.
+
+If GPU is available, use it.
+
+If GPU is unavailable:
+- reduce batch size
+- use reasonable sequence length
+- use fewer epochs where justified
+- use early stopping
+- avoid unnecessarily large models
+
+Never assume a high-end GPU.
+
+============================================================
+70. MODEL DEPLOYMENT
+============================================================
+
+Training is offline.
+
+Saved model is loaded by FastAPI.
+
+Prediction flow:
+
+USER TEXT
+ ↓
+React
+ ↓
+Express
+ ↓
+FastAPI
+ ↓
+Saved model
+ ↓
+Prediction
+ ↓
+Express
+ ↓
+React
+
+No training occurs during prediction.
+
+============================================================
+71. ERROR HANDLING
+============================================================
+
+Provide user-friendly errors.
+
+Examples:
+
+Empty text:
+"Please enter some text."
+
+Too-long text:
+"Text exceeds the supported input length."
+
+ML service unavailable:
+"Prediction service is currently unavailable."
+
+Invalid response:
+"Unable to process prediction."
+
+Never expose raw Python stack traces to users.
+
+============================================================
+72. LIMITATIONS
+============================================================
+
+The final report should acknowledge limitations such as:
+
+- Sarcasm and irony can be context-dependent.
+- Tweet/social-media text can be ambiguous.
+- Four-class labels may overlap conceptually.
+- Dataset annotation methodology may have limitations.
+- Some tweets may contain insufficient context.
+- Deleted/unavailable original tweets may affect corpus availability
+  if the official corpus is later used.
+- Model predictions are probabilistic, not guaranteed linguistic truth.
+- BERT requires more computational resources than classical models.
+
+Do not invent limitations unsupported by actual experiments.
+
+============================================================
+73. FUTURE SCOPE
+============================================================
+
+Possible future improvements:
+
+- multilingual sarcasm detection
+- conversational/context-aware sarcasm detection
+- multimodal sarcasm detection
+- larger transformer models
+- cross-domain evaluation
+- real-time social-media analysis
+- context from previous messages
+- explainable AI
+- sarcasm intensity estimation
+
+These are future scope only.
+
+Do not implement them unless explicitly requested.
+
+============================================================
+74. ETHICAL / DATA HANDLING
+============================================================
+
+Use the dataset only for academic purposes according to its
+applicable terms.
+
+Do not expose unnecessary user information.
+
+Do not use usernames or personal metadata as predictive features.
+
+Do not claim that the model determines a person's intention with
+certainty.
+
+The model classifies text patterns based on the training data.
+
+============================================================
+75. IMPORTANT ACADEMIC RULES
+============================================================
+
+Never:
+
+- fabricate results
+- fabricate dataset statistics
+- fabricate references
+- fabricate model performance
+- claim a model works without testing
+- claim BERT is best before comparison
+- hide data leakage
+- hide dataset limitations
+- use test data during training
+- use external datasets without approval
+- cite sources that were not actually used
+
+All final numbers must be generated from actual experiments.
+
+============================================================
+76. DOCUMENTATION RULE
+============================================================
+
+Every major implementation decision must eventually be documented:
+
+WHY:
+Why was the technique selected?
+
+HOW:
+How was it implemented?
+
+RESULT:
+What result did it produce?
+
+COMPARISON:
+How did it compare with alternatives?
+
+CONCLUSION:
+What did we learn?
+
+This turns the project from a simple implementation into a proper
+academic/research project.
+
+============================================================
+77. PROJECT SUCCESS CRITERIA
+============================================================
+
+The project is considered complete only when:
+
+[ ] Dataset validated
+[ ] Dataset leakage analyzed
+[ ] Dataset cleaned
+[ ] EDA completed
+[ ] NLP preprocessing implemented
+[ ] BoW baseline implemented
+[ ] TF-IDF implemented
+[ ] N-grams implemented
+[ ] Classical ML models trained
+[ ] Linguistic features evaluated
+[ ] Bi-LSTM implemented
+[ ] BERT implemented
+[ ] Models evaluated
+[ ] Confusion matrices generated
+[ ] Error analysis completed
+[ ] Best model selected
+[ ] Model artifact saved
+[ ] FastAPI implemented
+[ ] Express backend implemented
+[ ] MongoDB integrated
+[ ] React frontend implemented
+[ ] Full system integrated
+[ ] Testing completed
+[ ] Documentation completed
+[ ] Diagrams completed
+[ ] PPT completed
+[ ] Viva preparation completed
+
+============================================================
+78. FINAL PROJECT FLOW
+============================================================
+
+DATASET
+  ↓
+VALIDATION
+  ↓
+CLEANING
+  ↓
+EDA
+  ↓
+NLP PREPROCESSING
+  ↓
+FEATURE ENGINEERING
+  ↓
+┌──────────────────────────────────────┐
+│                                      │
+│       MODEL DEVELOPMENT              │
+│                                      │
+│  BoW + ML                            │
+│  TF-IDF + ML                         │
+│  GloVe + Bi-LSTM                     │
+│  BERT                                │
+│                                      │
+└──────────────────────────────────────┘
+  ↓
+MODEL COMPARISON
+  ↓
+ERROR ANALYSIS
+  ↓
+FINAL MODEL
+  ↓
+MODEL ARTIFACT
+  ↓
+FASTAPI
+  ↓
+EXPRESS
+  ↓
+MONGODB
+  ↓
+REACT
+  ↓
+FINAL WEB APPLICATION
+
+============================================================
+79. FINAL USER EXPERIENCE
+============================================================
+
+User opens application.
+
+User enters text.
+
+Example:
+
+"Great, another exam tomorrow."
+
+User clicks:
+
+ANALYZE
+
+React sends request to Express.
+
+Express sends request to FastAPI.
+
+FastAPI loads the final trained model.
+
+Model processes the text.
+
+Model returns:
+
+Predicted class
+Confidence
+Optional class probabilities
+
+Express optionally stores prediction history in MongoDB.
+
+React displays:
+
+Prediction:
+Sarcasm
+
+Confidence:
+XX%
+
+Model:
+Final selected model
+
+The application may additionally display NLP analysis and
+model/dataset analytics.
+
+============================================================
+80. NON-NEGOTIABLE PROJECT DECISIONS
+============================================================
+
+1. Project title remains:
+   Sarcasm & Irony Detection System using NLP
+
+2. Main classification task:
+   Four classes.
+
+3. Classes:
+   Regular
+   Sarcasm
+   Irony
+   Figurative
+
+4. Current dataset:
+   User-provided Kaggle four-class dataset.
+
+5. No Reddit dataset.
+
+6. No additional datasets.
+
+7. No dataset merging.
+
+8. React is the frontend.
+
+9. Node.js + Express is the application backend.
+
+10. MongoDB is the application database.
+
+11. Python FastAPI is the ML/NLP service.
+
+12. Classical ML:
+    Logistic Regression
+    Naive Bayes
+    Linear SVM
+
+13. Deep Learning:
+    Bi-LSTM
+
+14. Transformer:
+    BERT
+
+15. Primary traditional representation:
+    TF-IDF + N-grams
+
+16. Primary deep-learning embedding:
+    GloVe
+
+17. Evaluation:
+    Accuracy
+    Precision
+    Recall
+    Macro F1
+    Confusion Matrix
+
+18. Error analysis is mandatory.
+
+19. Training is offline.
+
+20. Prediction is through the saved model/API.
+
+21. Do not fabricate any result.
+
+22. Do not proceed to the next development phase until the current
+    phase is verified.
+
+============================================================
+81. MASTER DEVELOPMENT PRINCIPLE
+============================================================
+
+BUILD CORRECTLY BEFORE BUILDING BIG.
+
+The priority order is:
+
+1. Correct dataset
+2. Correct preprocessing
+3. Correct evaluation
+4. Correct ML models
+5. Correct model comparison
+6. Correct final model
+7. Correct API
+8. Correct frontend
+9. Correct integration
+10. Correct documentation
+
+Do not prioritize UI before the ML pipeline is reliable.
+
+Do not prioritize advanced models before the baseline works.
+
+Do not prioritize complexity over correctness.
+
+Every phase must produce a working, verifiable result.
+
+============================================================
+82. RESPONSE FORMAT FOR FUTURE PHASE PROMPTS
+============================================================
+
+When the user asks:
+
+"Give Phase X prompt"
+
+return a self-contained implementation prompt for that phase.
+
+Each phase prompt must include:
+
+1. Phase objective
+2. Context from master project
+3. Inputs
+4. Expected outputs
+5. Files/folders involved
+6. Technical requirements
+7. Implementation requirements
+8. Validation requirements
+9. Error handling
+10. Testing requirements
+11. Expected results
+12. Completion checklist
+13. Explicit instructions not to modify unrelated phases
+
+The phase prompt must be detailed enough that another AI coding
+assistant can execute that phase without needing to guess project
+requirements.
+
+============================================================
+83. END STATE
+============================================================
+
+The final system must be:
+
+A complete, research-oriented, four-class NLP sarcasm and irony
+detection system using the approved dataset, comparing classical
+machine learning, Bi-LSTM, and BERT, with a React + Node/Express +
+MongoDB application and a Python FastAPI ML service.
+
+The final project must be:
+
+- technically correct
+- academically defensible
+- reproducible
+- modular
+- testable
+- explainable during viva
+- suitable for MCA final-year evaluation
+- manageable in scope
+- free from unnecessary external datasets
+- free from fabricated results
+
+============================================================
+END OF MASTER PROMPT
+============================================================

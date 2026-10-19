@@ -1,0 +1,124 @@
+{
+  "phase": "Phase 5 \u2014 TF-IDF + Feature Engineering",
+  "total_experiments": 17,
+  "best_ngram": "(1, 1)",
+  "best_feature_set": "A",
+  "best_preprocessing": "classical",
+  "best_validation": {
+    "experiment_id": "TFIDF-01",
+    "model": "LogisticRegression",
+    "macro_f1": 0.6473
+  },
+  "test_results": [
+    {
+      "experiment_id": "TFIDF-01",
+      "split": "test",
+      "preprocessing_variant": "classical",
+      "feature_set": "A",
+      "ngram_range": "(1, 1)",
+      "min_df": 2,
+      "max_df": 0.95,
+      "sublinear_tf": true,
+      "model": "LogisticRegression",
+      "hyperparameters": "{'C': 0.1}",
+      "vocabulary_size": 28077,
+      "total_features": 28077,
+      "accuracy": 0.8583,
+      "macro_precision": 0.6969,
+      "macro_recall": 0.7473,
+      "macro_f1": 0.6918,
+      "regular_f1": 0.9957,
+      "sarcasm_f1": 0.8569,
+      "irony_f1": 0.9122,
+      "figurative_f1": 0.0026,
+      "training_time": 1.55,
+      "notes": "text_only_logisticregression"
+    },
+    {
+      "experiment_id": "TFIDF-05",
+      "split": "test",
+      "preprocessing_variant": "classical",
+      "feature_set": "A",
+      "ngram_range": "(1, 2)",
+      "min_df": 2,
+      "max_df": 0.95,
+      "sublinear_tf": true,
+      "model": "MultinomialNB",
+      "hyperparameters": "{'alpha': 1.0}",
+      "vocabulary_size": 50000,
+      "total_features": 50000,
+      "accuracy": 0.7574,
+      "macro_precision": 0.6852,
+      "macro_recall": 0.6845,
+      "macro_f1": 0.6837,
+      "regular_f1": 0.9346,
+      "sarcasm_f1": 0.7701,
+      "irony_f1": 0.7954,
+      "figurative_f1": 0.2348,
+      "training_time": 0.02,
+      "notes": "text_only_multinomialnb"
+    },
+    {
+      "experiment_id": "TFIDF-06",
+      "split": "test",
+      "preprocessing_variant": "classical",
+      "feature_set": "A",
+      "ngram_range": "(1, 1)",
+      "min_df": 2,
+      "max_df": 0.95,
+      "sublinear_tf": true,
+      "model": "LinearSVM",
+      "hyperparameters": "{'C': 0.1}",
+      "vocabulary_size": 28077,
+      "total_features": 28077,
+      "accuracy": 0.8565,
+      "macro_precision": 0.7505,
+      "macro_recall": 0.7482,
+      "macro_f1": 0.7002,
+      "regular_f1": 0.993,
+      "sarcasm_f1": 0.8547,
+      "irony_f1": 0.9108,
+      "figurative_f1": 0.0421,
+      "training_time": 0.81,
+      "notes": "text_only_linearsvm"
+    }
+  ],
+  "phase4_comparison": [
+    {
+      "Phase": "Phase 4 (BoW)",
+      "Model": "LogisticRegression",
+      "Accuracy": 0.8542,
+      "Macro F1": 0.7053
+    },
+    {
+      "Phase": "Phase 4 (BoW)",
+      "Model": "MultinomialNB",
+      "Accuracy": 0.7849,
+      "Macro F1": 0.6949
+    },
+    {
+      "Phase": "Phase 4 (BoW)",
+      "Model": "LinearSVM",
+      "Accuracy": 0.8457,
+      "Macro F1": 0.7187
+    },
+    {
+      "Phase": "Phase 5 (TF-IDF)",
+      "Model": "LogisticRegression (text_only_logisticregression)",
+      "Accuracy": 0.8583,
+      "Macro F1": 0.6918
+    },
+    {
+      "Phase": "Phase 5 (TF-IDF)",
+      "Model": "MultinomialNB (text_only_multinomialnb)",
+      "Accuracy": 0.7574,
+      "Macro F1": 0.6837
+    },
+    {
+      "Phase": "Phase 5 (TF-IDF)",
+      "Model": "LinearSVM (text_only_linearsvm)",
+      "Accuracy": 0.8565,
+      "Macro F1": 0.7002
+    }
+  ]
+}

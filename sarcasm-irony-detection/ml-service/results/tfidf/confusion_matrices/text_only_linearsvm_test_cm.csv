@@ -1,0 +1,5 @@
+Actual,Regular,Sarcasm,Irony,Figurative
+Regular,1857,1,0,0
+Sarcasm,11,1573,0,18
+Irony,8,0,1287,6
+Figurative,6,505,238,17

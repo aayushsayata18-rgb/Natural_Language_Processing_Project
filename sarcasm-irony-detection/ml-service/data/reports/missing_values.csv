@@ -1,0 +1,5 @@
+dataset,column,total_rows,missing_count,missing_pct
+train,tweets,81408,0,0.0
+train,class,81408,0,0.0
+test,tweets,8128,2,0.02
+test,class,8128,9,0.11

@@ -1,0 +1,7 @@
+Phase,Model,Accuracy,Macro F1
+Phase 4 (BoW),LogisticRegression,0.8542,0.7053
+Phase 4 (BoW),MultinomialNB,0.7849,0.6949
+Phase 4 (BoW),LinearSVM,0.8457,0.7187
+Phase 5 (TF-IDF),LogisticRegression (text_only_logisticregression),0.8583,0.6918
+Phase 5 (TF-IDF),MultinomialNB (text_only_multinomialnb),0.7574,0.6837
+Phase 5 (TF-IDF),LinearSVM (text_only_linearsvm),0.8565,0.7002

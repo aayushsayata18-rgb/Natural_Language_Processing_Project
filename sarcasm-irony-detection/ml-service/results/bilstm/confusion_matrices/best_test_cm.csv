@@ -1,0 +1,5 @@
+,Regular,Sarcasm,Irony,Figurative
+Regular,1858,0,0,0
+Sarcasm,0,1601,1,0
+Irony,1,0,1300,0
+Figurative,0,525,240,1

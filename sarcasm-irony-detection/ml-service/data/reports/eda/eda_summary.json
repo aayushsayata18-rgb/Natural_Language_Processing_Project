@@ -1,0 +1,1561 @@
+{
+  "dataset_overview": {
+    "train": {
+      "name": "Train",
+      "rows": 81359,
+      "columns": 3,
+      "column_names": [
+        "text",
+        "label",
+        "label_id"
+      ],
+      "dtypes": {
+        "text": "str",
+        "label": "str",
+        "label_id": "int64"
+      },
+      "memory_usage_bytes": 19827252,
+      "memory_usage_mb": 18.91,
+      "unique_labels": 4,
+      "unique_texts": 67997
+    },
+    "test": {
+      "name": "Test",
+      "rows": 5527,
+      "columns": 3,
+      "column_names": [
+        "text",
+        "label",
+        "label_id"
+      ],
+      "dtypes": {
+        "text": "str",
+        "label": "str",
+        "label_id": "int64"
+      },
+      "memory_usage_bytes": 1362839,
+      "memory_usage_mb": 1.3,
+      "unique_labels": 4,
+      "unique_texts": 5394
+    }
+  },
+  "quality_checks": {
+    "train": {
+      "dataset": "Train",
+      "total_rows": 81359,
+      "missing_text": 0,
+      "missing_label": 0,
+      "missing_label_id": 0,
+      "empty_strings": 0,
+      "whitespace_only": 0,
+      "duplicate_rows": 0,
+      "duplicate_texts": 13362,
+      "invalid_labels": 0,
+      "unique_labels_found": [
+        "Figurative",
+        "Irony",
+        "Regular",
+        "Sarcasm"
+      ],
+      "text_dtype": "str",
+      "label_dtype": "str",
+      "label_id_dtype": "int64",
+      "issues_found": 0,
+      "issues": [],
+      "quality_status": "CLEAN"
+    },
+    "test": {
+      "dataset": "Test",
+      "total_rows": 5527,
+      "missing_text": 0,
+      "missing_label": 0,
+      "missing_label_id": 0,
+      "empty_strings": 0,
+      "whitespace_only": 0,
+      "duplicate_rows": 0,
+      "duplicate_texts": 133,
+      "invalid_labels": 0,
+      "unique_labels_found": [
+        "Figurative",
+        "Irony",
+        "Regular",
+        "Sarcasm"
+      ],
+      "text_dtype": "str",
+      "label_dtype": "str",
+      "label_id_dtype": "int64",
+      "issues_found": 0,
+      "issues": [],
+      "quality_status": "CLEAN"
+    }
+  },
+  "class_distribution": {
+    "train": [
+      {
+        "Dataset": "Train",
+        "Class": "Regular",
+        "Count": 18569,
+        "Percentage": 22.82
+      },
+      {
+        "Dataset": "Train",
+        "Class": "Sarcasm",
+        "Count": 20678,
+        "Percentage": 25.42
+      },
+      {
+        "Dataset": "Train",
+        "Class": "Irony",
+        "Count": 20877,
+        "Percentage": 25.66
+      },
+      {
+        "Dataset": "Train",
+        "Class": "Figurative",
+        "Count": 21235,
+        "Percentage": 26.1
+      }
+    ],
+    "test": [
+      {
+        "Dataset": "Test",
+        "Class": "Regular",
+        "Count": 1858,
+        "Percentage": 33.62
+      },
+      {
+        "Dataset": "Test",
+        "Class": "Sarcasm",
+        "Count": 1602,
+        "Percentage": 28.98
+      },
+      {
+        "Dataset": "Test",
+        "Class": "Irony",
+        "Count": 1301,
+        "Percentage": 23.54
+      },
+      {
+        "Dataset": "Test",
+        "Class": "Figurative",
+        "Count": 766,
+        "Percentage": 13.86
+      }
+    ]
+  },
+  "class_balance": {
+    "train": {
+      "majority_class": "Figurative",
+      "minority_class": "Regular",
+      "majority_count": 21235,
+      "minority_count": 18569,
+      "majority_minority_ratio": 1.14,
+      "balance_category": "approximately balanced",
+      "implication": "Accuracy is a useful metric, but Macro F1 should still be reported to ensure all classes are evaluated fairly."
+    },
+    "test": {
+      "majority_class": "Regular",
+      "minority_class": "Figurative",
+      "majority_count": 1858,
+      "minority_count": 766,
+      "majority_minority_ratio": 2.43,
+      "balance_category": "heavily imbalanced",
+      "implication": "Accuracy is unreliable. Use Macro F1, per-class metrics, and confusion matrices. Stratified sampling and class weighting are strongly recommended."
+    }
+  },
+  "text_length_statistics": {
+    "character_count": {
+      "overall": {
+        "min": 6,
+        "max": 161,
+        "mean": 102.45,
+        "median": 107.0,
+        "std": 30.71,
+        "q1": 78.0,
+        "q3": 132.0,
+        "iqr": 54.0
+      },
+      "by_class": [
+        {
+          "Class": "Regular",
+          "Count": 18569,
+          "Min": 19,
+          "Max": 156,
+          "Mean": 111.85,
+          "Median": 120.0,
+          "Std": 26.78,
+          "Q1": 94.0,
+          "Q3": 135.0
+        },
+        {
+          "Class": "Sarcasm",
+          "Count": 20678,
+          "Min": 8,
+          "Max": 161,
+          "Mean": 95.56,
+          "Median": 96.0,
+          "Std": 31.38,
+          "Q1": 70.0,
+          "Q3": 125.0
+        },
+        {
+          "Class": "Irony",
+          "Count": 20877,
+          "Min": 6,
+          "Max": 152,
+          "Mean": 103.89,
+          "Median": 109.0,
+          "Std": 30.5,
+          "Q1": 79.0,
+          "Q3": 133.0
+        },
+        {
+          "Class": "Figurative",
+          "Count": 21235,
+          "Min": 6,
+          "Max": 161,
+          "Mean": 99.53,
+          "Median": 103.0,
+          "Std": 31.27,
+          "Q1": 74.0,
+          "Q3": 129.0
+        }
+      ]
+    },
+    "word_count": {
+      "overall": {
+        "min": 1,
+        "max": 35,
+        "mean": 15.15,
+        "median": 15.0,
+        "std": 5.36,
+        "q1": 11.0,
+        "q3": 19.0,
+        "iqr": 8.0
+      },
+      "by_class": [
+        {
+          "Class": "Regular",
+          "Count": 18569,
+          "Min": 3,
+          "Max": 35,
+          "Mean": 14.34,
+          "Median": 14.0,
+          "Std": 4.44,
+          "Q1": 11.0,
+          "Q3": 17.0
+        },
+        {
+          "Class": "Sarcasm",
+          "Count": 20678,
+          "Min": 1,
+          "Max": 32,
+          "Mean": 14.65,
+          "Median": 14.0,
+          "Std": 5.54,
+          "Q1": 10.0,
+          "Q3": 19.0
+        },
+        {
+          "Class": "Irony",
+          "Count": 20877,
+          "Min": 1,
+          "Max": 34,
+          "Mean": 16.15,
+          "Median": 16.0,
+          "Std": 5.52,
+          "Q1": 12.0,
+          "Q3": 20.0
+        },
+        {
+          "Class": "Figurative",
+          "Count": 21235,
+          "Min": 1,
+          "Max": 34,
+          "Mean": 15.38,
+          "Median": 15.0,
+          "Std": 5.59,
+          "Q1": 11.0,
+          "Q3": 20.0
+        }
+      ]
+    },
+    "punctuation_count": {
+      "overall": {
+        "min": 1,
+        "max": 66,
+        "mean": 7.61,
+        "median": 7.0,
+        "std": 4.37,
+        "q1": 4.0,
+        "q3": 10.0,
+        "iqr": 6.0
+      },
+      "by_class": [
+        {
+          "Class": "Regular",
+          "Count": 18569,
+          "Min": 1,
+          "Max": 66,
+          "Mean": 11.2,
+          "Median": 11.0,
+          "Std": 4.65,
+          "Q1": 8.0,
+          "Q3": 14.0
+        },
+        {
+          "Class": "Sarcasm",
+          "Count": 20678,
+          "Min": 1,
+          "Max": 61,
+          "Mean": 6.51,
+          "Median": 6.0,
+          "Std": 3.67,
+          "Q1": 4.0,
+          "Q3": 9.0
+        },
+        {
+          "Class": "Irony",
+          "Count": 20877,
+          "Min": 1,
+          "Max": 27,
+          "Mean": 6.6,
+          "Median": 6.0,
+          "Std": 3.69,
+          "Q1": 4.0,
+          "Q3": 9.0
+        },
+        {
+          "Class": "Figurative",
+          "Count": 21235,
+          "Min": 1,
+          "Max": 56,
+          "Mean": 6.53,
+          "Median": 6.0,
+          "Std": 3.65,
+          "Q1": 4.0,
+          "Q3": 9.0
+        }
+      ]
+    }
+  },
+  "outlier_analysis": {
+    "character_count": {
+      "column": "character_count",
+      "q1": 78.0,
+      "q3": 132.0,
+      "iqr": 54.0,
+      "lower_bound": -3.0,
+      "upper_bound": 213.0,
+      "low_outlier_count": 0,
+      "high_outlier_count": 0,
+      "total_outliers": 0,
+      "outlier_percentage": 0.0,
+      "outlier_class_distribution": {}
+    },
+    "word_count": {
+      "column": "word_count",
+      "q1": 11.0,
+      "q3": 19.0,
+      "iqr": 8.0,
+      "lower_bound": -1.0,
+      "upper_bound": 31.0,
+      "low_outlier_count": 0,
+      "high_outlier_count": 14,
+      "total_outliers": 14,
+      "outlier_percentage": 0.02,
+      "outlier_class_distribution": {
+        "Irony": 6,
+        "Figurative": 4,
+        "Regular": 2,
+        "Sarcasm": 2
+      },
+      "extreme_high_samples": [
+        {
+          "text": "Thanks to #GOPDebate candidates, I learned that George W. Bush KEPT US SAFE ! *\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n*Except for 9/11, Iraq War, &amp; ISIS",
+          "label": "Regular",
+          "word_count": 35
+        },
+        {
+          "text": "I left my bag that had my pdm in it at the red sox game last night, and when i went in to get it I had to drive right past my Dr.'s #irony",
+          "label": "Figurative",
+          "word_count": 34
+        },
+        {
+          "text": "My lungs are so bad that I have to have a central line in my arm, but I can't get it wet so I had to RUN 5 blocks home in the rain #ironic",
+          "label": "Figurative",
+          "word_count": 34
+        }
+      ]
+    },
+    "punctuation_count": {
+      "column": "punctuation_count",
+      "q1": 4.0,
+      "q3": 10.0,
+      "iqr": 6.0,
+      "lower_bound": -5.0,
+      "upper_bound": 19.0,
+      "low_outlier_count": 0,
+      "high_outlier_count": 1261,
+      "total_outliers": 1261,
+      "outlier_percentage": 1.55,
+      "outlier_class_distribution": {
+        "Regular": 1077,
+        "Irony": 69,
+        "Sarcasm": 61,
+        "Figurative": 54
+      },
+      "extreme_high_samples": [
+        {
+          "text": "@anna2011rm Thanks Anna! :):):):):) ***** #Friend!! :):):):):) ***** #BeautifulClearSkies! :):):):):) ***** #Love :):):) #Peace :):):)",
+          "label": "Regular",
+          "punctuation_count": 66
+        },
+        {
+          "text": "National #Sarcasm Society\n========================= \nhttp://t.co/xjcu2rawnT \n=========================… https://t.co/Fr92U98pCV",
+          "label": "Sarcasm",
+          "punctuation_count": 61
+        },
+        {
+          "text": "Do the same at least ... http://t.co/COFwczN8kv ............................................  #genuine  #interesting  #ShortSquid  #sarcasm",
+          "label": "Figurative",
+          "punctuation_count": 56
+        }
+      ]
+    }
+  },
+  "social_media_analysis": {
+    "urls": {
+      "total_tweets": 81359,
+      "tweets_with_urls": 30623,
+      "percentage_with_urls": 37.64,
+      "by_class": [
+        {
+          "class": "Regular",
+          "count": 14706,
+          "total": 18569,
+          "percentage": 79.2
+        },
+        {
+          "class": "Sarcasm",
+          "count": 4891,
+          "total": 20678,
+          "percentage": 23.65
+        },
+        {
+          "class": "Irony",
+          "count": 5703,
+          "total": 20877,
+          "percentage": 27.32
+        },
+        {
+          "class": "Figurative",
+          "count": 5323,
+          "total": 21235,
+          "percentage": 25.07
+        }
+      ]
+    },
+    "mentions": {
+      "total_tweets": 81359,
+      "tweets_with_mentions": 27379,
+      "percentage_with_mentions": 33.65,
+      "avg_mentions_per_tweet": 0.51,
+      "by_class": [
+        {
+          "class": "Regular",
+          "count": 3499,
+          "total": 18569,
+          "percentage": 18.84
+        },
+        {
+          "class": "Sarcasm",
+          "count": 8399,
+          "total": 20678,
+          "percentage": 40.62
+        },
+        {
+          "class": "Irony",
+          "count": 7385,
+          "total": 20877,
+          "percentage": 35.37
+        },
+        {
+          "class": "Figurative",
+          "count": 8096,
+          "total": 21235,
+          "percentage": 38.13
+        }
+      ],
+      "avg_by_class": [
+        {
+          "class": "Regular",
+          "mean": 0.2809
+        },
+        {
+          "class": "Sarcasm",
+          "mean": 0.5998
+        },
+        {
+          "class": "Irony",
+          "mean": 0.544
+        },
+        {
+          "class": "Figurative",
+          "mean": 0.5714
+        }
+      ]
+    },
+    "hashtags": {
+      "total_tweets": 81359,
+      "tweets_with_hashtags": 81346,
+      "percentage_with_hashtags": 99.98,
+      "avg_hashtags_per_tweet": 2.2,
+      "top_hashtags": [
+        {
+          "hashtag": "#sarcasm",
+          "count": 29733
+        },
+        {
+          "hashtag": "#irony",
+          "count": 23704
+        },
+        {
+          "hashtag": "#ironic",
+          "count": 7868
+        },
+        {
+          "hashtag": "#news",
+          "count": 2770
+        },
+        {
+          "hashtag": "#humor",
+          "count": 2757
+        },
+        {
+          "hashtag": "#peace",
+          "count": 2705
+        },
+        {
+          "hashtag": "#education",
+          "count": 2640
+        },
+        {
+          "hashtag": "#politics",
+          "count": 2541
+        },
+        {
+          "hashtag": "#late",
+          "count": 2539
+        },
+        {
+          "hashtag": "#drugs",
+          "count": 2425
+        },
+        {
+          "hashtag": "#gopdebate",
+          "count": 1785
+        },
+        {
+          "hashtag": "#sarcastic",
+          "count": 1680
+        },
+        {
+          "hashtag": "#funny",
+          "count": 1473
+        },
+        {
+          "hashtag": "#lol",
+          "count": 923
+        },
+        {
+          "hashtag": "#love",
+          "count": 623
+        },
+        {
+          "hashtag": "#tech",
+          "count": 527
+        },
+        {
+          "hashtag": "#inspirational",
+          "count": 444
+        },
+        {
+          "hashtag": "#design",
+          "count": 427
+        },
+        {
+          "hashtag": "#gop",
+          "count": 405
+        },
+        {
+          "hashtag": "#tcot",
+          "count": 395
+        }
+      ],
+      "by_class": [
+        {
+          "class": "Regular",
+          "count": 18568,
+          "total": 18569,
+          "percentage": 99.99
+        },
+        {
+          "class": "Sarcasm",
+          "count": 20674,
+          "total": 20678,
+          "percentage": 99.98
+        },
+        {
+          "class": "Irony",
+          "count": 20872,
+          "total": 20877,
+          "percentage": 99.98
+        },
+        {
+          "class": "Figurative",
+          "count": 21232,
+          "total": 21235,
+          "percentage": 99.99
+        }
+      ],
+      "avg_by_class": [
+        {
+          "class": "Regular",
+          "mean": 3.3931
+        },
+        {
+          "class": "Sarcasm",
+          "mean": 1.812
+        },
+        {
+          "class": "Irony",
+          "mean": 1.8776
+        },
+        {
+          "class": "Figurative",
+          "mean": 1.8344
+        }
+      ]
+    },
+    "emojis": {
+      "total_tweets": 81359,
+      "tweets_with_emojis": 5469,
+      "percentage_with_emojis": 6.72,
+      "avg_emojis_per_tweet": 0.15,
+      "by_class": [
+        {
+          "class": "Regular",
+          "count": 1154,
+          "total": 18569,
+          "percentage": 6.21
+        },
+        {
+          "class": "Sarcasm",
+          "count": 1713,
+          "total": 20678,
+          "percentage": 8.28
+        },
+        {
+          "class": "Irony",
+          "count": 1189,
+          "total": 20877,
+          "percentage": 5.7
+        },
+        {
+          "class": "Figurative",
+          "count": 1413,
+          "total": 21235,
+          "percentage": 6.65
+        }
+      ],
+      "top_emojis": [
+        {
+          "emoji": "😂",
+          "count": 2513
+        },
+        {
+          "emoji": "😊",
+          "count": 663
+        },
+        {
+          "emoji": "😒",
+          "count": 413
+        },
+        {
+          "emoji": "🏼",
+          "count": 265
+        },
+        {
+          "emoji": "👍",
+          "count": 235
+        },
+        {
+          "emoji": "😁",
+          "count": 216
+        },
+        {
+          "emoji": "❤",
+          "count": 212
+        },
+        {
+          "emoji": "🏻",
+          "count": 207
+        },
+        {
+          "emoji": "✌",
+          "count": 199
+        },
+        {
+          "emoji": "😑",
+          "count": 191
+        },
+        {
+          "emoji": "😅",
+          "count": 186
+        },
+        {
+          "emoji": "😭",
+          "count": 177
+        },
+        {
+          "emoji": "👌",
+          "count": 175
+        },
+        {
+          "emoji": "☺",
+          "count": 175
+        },
+        {
+          "emoji": "👏",
+          "count": 165
+        }
+      ]
+    },
+    "punctuation": {
+      "exclamation_count": {
+        "tweets_with_feature": 12205,
+        "percentage": 15.0,
+        "avg_per_tweet": 0.23,
+        "by_class": [
+          {
+            "class": "Regular",
+            "count": 2059,
+            "total": 18569,
+            "percentage": 11.09
+          },
+          {
+            "class": "Sarcasm",
+            "count": 4233,
+            "total": 20678,
+            "percentage": 20.47
+          },
+          {
+            "class": "Irony",
+            "count": 2488,
+            "total": 20877,
+            "percentage": 11.92
+          },
+          {
+            "class": "Figurative",
+            "count": 3425,
+            "total": 21235,
+            "percentage": 16.13
+          }
+        ],
+        "avg_by_class": [
+          {
+            "class": "Regular",
+            "mean": 0.1632
+          },
+          {
+            "class": "Sarcasm",
+            "mean": 0.3314
+          },
+          {
+            "class": "Irony",
+            "mean": 0.1691
+          },
+          {
+            "class": "Figurative",
+            "mean": 0.2503
+          }
+        ]
+      },
+      "question_count": {
+        "tweets_with_feature": 10055,
+        "percentage": 12.36,
+        "avg_per_tweet": 0.16,
+        "by_class": [
+          {
+            "class": "Regular",
+            "count": 1477,
+            "total": 18569,
+            "percentage": 7.95
+          },
+          {
+            "class": "Sarcasm",
+            "count": 3071,
+            "total": 20678,
+            "percentage": 14.85
+          },
+          {
+            "class": "Irony",
+            "count": 2571,
+            "total": 20877,
+            "percentage": 12.31
+          },
+          {
+            "class": "Figurative",
+            "count": 2936,
+            "total": 21235,
+            "percentage": 13.83
+          }
+        ],
+        "avg_by_class": [
+          {
+            "class": "Regular",
+            "mean": 0.0938
+          },
+          {
+            "class": "Sarcasm",
+            "mean": 0.1981
+          },
+          {
+            "class": "Irony",
+            "mean": 0.1508
+          },
+          {
+            "class": "Figurative",
+            "mean": 0.1774
+          }
+        ]
+      },
+      "ellipsis_count": {
+        "tweets_with_feature": 10241,
+        "percentage": 12.59,
+        "avg_per_tweet": 0.14,
+        "by_class": [
+          {
+            "class": "Regular",
+            "count": 2220,
+            "total": 18569,
+            "percentage": 11.96
+          },
+          {
+            "class": "Sarcasm",
+            "count": 2734,
+            "total": 20678,
+            "percentage": 13.22
+          },
+          {
+            "class": "Irony",
+            "count": 2560,
+            "total": 20877,
+            "percentage": 12.26
+          },
+          {
+            "class": "Figurative",
+            "count": 2727,
+            "total": 21235,
+            "percentage": 12.84
+          }
+        ],
+        "avg_by_class": [
+          {
+            "class": "Regular",
+            "mean": 0.1289
+          },
+          {
+            "class": "Sarcasm",
+            "mean": 0.1515
+          },
+          {
+            "class": "Irony",
+            "mean": 0.1378
+          },
+          {
+            "class": "Figurative",
+            "mean": 0.1478
+          }
+        ]
+      },
+      "repeated_punct_count": {
+        "tweets_with_feature": 3358,
+        "percentage": 4.13,
+        "avg_per_tweet": 0.05,
+        "by_class": [
+          {
+            "class": "Regular",
+            "count": 422,
+            "total": 18569,
+            "percentage": 2.27
+          },
+          {
+            "class": "Sarcasm",
+            "count": 1238,
+            "total": 20678,
+            "percentage": 5.99
+          },
+          {
+            "class": "Irony",
+            "count": 700,
+            "total": 20877,
+            "percentage": 3.35
+          },
+          {
+            "class": "Figurative",
+            "count": 998,
+            "total": 21235,
+            "percentage": 4.7
+          }
+        ],
+        "avg_by_class": [
+          {
+            "class": "Regular",
+            "mean": 0.0249
+          },
+          {
+            "class": "Sarcasm",
+            "mean": 0.0697
+          },
+          {
+            "class": "Irony",
+            "mean": 0.0362
+          },
+          {
+            "class": "Figurative",
+            "mean": 0.0529
+          }
+        ]
+      }
+    },
+    "capitalization": {
+      "avg_uppercase_ratio": 0.0926,
+      "tweets_with_allcaps_words": 18581,
+      "pct_with_allcaps_words": 22.84,
+      "uppercase_ratio_by_class": [
+        {
+          "class": "Regular",
+          "mean": 0.1346
+        },
+        {
+          "class": "Sarcasm",
+          "mean": 0.0813
+        },
+        {
+          "class": "Irony",
+          "mean": 0.0792
+        },
+        {
+          "class": "Figurative",
+          "mean": 0.08
+        }
+      ],
+      "allcaps_by_class": [
+        {
+          "class": "Regular",
+          "count": 5470,
+          "total": 18569,
+          "percentage": 29.46
+        },
+        {
+          "class": "Sarcasm",
+          "count": 4166,
+          "total": 20678,
+          "percentage": 20.15
+        },
+        {
+          "class": "Irony",
+          "count": 4468,
+          "total": 20877,
+          "percentage": 21.4
+        },
+        {
+          "class": "Figurative",
+          "count": 4477,
+          "total": 21235,
+          "percentage": 21.08
+        }
+      ]
+    },
+    "repeated_characters": {
+      "total_tweets": 81359,
+      "tweets_with_repeated_chars": 12681,
+      "percentage_with_repeated_chars": 15.59,
+      "by_class": [
+        {
+          "class": "Regular",
+          "count": 2717,
+          "total": 18569,
+          "percentage": 14.63
+        },
+        {
+          "class": "Sarcasm",
+          "count": 3651,
+          "total": 20678,
+          "percentage": 17.66
+        },
+        {
+          "class": "Irony",
+          "count": 2931,
+          "total": 20877,
+          "percentage": 14.04
+        },
+        {
+          "class": "Figurative",
+          "count": 3382,
+          "total": 21235,
+          "percentage": 15.93
+        }
+      ]
+    }
+  },
+  "stopword_analysis": {
+    "raw_top_words": [
+      {
+        "word": "the",
+        "count": 34468
+      },
+      {
+        "word": "#sarcasm",
+        "count": 29733
+      },
+      {
+        "word": "to",
+        "count": 25028
+      },
+      {
+        "word": "#irony",
+        "count": 23704
+      },
+      {
+        "word": "of",
+        "count": 15097
+      },
+      {
+        "word": "is",
+        "count": 14179
+      },
+      {
+        "word": "in",
+        "count": 13588
+      },
+      {
+        "word": "and",
+        "count": 13103
+      },
+      {
+        "word": "you",
+        "count": 12071
+      },
+      {
+        "word": "for",
+        "count": 11166
+      },
+      {
+        "word": "it",
+        "count": 10881
+      },
+      {
+        "word": "that",
+        "count": 10068
+      },
+      {
+        "word": "on",
+        "count": 9975
+      },
+      {
+        "word": "#ironic",
+        "count": 7868
+      },
+      {
+        "word": "my",
+        "count": 7588
+      },
+      {
+        "word": "this",
+        "count": 6459
+      },
+      {
+        "word": "so",
+        "count": 5571
+      },
+      {
+        "word": "are",
+        "count": 5479
+      },
+      {
+        "word": "be",
+        "count": 5355
+      },
+      {
+        "word": "with",
+        "count": 5322
+      }
+    ],
+    "no_stopwords_top_words": [
+      {
+        "word": "#sarcasm",
+        "count": 29733
+      },
+      {
+        "word": "#irony",
+        "count": 23704
+      },
+      {
+        "word": "#ironic",
+        "count": 7868
+      },
+      {
+        "word": "amp",
+        "count": 3482
+      },
+      {
+        "word": "like",
+        "count": 3336
+      },
+      {
+        "word": "people",
+        "count": 3236
+      },
+      {
+        "word": "#news",
+        "count": 2770
+      },
+      {
+        "word": "get",
+        "count": 2758
+      },
+      {
+        "word": "#humor",
+        "count": 2757
+      },
+      {
+        "word": "love",
+        "count": 2732
+      },
+      {
+        "word": "#peace",
+        "count": 2705
+      },
+      {
+        "word": "#education",
+        "count": 2640
+      },
+      {
+        "word": "one",
+        "count": 2552
+      },
+      {
+        "word": "#politics",
+        "count": 2541
+      },
+      {
+        "word": "#late",
+        "count": 2539
+      },
+      {
+        "word": "day",
+        "count": 2501
+      },
+      {
+        "word": "#drugs",
+        "count": 2425
+      },
+      {
+        "word": "good",
+        "count": 2226
+      },
+      {
+        "word": "know",
+        "count": 2029
+      },
+      {
+        "word": "time",
+        "count": 1951
+      }
+    ],
+    "stopwords_available": true,
+    "stopword_count": 198
+  },
+  "vocabulary_analysis": {
+    "total_vocabulary_size": 71805,
+    "total_word_occurrences": 1099917,
+    "rare_words_count": 49351,
+    "rare_words_percentage": 68.73,
+    "common_vocabulary_size": 8865,
+    "class_vocabulary_sizes": {
+      "Regular": 33169,
+      "Sarcasm": 28946,
+      "Irony": 33875,
+      "Figurative": 32634
+    },
+    "class_specific_words": {
+      "Regular": 16840,
+      "Sarcasm": 8992,
+      "Irony": 9082,
+      "Figurative": 4886
+    },
+    "most_frequent_words": [
+      {
+        "word": "the",
+        "count": 34468
+      },
+      {
+        "word": "#sarcasm",
+        "count": 29733
+      },
+      {
+        "word": "to",
+        "count": 25028
+      },
+      {
+        "word": "#irony",
+        "count": 23704
+      },
+      {
+        "word": "of",
+        "count": 15097
+      },
+      {
+        "word": "is",
+        "count": 14179
+      },
+      {
+        "word": "in",
+        "count": 13588
+      },
+      {
+        "word": "and",
+        "count": 13103
+      },
+      {
+        "word": "you",
+        "count": 12071
+      },
+      {
+        "word": "for",
+        "count": 11166
+      },
+      {
+        "word": "it",
+        "count": 10881
+      },
+      {
+        "word": "that",
+        "count": 10068
+      },
+      {
+        "word": "on",
+        "count": 9975
+      },
+      {
+        "word": "#ironic",
+        "count": 7868
+      },
+      {
+        "word": "my",
+        "count": 7588
+      },
+      {
+        "word": "this",
+        "count": 6459
+      },
+      {
+        "word": "so",
+        "count": 5571
+      },
+      {
+        "word": "are",
+        "count": 5479
+      },
+      {
+        "word": "be",
+        "count": 5355
+      },
+      {
+        "word": "with",
+        "count": 5322
+      }
+    ]
+  },
+  "text_repetition": {
+    "duplicate_texts": 13362,
+    "rows_in_duplicates": 26724
+  },
+  "tfidf_distinctive_terms": {
+    "Regular": [
+      {
+        "term": "late",
+        "tfidf_score": 0.0454
+      },
+      {
+        "term": "peace",
+        "tfidf_score": 0.0428
+      },
+      {
+        "term": "humor",
+        "tfidf_score": 0.0379
+      },
+      {
+        "term": "drugs",
+        "tfidf_score": 0.0369
+      },
+      {
+        "term": "education",
+        "tfidf_score": 0.0369
+      },
+      {
+        "term": "news",
+        "tfidf_score": 0.0358
+      },
+      {
+        "term": "politics",
+        "tfidf_score": 0.0333
+      },
+      {
+        "term": "gopdebate",
+        "tfidf_score": 0.022
+      },
+      {
+        "term": "funny",
+        "tfidf_score": 0.0125
+      },
+      {
+        "term": "amp",
+        "tfidf_score": 0.0113
+      },
+      {
+        "term": "love",
+        "tfidf_score": 0.0111
+      },
+      {
+        "term": "lol",
+        "tfidf_score": 0.0108
+      },
+      {
+        "term": "design",
+        "tfidf_score": 0.0095
+      },
+      {
+        "term": "new",
+        "tfidf_score": 0.0088
+      },
+      {
+        "term": "tech",
+        "tfidf_score": 0.0087
+      }
+    ],
+    "Sarcasm": [
+      {
+        "term": "sarcasm",
+        "tfidf_score": 0.1416
+      },
+      {
+        "term": "sarcastic",
+        "tfidf_score": 0.02
+      },
+      {
+        "term": "just",
+        "tfidf_score": 0.0179
+      },
+      {
+        "term": "love",
+        "tfidf_score": 0.0173
+      },
+      {
+        "term": "great",
+        "tfidf_score": 0.0141
+      },
+      {
+        "term": "like",
+        "tfidf_score": 0.0138
+      },
+      {
+        "term": "good",
+        "tfidf_score": 0.0134
+      },
+      {
+        "term": "oh",
+        "tfidf_score": 0.0117
+      },
+      {
+        "term": "know",
+        "tfidf_score": 0.0113
+      },
+      {
+        "term": "people",
+        "tfidf_score": 0.0113
+      },
+      {
+        "term": "really",
+        "tfidf_score": 0.0111
+      },
+      {
+        "term": "don",
+        "tfidf_score": 0.0111
+      },
+      {
+        "term": "day",
+        "tfidf_score": 0.0104
+      },
+      {
+        "term": "thanks",
+        "tfidf_score": 0.0093
+      },
+      {
+        "term": "right",
+        "tfidf_score": 0.0087
+      }
+    ],
+    "Irony": [
+      {
+        "term": "irony",
+        "tfidf_score": 0.1151
+      },
+      {
+        "term": "ironic",
+        "tfidf_score": 0.0562
+      },
+      {
+        "term": "just",
+        "tfidf_score": 0.0146
+      },
+      {
+        "term": "people",
+        "tfidf_score": 0.013
+      },
+      {
+        "term": "amp",
+        "tfidf_score": 0.0114
+      },
+      {
+        "term": "like",
+        "tfidf_score": 0.0107
+      },
+      {
+        "term": "day",
+        "tfidf_score": 0.0086
+      },
+      {
+        "term": "don",
+        "tfidf_score": 0.0084
+      },
+      {
+        "term": "lol",
+        "tfidf_score": 0.0076
+      },
+      {
+        "term": "today",
+        "tfidf_score": 0.0069
+      },
+      {
+        "term": "time",
+        "tfidf_score": 0.0068
+      },
+      {
+        "term": "life",
+        "tfidf_score": 0.0067
+      },
+      {
+        "term": "funny",
+        "tfidf_score": 0.0066
+      },
+      {
+        "term": "love",
+        "tfidf_score": 0.0065
+      },
+      {
+        "term": "know",
+        "tfidf_score": 0.0063
+      }
+    ],
+    "Figurative": [
+      {
+        "term": "sarcasm",
+        "tfidf_score": 0.071
+      },
+      {
+        "term": "irony",
+        "tfidf_score": 0.0562
+      },
+      {
+        "term": "ironic",
+        "tfidf_score": 0.0301
+      },
+      {
+        "term": "just",
+        "tfidf_score": 0.0156
+      },
+      {
+        "term": "like",
+        "tfidf_score": 0.012
+      },
+      {
+        "term": "people",
+        "tfidf_score": 0.0117
+      },
+      {
+        "term": "love",
+        "tfidf_score": 0.0115
+      },
+      {
+        "term": "don",
+        "tfidf_score": 0.01
+      },
+      {
+        "term": "good",
+        "tfidf_score": 0.0097
+      },
+      {
+        "term": "day",
+        "tfidf_score": 0.0094
+      },
+      {
+        "term": "sarcastic",
+        "tfidf_score": 0.0093
+      },
+      {
+        "term": "amp",
+        "tfidf_score": 0.0089
+      },
+      {
+        "term": "know",
+        "tfidf_score": 0.0087
+      },
+      {
+        "term": "great",
+        "tfidf_score": 0.0086
+      },
+      {
+        "term": "oh",
+        "tfidf_score": 0.0084
+      }
+    ]
+  },
+  "sentiment_note": "Sentiment analysis is optional and exploratory only. It is NOT a target variable. Sarcasm often involves positive wording with negative intent, which simple sentiment tools misinterpret. This observation informs preprocessing decisions.",
+  "research_observations": [
+    {
+      "pattern": "Positive words in sarcasm",
+      "details": "Sarcasm class contains positive-looking words: {'love': 1408, 'great': 947, 'wonderful': 104, 'amazing': 110, 'best': 420}",
+      "implication": "Confirms that sarcasm uses verbal irony (positive wording, negative intent)"
+    },
+    {
+      "pattern": "Exaggeration in Sarcasm",
+      "details": "'so ' appears in 2,118 Sarcasm tweets",
+      "implication": "Exaggeration may serve as a sarcasm/irony signal"
+    },
+    {
+      "pattern": "Exaggeration in Irony",
+      "details": "'so ' appears in 1,436 Irony tweets",
+      "implication": "Exaggeration may serve as a sarcasm/irony signal"
+    }
+  ],
+  "phase": "Phase 2 — Exploratory Data Analysis",
+  "project": "Sarcasm & Irony Detection System",
+  "timestamp": "2026-08-15T00:16:31.179739",
+  "train_records": 81359,
+  "test_records": 5527,
+  "total_records": 86886
+}

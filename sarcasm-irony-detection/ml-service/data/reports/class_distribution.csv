@@ -1,0 +1,10 @@
+dataset,label,count,percentage
+train_original,figurative,21238,26.09
+train_original,irony,20894,25.67
+train_original,sarcasm,20681,25.4
+train_original,regular,18595,22.84
+test_original,irony,2111,25.97
+test_original,sarcasm,2105,25.9
+test_original,figurative,2044,25.15
+test_original,regular,1859,22.87
+test_original,NaN,9,0.11

@@ -1,0 +1,4 @@
+Phase,Model,Representation,Accuracy,Macro_F1
+Phase 4,BoW + LinearSVM,Bag of Words,0.8457,0.7187
+Phase 5,TF-IDF + LinearSVM,TF-IDF,0.8565,0.7002
+Phase 6,GloVe + Bi-LSTM (BILSTM-02),GloVe + Bi-LSTM,0.8612,0.694

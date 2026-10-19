@@ -1,0 +1,5 @@
+Class,Record Count,Percentage (%),Mean Words,Median Words,Mean Chars,Median Chars,URL %,Mention %,Hashtag %,Emoji %,Exclamation %,Question %,Uppercase Ratio,AllCaps Words %,Repeated Chars %
+Regular,18569,22.82,14.3,14.0,111.9,120.0,79.2,18.8,100.0,6.2,11.1,8.0,0.1346,29.5,14.6
+Sarcasm,20678,25.42,14.6,14.0,95.6,96.0,23.7,40.6,100.0,8.3,20.5,14.9,0.0813,20.1,17.7
+Irony,20877,25.66,16.1,16.0,103.9,109.0,27.3,35.4,100.0,5.7,11.9,12.3,0.0792,21.4,14.0
+Figurative,21235,26.1,15.4,15.0,99.5,103.0,25.1,38.1,100.0,6.7,16.1,13.8,0.08,21.1,15.9

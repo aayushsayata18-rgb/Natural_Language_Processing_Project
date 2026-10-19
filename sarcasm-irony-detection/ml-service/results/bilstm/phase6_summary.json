@@ -1,0 +1,83 @@
+{
+  "phase": "Phase 6 \u2014 GloVe + Bi-LSTM",
+  "framework": "PyTorch 2.14.0+cpu",
+  "device": "cpu",
+  "glove": {
+    "source": "Stanford NLP glove.6B.100d",
+    "dimension": 100,
+    "coverage_pct": 47.37
+  },
+  "tokenizer": {
+    "vocabulary_size": 30002,
+    "max_sequence_length": 30,
+    "mean_sequence_length": 15.2,
+    "median_sequence_length": 15,
+    "pct_truncated": 0.04,
+    "pct_padded": 99.88
+  },
+  "best_experiment": {
+    "id": "BILSTM-02",
+    "config": {
+      "id": "BILSTM-02",
+      "description": "Fine-tuned GloVe, LSTM 64",
+      "lstm_units": 64,
+      "dense_units": 64,
+      "dropout": 0.3,
+      "embedding_trainable": true
+    },
+    "val_macro_f1": 0.6474
+  },
+  "test_results": {
+    "accuracy": 0.8612,
+    "macro_f1": 0.694,
+    "per_class": {
+      "Regular": {
+        "precision": 0.9995,
+        "recall": 1.0,
+        "f1": 0.9997,
+        "support": 1858
+      },
+      "Sarcasm": {
+        "precision": 0.7531,
+        "recall": 0.9994,
+        "f1": 0.8589,
+        "support": 1602
+      },
+      "Irony": {
+        "precision": 0.8436,
+        "recall": 0.9992,
+        "f1": 0.9148,
+        "support": 1301
+      },
+      "Figurative": {
+        "precision": 1.0,
+        "recall": 0.0013,
+        "f1": 0.0026,
+        "support": 766
+      }
+    }
+  },
+  "phase_comparison": [
+    {
+      "Phase": "Phase 4",
+      "Model": "BoW + LinearSVM",
+      "Representation": "Bag of Words",
+      "Accuracy": 0.8457,
+      "Macro_F1": 0.7187
+    },
+    {
+      "Phase": "Phase 5",
+      "Model": "TF-IDF + LinearSVM",
+      "Representation": "TF-IDF",
+      "Accuracy": 0.8565,
+      "Macro_F1": 0.7002
+    },
+    {
+      "Phase": "Phase 6",
+      "Model": "GloVe + Bi-LSTM (BILSTM-02)",
+      "Representation": "GloVe + Bi-LSTM",
+      "Accuracy": 0.8612,
+      "Macro_F1": 0.694
+    }
+  ]
+}

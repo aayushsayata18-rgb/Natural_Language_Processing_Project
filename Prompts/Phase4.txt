@@ -1,0 +1,1324 @@
+============================================================
+PHASE 4 — BAG OF WORDS + CLASSICAL MACHINE LEARNING
+============================================================
+
+PROJECT:
+Sarcasm & Irony Detection System using NLP
+
+PROJECT TYPE:
+MCA Final-Year NLP + Machine Learning Project
+
+ROLE:
+Act as a senior NLP engineer, machine-learning engineer,
+researcher, and academic project mentor.
+
+You are responsible for implementing Phase 4 of the project.
+
+============================================================
+1. PHASE OBJECTIVE
+============================================================
+
+The purpose of Phase 4 is to establish strong and reproducible
+classical NLP + machine-learning baselines using:
+
+1. Bag of Words
+2. Logistic Regression
+3. Multinomial Naive Bayes
+4. Linear Support Vector Machine
+
+This phase provides the first real classification results.
+
+The pipeline is:
+
+CLEAN DATA
+   ↓
+PHASE 3 PREPROCESSING
+   ↓
+BAG OF WORDS
+   ↓
+FEATURE VECTORS
+   ↓
+CLASSICAL ML MODELS
+   ↓
+VALIDATION
+   ↓
+TEST EVALUATION
+   ↓
+METRICS
+   ↓
+CONFUSION MATRIX
+   ↓
+BASELINE COMPARISON
+
+Do NOT implement BERT, Bi-LSTM, FastText, Attention, FastAPI,
+React, Node.js, or MongoDB in this phase.
+
+============================================================
+2. PROJECT CLASSIFICATION TASK
+============================================================
+
+This is a four-class text classification problem.
+
+Target classes:
+
+1. Regular
+2. Sarcasm
+3. Irony
+4. Figurative
+
+The model must predict exactly one of these four classes.
+
+The class mapping established in Phase 1 must be used consistently.
+
+Example:
+
+Regular     → 0
+Sarcasm     → 1
+Irony       → 2
+Figurative  → 3
+
+Never create a different mapping.
+
+============================================================
+3. DATASET RULE
+============================================================
+
+Use ONLY the approved Kaggle four-class dataset.
+
+Do NOT use:
+
+- Reddit
+- another Kaggle dataset
+- another Twitter dataset
+- external sarcasm dataset
+- external irony dataset
+- synthetic data
+- generated training examples
+- merged datasets
+
+Use the cleaned data produced by Phase 1.
+
+============================================================
+4. INPUT DATA
+============================================================
+
+Use:
+
+data/processed/train_clean.csv
+data/processed/test_clean.csv
+
+and the preprocessing infrastructure created in Phase 3.
+
+Expected fields:
+
+text
+label
+label_id
+
+Verify the actual files before training.
+
+Do not assume the paths if the project structure has already been
+modified legitimately.
+
+============================================================
+5. DATA SPLIT
+============================================================
+
+The original training dataset remains the source for model training.
+
+Create:
+
+TRAIN
+VALIDATION
+
+from the training dataset only.
+
+The official clean test/evaluation dataset must remain untouched
+until final evaluation.
+
+Recommended:
+
+80% training
+20% validation
+
+Use stratification based on the four-class label.
+
+Example:
+
+train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    stratify=y,
+    random_state=42
+)
+
+Use a fixed random seed.
+
+Do not use the official test set for hyperparameter tuning.
+
+============================================================
+6. IMPORTANT DATA LEAKAGE RULE
+============================================================
+
+Bag of Words must be fitted ONLY on the training split.
+
+Correct:
+
+Training text
+    ↓
+fit CountVectorizer
+    ↓
+training vectors
+
+Validation text
+    ↓
+transform only
+
+Test text
+    ↓
+transform only
+
+Never:
+
+Train + validation + test
+    ↓
+fit CountVectorizer
+
+That would leak vocabulary information.
+
+============================================================
+7. MODEL 1 — BAG OF WORDS + LOGISTIC REGRESSION
+============================================================
+
+This is the primary baseline.
+
+Pipeline:
+
+TEXT
+ ↓
+PHASE 3 PREPROCESSING
+ ↓
+CountVectorizer
+ ↓
+Bag-of-Words vectors
+ ↓
+Logistic Regression
+ ↓
+4-class prediction
+
+Use:
+
+sklearn.feature_extraction.text.CountVectorizer
+
+and:
+
+sklearn.linear_model.LogisticRegression
+
+============================================================
+8. BAG OF WORDS CONFIGURATION
+============================================================
+
+Start with a simple baseline.
+
+Initial configuration:
+
+ngram_range=(1,1)
+
+This represents unigrams.
+
+Use sensible parameters such as:
+
+min_df
+max_df
+max_features if necessary
+
+Do not arbitrarily choose extremely large vocabulary sizes.
+
+Record every parameter.
+
+============================================================
+9. BAG OF WORDS EXPERIMENTS
+============================================================
+
+Run controlled experiments.
+
+Experiment BOW-01:
+
+Unigram BoW
++
+Logistic Regression
+
+Experiment BOW-02:
+
+Unigram + Bigram BoW
++
+Logistic Regression
+
+Experiment BOW-03:
+
+Unigram + Bigram + Trigram BoW
++
+Logistic Regression
+
+Compare them using validation metrics.
+
+Do not assume that larger n-gram ranges are better.
+
+============================================================
+10. LOGISTIC REGRESSION
+============================================================
+
+Use multiclass Logistic Regression.
+
+Investigate a small number of meaningful C values.
+
+Example:
+
+C = 0.1
+C = 1.0
+C = 10.0
+
+Do not perform an unnecessarily huge hyperparameter search.
+
+Use:
+
+- max_iter sufficient for convergence
+- random_state where supported
+- appropriate multiclass behavior for the installed
+  scikit-learn version
+
+Do not ignore convergence warnings.
+
+If convergence fails:
+
+- increase max_iter
+- investigate feature dimensionality
+- document the change
+
+============================================================
+11. MODEL 2 — MULTINOMIAL NAIVE BAYES
+============================================================
+
+Implement:
+
+Bag of Words
+ ↓
+Multinomial Naive Bayes
+ ↓
+4 classes
+
+Use:
+
+sklearn.naive_bayes.MultinomialNB
+
+Start with:
+
+alpha = 1.0
+
+Then optionally compare a small range such as:
+
+0.1
+0.5
+1.0
+
+Do not over-tune.
+
+============================================================
+12. MODEL 3 — LINEAR SVM
+============================================================
+
+Implement:
+
+Bag of Words
+ ↓
+Linear SVM
+ ↓
+4 classes
+
+Use:
+
+sklearn.svm.LinearSVC
+
+Investigate a small C range.
+
+Example:
+
+C = 0.1
+C = 1.0
+C = 10.0
+
+Record all experiments.
+
+IMPORTANT:
+
+LinearSVC does not provide standard probability outputs.
+
+Therefore do NOT display a fake probability/confidence score
+for this model.
+
+============================================================
+13. INITIAL EXPERIMENT MATRIX
+============================================================
+
+At minimum implement:
+
+| ID | Representation | Model |
+|----|----------------|-------|
+| BOW-01 | BoW unigram | Logistic Regression |
+| BOW-02 | BoW uni+bi | Logistic Regression |
+| BOW-03 | BoW uni+bi+tri | Logistic Regression |
+| BOW-04 | BoW unigram | Multinomial NB |
+| BOW-05 | BoW uni+bi | Multinomial NB |
+| BOW-06 | BoW unigram | Linear SVM |
+| BOW-07 | BoW uni+bi | Linear SVM |
+
+You may add a small number of justified experiments if needed.
+
+Do not create dozens of nearly identical experiments.
+
+============================================================
+14. PREPROCESSING VARIANTS
+============================================================
+
+Phase 3 created preprocessing variants.
+
+At least compare the most relevant variants.
+
+Recommended initial comparison:
+
+P1:
+Minimal social-media preprocessing
+
+P2:
+Lowercase
+
+P3:
+Lemmatized
+
+P4:
+Classical clean
+
+Do not necessarily run every possible combination against every
+model immediately.
+
+Start with a controlled baseline.
+
+The goal is to determine whether preprocessing affects classical
+classification performance.
+
+============================================================
+15. EXPERIMENT CONTROL
+============================================================
+
+Each experiment must clearly record:
+
+experiment_id
+preprocessing_variant
+vectorizer
+ngram_range
+model
+hyperparameters
+train_size
+validation_size
+accuracy
+precision
+recall
+macro_f1
+training_time
+notes
+
+Do not manually type results.
+
+Generate them programmatically.
+
+============================================================
+16. PRIMARY EVALUATION METRICS
+============================================================
+
+For every model calculate:
+
+1. Accuracy
+2. Precision
+3. Recall
+4. F1-score
+5. Macro Precision
+6. Macro Recall
+7. Macro F1
+
+Use:
+
+average="macro"
+
+for macro metrics.
+
+Also calculate class-wise metrics.
+
+============================================================
+17. WHY MACRO F1
+============================================================
+
+This is a four-class classification task.
+
+Macro F1 is important because it gives each class equal importance.
+
+Report:
+
+Regular F1
+Sarcasm F1
+Irony F1
+Figurative F1
+
+and:
+
+Macro F1
+
+Do not report only accuracy.
+
+============================================================
+18. CONFUSION MATRIX
+============================================================
+
+Generate a confusion matrix for every important model.
+
+Rows:
+
+Actual
+
+Columns:
+
+Predicted
+
+Class order must remain:
+
+Regular
+Sarcasm
+Irony
+Figurative
+
+The matrix must be labeled clearly.
+
+============================================================
+19. CLASSIFICATION REPORT
+============================================================
+
+Generate:
+
+classification_report
+
+containing:
+
+precision
+recall
+f1-score
+support
+
+for each class.
+
+Save it in a structured form.
+
+============================================================
+20. ERROR ANALYSIS
+============================================================
+
+For the first baseline models, collect misclassified examples.
+
+For each important error store:
+
+text
+actual_label
+predicted_label
+experiment_id
+
+Analyze especially:
+
+Sarcasm → Irony
+Irony → Sarcasm
+Sarcasm → Figurative
+Irony → Figurative
+Regular → Figurative
+Figurative → Regular
+
+Do not perform a full research error analysis yet.
+
+A detailed error-analysis phase comes later.
+
+============================================================
+21. PREDICTION CONFIDENCE
+============================================================
+
+Where supported:
+
+Logistic Regression:
+
+Use:
+
+predict_proba()
+
+Multinomial Naive Bayes:
+
+Use:
+
+predict_proba()
+
+LinearSVC:
+
+Do NOT treat decision_function output as a probability.
+
+If confidence-like values are needed later, use an appropriate
+calibration method and clearly document it.
+
+For this phase, simply report predictions and standard metrics
+for LinearSVC.
+
+============================================================
+22. FEATURE SPACE ANALYSIS
+============================================================
+
+For each BoW configuration record:
+
+- vocabulary size
+- number of features
+- sparsity if useful
+- memory considerations
+
+Example:
+
+BoW unigram:
+X features
+
+BoW uni+bi:
+Y features
+
+BoW uni+bi+tri:
+Z features
+
+This demonstrates the trade-off between feature complexity and
+model performance.
+
+============================================================
+23. SPARSE MATRICES
+============================================================
+
+BoW creates high-dimensional sparse feature matrices.
+
+Use sparse matrix representations.
+
+Do not unnecessarily convert large matrices to dense NumPy arrays.
+
+Avoid:
+
+toarray()
+
+unless used on a very small sample for visualization or debugging.
+
+============================================================
+24. MODEL PIPELINES
+============================================================
+
+Prefer scikit-learn Pipeline where appropriate.
+
+Example conceptual structure:
+
+Pipeline([
+    ("vectorizer", CountVectorizer(...)),
+    ("classifier", LogisticRegression(...))
+])
+
+This helps prevent preprocessing/vectorization leakage.
+
+However, if Phase 3 preprocessing is external to scikit-learn,
+ensure the same leakage rules are respected.
+
+============================================================
+25. SAVE TRAINED ARTIFACTS
+============================================================
+
+Save baseline artifacts.
+
+Recommended:
+
+models/
+└── classical/
+    ├── bow_lr/
+    ├── bow_nb/
+    └── bow_svm/
+
+For each final selected baseline experiment save:
+
+- vectorizer
+- model
+- label mapping
+- configuration
+
+Use joblib where appropriate.
+
+Do not save every unnecessary intermediate experiment if storage
+becomes excessive.
+
+============================================================
+26. MODEL VERSIONING
+============================================================
+
+Every saved model must have:
+
+- experiment ID
+- model name
+- preprocessing variant
+- vectorizer configuration
+- training date/version if useful
+
+Example:
+
+bow_lr_minimal_v1
+
+Do not overwrite previous important experiments.
+
+============================================================
+27. RESULTS STORAGE
+============================================================
+
+Create:
+
+results/
+└── classical/
+    ├── model_results.csv
+    ├── classification_reports/
+    └── confusion_matrices/
+
+model_results.csv should contain:
+
+experiment_id
+preprocessing
+vectorizer
+ngram_range
+model
+parameters
+accuracy
+macro_precision
+macro_recall
+macro_f1
+training_time
+vocab_size
+
+Use actual values.
+
+============================================================
+28. VISUALIZATIONS
+============================================================
+
+Generate:
+
+1. Model accuracy comparison
+2. Model Macro F1 comparison
+3. Precision comparison
+4. Recall comparison
+5. Confusion matrices
+6. Optional vocabulary-size comparison
+
+Use actual experiment results.
+
+Do not manually create chart values.
+
+============================================================
+29. MODEL COMPARISON
+============================================================
+
+Compare:
+
+Logistic Regression
+Naive Bayes
+Linear SVM
+
+across:
+
+- unigram
+- unigram + bigram
+- optionally unigram + bigram + trigram
+
+The primary comparison metric should be:
+
+Macro F1
+
+Secondary:
+
+Accuracy
+
+Then:
+
+Precision
+Recall
+Class-wise F1
+
+============================================================
+30. BASELINE SELECTION
+============================================================
+
+At the end of Phase 4, identify the strongest classical baseline
+based on validation performance.
+
+DO NOT call it the final project model.
+
+It is only:
+
+"Best current classical baseline."
+
+The final model may later be:
+
+- improved TF-IDF + SVM
+- Bi-LSTM
+- BERT
+
+Do not assume BERT will automatically be superior.
+
+============================================================
+31. TEST SET EVALUATION
+============================================================
+
+IMPORTANT:
+
+The official test/evaluation set must NOT be used to choose
+hyperparameters.
+
+Only after:
+
+- preprocessing variant selected for this experiment
+- vectorizer selected
+- model parameters selected
+
+perform final test evaluation.
+
+For each selected baseline configuration:
+
+1. Fit vectorizer on full training data.
+2. Transform test data.
+3. Fit final model on full training data.
+4. Evaluate on official clean test/evaluation data.
+
+The exact leakage-controlled test dataset created in Phase 1
+must be used.
+
+============================================================
+32. VALIDATION VS TEST
+============================================================
+
+Clearly distinguish:
+
+VALIDATION:
+Used during model development.
+
+TEST:
+Used for final unbiased evaluation.
+
+Do not combine their metrics.
+
+Report both where appropriate.
+
+============================================================
+33. FINAL BASELINE REPORT
+============================================================
+
+Create:
+
+docs/research/phase4_classical_ml.md
+
+Include:
+
+1. Objective
+2. Dataset
+3. Train/validation/test strategy
+4. Bag of Words
+5. Logistic Regression
+6. Multinomial Naive Bayes
+7. Linear SVM
+8. Hyperparameters
+9. Experiments
+10. Validation results
+11. Test results
+12. Confusion matrices
+13. Feature-space analysis
+14. Error examples
+15. Best classical baseline
+16. Limitations
+17. Transition to Phase 5
+
+============================================================
+34. NOTEBOOK
+============================================================
+
+Create:
+
+notebooks/04_bow_classical_ml.ipynb
+
+Sections:
+
+1. Imports
+2. Load clean data
+3. Load preprocessing configuration
+4. Train/validation split
+5. BoW setup
+6. Logistic Regression
+7. Naive Bayes
+8. Linear SVM
+9. Experiment comparison
+10. Validation metrics
+11. Confusion matrices
+12. Error examples
+13. Final selected baseline
+14. Test evaluation
+15. Conclusions
+
+The notebook is for analysis.
+
+Reusable training logic should be placed in Python modules.
+
+============================================================
+35. REUSABLE CODE STRUCTURE
+============================================================
+
+Recommended:
+
+ml-service/
+└── src/
+    └── classical/
+        ├── __init__.py
+        ├── bow.py
+        ├── train_lr.py
+        ├── train_nb.py
+        ├── train_svm.py
+        ├── evaluate.py
+        ├── experiments.py
+        └── save_artifacts.py
+
+Adapt to the existing project structure.
+
+Do not duplicate large amounts of code.
+
+============================================================
+36. TRAINING SCRIPT
+============================================================
+
+Create a reusable script such as:
+
+src/classical/run_experiments.py
+
+It should:
+
+1. Load data.
+2. Load preprocessing variant.
+3. Create train/validation split.
+4. Fit vectorizer on training data.
+5. Transform validation.
+6. Train model.
+7. Evaluate.
+8. Save results.
+9. Save selected artifacts.
+10. Generate required reports.
+
+============================================================
+37. RANDOM SEEDS
+============================================================
+
+Use a consistent random seed such as:
+
+42
+
+where applicable.
+
+Record the seed in experiment metadata.
+
+============================================================
+38. CLASS WEIGHTS
+============================================================
+
+Do NOT automatically use class weights.
+
+First inspect the class balance from Phase 2.
+
+If class imbalance is significant and class weighting is tested:
+
+- clearly label it as an experiment
+- compare it against the unweighted model
+- do not assume it improves performance
+
+============================================================
+39. SAMPLE WEIGHTING / OVERSAMPLING
+============================================================
+
+Do NOT use:
+
+- SMOTE
+- random oversampling
+- random undersampling
+
+in the baseline unless there is a strong justified reason.
+
+This phase should establish clean baselines.
+
+============================================================
+40. HYPERPARAMETER SEARCH
+============================================================
+
+Use controlled tuning.
+
+Do not perform massive grid searches.
+
+Recommended:
+
+Logistic Regression:
+C ∈ {0.1, 1, 10}
+
+Naive Bayes:
+alpha ∈ {0.1, 0.5, 1.0}
+
+Linear SVM:
+C ∈ {0.1, 1, 10}
+
+Vectorizer:
+ngram_range ∈ {
+    (1,1),
+    (1,2),
+    (1,3)
+}
+
+Adjust if computational limitations require it.
+
+============================================================
+41. COMPUTATIONAL EFFICIENCY
+============================================================
+
+The dataset is large enough that inefficient implementations can
+consume substantial memory.
+
+Use:
+
+- sparse matrices
+- efficient vectorizers
+- limited vocabulary sizes if necessary
+- controlled experiments
+- CPU-compatible models
+
+Do not unnecessarily convert sparse matrices to dense.
+
+============================================================
+42. CONVERGENCE AND WARNINGS
+============================================================
+
+Monitor:
+
+- Logistic Regression convergence
+- memory errors
+- vocabulary explosion
+- training time
+
+If a model fails:
+
+1. diagnose the actual reason
+2. make the smallest justified change
+3. record the change
+4. rerun the experiment
+
+Do not silently alter parameters.
+
+============================================================
+43. RESULT REPRODUCIBILITY
+============================================================
+
+Every result must be reproducible.
+
+Record:
+
+- dataset version
+- preprocessing variant
+- vectorizer parameters
+- model parameters
+- random seed
+- training time
+- validation metrics
+- test metrics
+- artifact location
+
+Never manually type results into the report.
+
+============================================================
+44. IMPORTANT: NO FABRICATED RESULTS
+============================================================
+
+Do not invent:
+
+- accuracy
+- precision
+- recall
+- F1
+- confusion matrix values
+- training time
+- vocabulary size
+
+All results must come from actual model execution.
+
+============================================================
+45. IMPORTANT: NO FINAL DEPLOYMENT YET
+============================================================
+
+Do NOT build FastAPI in Phase 4.
+
+The models are being developed and evaluated first.
+
+Deployment comes after the final model is selected.
+
+============================================================
+46. IMPORTANT: NO DEEP LEARNING YET
+============================================================
+
+Do NOT implement:
+
+- GloVe
+- FastText
+- Bi-LSTM
+- Attention
+- BERT
+
+Those belong to later phases.
+
+============================================================
+47. IMPORTANT: TF-IDF
+============================================================
+
+Do NOT make TF-IDF the main representation in this phase.
+
+This phase is specifically:
+
+BAG OF WORDS + CLASSICAL ML
+
+TF-IDF is the major focus of Phase 5.
+
+It is acceptable to reuse the preprocessing infrastructure from
+Phase 3, but the feature representation for the main experiments
+must be Bag of Words.
+
+============================================================
+48. PHASE 4 RESEARCH PURPOSE
+============================================================
+
+The academic purpose of Phase 4 is to establish:
+
+"What can traditional frequency-based NLP representations and
+classical machine-learning algorithms achieve on this four-class
+sarcasm/irony classification task?"
+
+This provides a baseline against which later:
+
+TF-IDF
+Bi-LSTM
+BERT
+
+can be compared.
+
+============================================================
+49. EXPECTED EXPERIMENT TABLE
+============================================================
+
+Create a table similar to:
+
+| ID | Preprocessing | Representation | Model |
+|----|---------------|----------------|-------|
+| BOW-01 | Minimal | Unigram BoW | Logistic Regression |
+| BOW-02 | Minimal | Uni+Bi BoW | Logistic Regression |
+| BOW-03 | Minimal | Uni+Bi+Tri BoW | Logistic Regression |
+| BOW-04 | Minimal | Unigram BoW | Naive Bayes |
+| BOW-05 | Minimal | Uni+Bi BoW | Naive Bayes |
+| BOW-06 | Minimal | Unigram BoW | Linear SVM |
+| BOW-07 | Minimal | Uni+Bi BoW | Linear SVM |
+
+Then perform selected preprocessing comparisons.
+
+Do not run an enormous matrix unless computationally justified.
+
+============================================================
+50. REQUIRED OUTPUT FILES
+============================================================
+
+Expected:
+
+ml-service/
+│
+├── models/
+│   └── classical/
+│
+├── results/
+│   └── classical/
+│       ├── model_results.csv
+│       ├── classification_reports/
+│       └── confusion_matrices/
+│
+├── notebooks/
+│   └── 04_bow_classical_ml.ipynb
+│
+├── src/
+│   └── classical/
+│       ├── bow.py
+│       ├── train_lr.py
+│       ├── train_nb.py
+│       ├── train_svm.py
+│       ├── evaluate.py
+│       ├── experiments.py
+│       └── save_artifacts.py
+│
+└── docs/
+    └── research/
+        └── phase4_classical_ml.md
+
+============================================================
+51. PHASE 4 SUCCESS CRITERIA
+============================================================
+
+Phase 4 is complete ONLY when:
+
+[ ] Clean dataset loaded.
+[ ] Train/validation split created.
+[ ] Stratification applied.
+[ ] BoW implemented.
+[ ] Unigram experiment completed.
+[ ] Bigram experiment completed.
+[ ] Trigram experiment completed where practical.
+[ ] Logistic Regression implemented.
+[ ] Multinomial Naive Bayes implemented.
+[ ] Linear SVM implemented.
+[ ] Hyperparameters recorded.
+[ ] No test leakage occurred.
+[ ] Validation metrics generated.
+[ ] Test metrics generated for selected configurations.
+[ ] Accuracy calculated.
+[ ] Precision calculated.
+[ ] Recall calculated.
+[ ] F1 calculated.
+[ ] Macro F1 calculated.
+[ ] Per-class metrics generated.
+[ ] Confusion matrices generated.
+[ ] Error examples collected.
+[ ] Vocabulary sizes recorded.
+[ ] Training times recorded where useful.
+[ ] Results saved automatically.
+[ ] Model artifacts saved.
+[ ] Documentation created.
+[ ] Notebook created.
+[ ] No fabricated results.
+[ ] No external dataset used.
+[ ] No deep-learning model trained.
+[ ] No BERT trained.
+[ ] No deployment implemented.
+
+============================================================
+52. FINAL PHASE REPORT
+============================================================
+
+At the end of Phase 4, provide:
+
+1. Dataset used.
+2. Train/validation/test strategy.
+3. BoW configurations tested.
+4. Models tested.
+5. Preprocessing variants tested.
+6. Validation results.
+7. Test results.
+8. Best BoW configuration.
+9. Best classical model.
+10. Macro F1 comparison.
+11. Confusion-matrix observations.
+12. Important misclassification patterns.
+13. Vocabulary-size observations.
+14. Training-time observations.
+15. Files created.
+16. Any issues encountered.
+17. Recommended baseline for Phase 5.
+
+IMPORTANT:
+
+Do NOT call the best classical model the final project model.
+
+Call it:
+
+"Best current classical baseline."
+
+============================================================
+53. TRANSITION TO PHASE 5
+============================================================
+
+The output of Phase 4 will be used by Phase 5.
+
+Phase 5 will investigate:
+
+TF-IDF
++
+N-grams
++
+linguistic/social-media features
+
+and compare them against the Phase 4 BoW baselines.
+
+The Phase 4 results must therefore be stored in a structured,
+reusable format.
+
+============================================================
+54. STOP CONDITION
+============================================================
+
+After completing Phase 4:
+
+STOP.
+
+Do not automatically begin Phase 5.
+
+Do not implement:
+
+- TF-IDF experiments
+- Bi-LSTM
+- FastText
+- Attention
+- BERT
+- FastAPI
+- Express
+- MongoDB
+- React
+
+Wait for explicit instruction to begin the next phase.
+
+============================================================
+END OF PHASE 4 MASTER PROMPT
+============================================================
+
+Phase 4 position in the complete pipeline
+
+PHASE 1
+Dataset Validation
+        ↓
+PHASE 2
+EDA
+        ↓
+PHASE 3
+NLP Preprocessing
+        ↓
+PHASE 4  ← NOW
+BoW + Classical ML
+        ↓
+PHASE 5
+TF-IDF + N-grams + Feature Engineering
+        ↓
+PHASE 6
+GloVe + Bi-LSTM
+        ↓
+PHASE 7
+FastText / Attention
+        ↓
+PHASE 8
+BERT
+        ↓
+PHASE 9
+Model Comparison + Error Analysis
+        ↓
+PHASE 10
+Final Model + Artifacts
+        ↓
+PHASE 11+
+FastAPI → Express → MongoDB → React → Integration
+

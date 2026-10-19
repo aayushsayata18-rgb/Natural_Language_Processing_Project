@@ -1,0 +1,18 @@
+{
+  "model": "LogisticRegression",
+  "preprocessing": "classical",
+  "ngram_range": "(1, 1)",
+  "feature_set": "A",
+  "hyperparameters": {
+    "C": 0.1
+  },
+  "vocab_size": 28077,
+  "test_macro_f1": 0.6918465300266514,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "experiment_id": "TFIDF-01"
+}

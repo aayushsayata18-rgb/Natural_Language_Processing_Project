@@ -1,0 +1,10 @@
+dataset,raw_label,stripped,has_whitespace,count,valid,standard_label
+train,figurative,figurative,False,21238,True,Figurative
+train,irony,irony,False,20894,True,Irony
+train,regular,regular,False,18595,True,Regular
+train,sarcasm,sarcasm,False,20681,True,Sarcasm
+test,figurative,figurative,False,2044,True,Figurative
+test,irony,irony,False,2111,True,Irony
+test,regular,regular,False,1859,True,Regular
+test,sarcasm,sarcasm,False,2105,True,Sarcasm
+test,NaN,NaN,False,9,False,MISSING

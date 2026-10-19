@@ -1,0 +1,19 @@
+{
+  "model": "LinearSVM",
+  "preprocessing": "classical",
+  "ngram_range": "(1, 1)",
+  "hyperparameters": {
+    "C": 0.1
+  },
+  "vocab_size": 28077,
+  "validation_macro_f1": 0.6371,
+  "test_macro_f1": 0.7186603571266583,
+  "random_state": 42,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  },
+  "experiment_id": "BOW-16"
+}

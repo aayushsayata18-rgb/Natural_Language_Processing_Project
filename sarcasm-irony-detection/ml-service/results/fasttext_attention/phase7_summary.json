@@ -1,0 +1,123 @@
+{
+  "phase": "Phase 7 \u2014 FastText + Bi-LSTM + Attention",
+  "framework": "PyTorch 2.14.0+cpu",
+  "device": "cpu",
+  "fasttext": {
+    "source": "Facebook AI Research (FAIR) FastText English Wikipedia",
+    "dimension": 300,
+    "exact_coverage_pct": 43.02,
+    "effective_coverage_pct": 93.83,
+    "subword_synthesis": true
+  },
+  "tokenizer": {
+    "vocabulary_size": 30002,
+    "max_sequence_length": 30,
+    "mean_sequence_length": 15.190130133513605,
+    "median_sequence_length": 15.0,
+    "pct_truncated": 0.04148293822115015,
+    "pct_padded": 99.88323321093306
+  },
+  "best_experiment": {
+    "id": "FT-01",
+    "config": {
+      "id": "FT-01",
+      "desc": "FastText + Bi-LSTM (Frozen)",
+      "model_type": "bilstm",
+      "lstm_units": 64,
+      "attention_dim": null,
+      "dense_units": 64,
+      "dropout": 0.3,
+      "trainable": false
+    },
+    "val_macro_f1": 0.6482
+  },
+  "test_results": {
+    "accuracy": 0.8603,
+    "macro_precision": 0.6487,
+    "macro_recall": 0.7491,
+    "macro_f1": 0.6929,
+    "weighted_f1": 0.7998,
+    "per_class": {
+      "Regular": {
+        "precision": 0.9984,
+        "recall": 0.9984,
+        "f1": 0.9984,
+        "support": 1858
+      },
+      "Sarcasm": {
+        "precision": 0.7531,
+        "recall": 0.9994,
+        "f1": 0.8589,
+        "support": 1602
+      },
+      "Irony": {
+        "precision": 0.8435,
+        "recall": 0.9985,
+        "f1": 0.9145,
+        "support": 1301
+      },
+      "Figurative": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 766
+      }
+    }
+  },
+  "error_summary": {
+    "total_errors": 772,
+    "sarcasm_as_irony": 0,
+    "irony_as_sarcasm": 1,
+    "sarcasm_as_figurative": 0,
+    "irony_as_figurative": 0,
+    "regular_misclassified": 3,
+    "figurative_misclassified": 766
+  },
+  "progression": [
+    {
+      "phase": "Phase 4",
+      "model": "LinearSVM",
+      "representation": "Bag of Words (n-grams 1-2)",
+      "accuracy": 0.8457,
+      "macro_precision": 0.7712,
+      "macro_recall": 0.6934,
+      "macro_f1": 0.7187
+    },
+    {
+      "phase": "Phase 5",
+      "model": "LinearSVM",
+      "representation": "TF-IDF + Text Features",
+      "accuracy": 0.8565,
+      "macro_precision": 0.782,
+      "macro_recall": 0.689,
+      "macro_f1": 0.7002
+    },
+    {
+      "phase": "Phase 6",
+      "model": "GloVe + Bi-LSTM (BILSTM-02)",
+      "representation": "GloVe 100d Dense Word Embeddings",
+      "accuracy": 0.8612,
+      "macro_precision": 0.899,
+      "macro_recall": 0.75,
+      "macro_f1": 0.694
+    },
+    {
+      "phase": "Phase 7 (FT-01)",
+      "model": "FastText + Bi-LSTM",
+      "representation": "FastText 300d (No Attention)",
+      "accuracy": 0.8603,
+      "macro_precision": 0.6487,
+      "macro_recall": 0.7491,
+      "macro_f1": 0.6929
+    },
+    {
+      "phase": "Phase 7 (FT-02)",
+      "model": "FastText + Bi-LSTM + Attention",
+      "representation": "FastText 300d + Subwords + Attention",
+      "accuracy": 0.8603,
+      "macro_precision": 0.6484,
+      "macro_recall": 0.749,
+      "macro_f1": 0.6928
+    }
+  ]
+}

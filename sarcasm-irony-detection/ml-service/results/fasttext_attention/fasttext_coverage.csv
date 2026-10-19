@@ -1,0 +1,2 @@
+vocabulary_size,effective_vocab,exact_matches,exact_coverage_pct,subword_matches,subword_coverage_pct,total_covered,effective_coverage_pct,unresolved_oov,oov_pct,oov_strategy,embedding_dim
+30002,30000,12906,43.02,15242,50.81,28148,93.83,1853,6.18,subword_random,300

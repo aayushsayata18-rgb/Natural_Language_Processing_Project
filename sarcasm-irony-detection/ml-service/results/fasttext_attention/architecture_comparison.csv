@@ -1,0 +1,4 @@
+experiment_id,split,description,embedding,embedding_trainable,has_attention,lstm_units,dense_units,dropout,batch_size,total_params,trainable_params,best_epoch,total_epochs,accuracy,macro_precision,macro_recall,macro_f1,weighted_f1,regular_f1,sarcasm_f1,irony_f1,figurative_f1,training_time
+FT-01,validation,FastText + Bi-LSTM (Frozen),FastText-wiki-300d,False,False,64,64,0.3,64,9196508,195908,8,12,0.7383,0.7053,0.7493,0.6482,0.635,0.9989,0.7919,0.7994,0.0023,212.37
+FT-02,validation,FastText + Bi-LSTM + Attention (Frozen),FastText-wiki-300d,False,True,64,64,0.3,64,9204828,204228,4,8,0.738,0.5798,0.749,0.6473,0.6342,0.9979,0.7921,0.7994,0.0,173.19
+FT-03,validation,FastText + Bi-LSTM + Attention (Fine-Tuned),FastText-wiki-300d,True,True,64,64,0.3,64,9204828,9204828,1,5,0.7386,0.747,0.7496,0.648,0.6348,0.9989,0.7924,0.7997,0.0009,3058.81

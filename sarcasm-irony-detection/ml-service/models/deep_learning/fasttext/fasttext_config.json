@@ -1,0 +1,24 @@
+{
+  "best_experiment": "FT-01",
+  "embedding_source": "Facebook AI Research (FAIR) FastText English Wikipedia",
+  "embedding_dimension": 300,
+  "vocabulary_size": 30002,
+  "max_sequence_length": 30,
+  "oov_strategy": "subword_synthesis_with_random_fallback",
+  "embedding_trainable": false,
+  "lstm_units": 64,
+  "attention_dim": null,
+  "dense_units": 64,
+  "dropout": 0.3,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "batch_size": 64,
+  "max_epochs": 12,
+  "random_seed": 42,
+  "label_mapping": {
+    "Regular": 0,
+    "Sarcasm": 1,
+    "Irony": 2,
+    "Figurative": 3
+  }
+}

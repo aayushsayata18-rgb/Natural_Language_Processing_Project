@@ -1,0 +1,9 @@
+{
+  "total_errors": 772,
+  "sarcasm_as_irony": 0,
+  "irony_as_sarcasm": 1,
+  "sarcasm_as_figurative": 0,
+  "irony_as_figurative": 0,
+  "regular_misclassified": 3,
+  "figurative_misclassified": 766
+}

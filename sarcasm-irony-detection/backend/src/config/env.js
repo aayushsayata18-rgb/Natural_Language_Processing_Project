@@ -15,7 +15,7 @@ const config = {
   mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/sarcasm_irony_db',
   mlServiceUrl: process.env.ML_SERVICE_URL || 'http://localhost:8000',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  mlServiceTimeoutMs: parseInt(process.env.ML_SERVICE_TIMEOUT_MS, 10) || 5000,
+  mlServiceTimeoutMs: parseInt(process.env.ML_SERVICE_TIMEOUT_MS, 10) || 30000,
   rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 60000,
   rateLimitMax: parseInt(process.env.RATE_LIMIT_MAX, 10) || 120,
 };

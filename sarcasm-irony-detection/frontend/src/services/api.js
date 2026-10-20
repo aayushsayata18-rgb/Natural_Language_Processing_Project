@@ -81,21 +81,108 @@ function normalizeError(error) {
   };
 }
 
+export const DEFAULT_MODELS = [
+  {
+    id: 'bow_linearsvm',
+    name: 'LinearSVM (BoW)',
+    full_name: 'Linear Support Vector Classifier with Bag of Words (One-vs-Rest)',
+    phase: 'Phase 4',
+    paradigm: 'Bag of Words (n-grams 1-2)',
+    parameter_count: 112312,
+    val_macro_f1: 0.7187,
+    val_accuracy: 0.8457,
+    latency_ms: 0.027,
+    is_champion: true,
+    description: 'Selected champion model. Achieves top Macro F1 (0.7187), avoids minority class collapse, and executes ultra-low latency inference.',
+  },
+  {
+    id: 'tfidf_linearsvm',
+    name: 'LinearSVM (TF-IDF)',
+    full_name: 'Linear Support Vector Classifier with Sublinear TF-IDF',
+    phase: 'Phase 5',
+    paradigm: 'TF-IDF + Statistical N-grams',
+    parameter_count: 112312,
+    val_macro_f1: 0.7002,
+    val_accuracy: 0.8565,
+    latency_ms: 0.014,
+    is_champion: false,
+    description: 'High accuracy classical model leveraging inverse document frequency weighting across 28,077 unigram/bigram tokens.',
+  },
+  {
+    id: 'glove_bilstm',
+    name: 'GloVe + Bi-LSTM',
+    full_name: 'Bidirectional LSTM with 100d Pretrained GloVe Embeddings (BILSTM-02)',
+    phase: 'Phase 6',
+    paradigm: 'Dense Word Embeddings (Deep Learning)',
+    parameter_count: 3197636,
+    val_macro_f1: 0.6940,
+    val_accuracy: 0.8612,
+    latency_ms: 0.041,
+    is_champion: false,
+    description: 'Recurrent neural sequence model capturing bidirectional token contexts using 100-dimensional GloVe word vectors.',
+  },
+  {
+    id: 'fasttext_attention',
+    name: 'FastText + Bi-LSTM + Attention',
+    full_name: 'FastText 300d + Bi-LSTM + Feed-Forward Attention Mechanism (FT-02)',
+    phase: 'Phase 7',
+    paradigm: 'Subword Embeddings & Feed-Forward Attention',
+    parameter_count: 9204828,
+    val_macro_f1: 0.6928,
+    val_accuracy: 0.8603,
+    latency_ms: 0.098,
+    is_champion: false,
+    description: 'Resolves social media OOV slang via character n-grams and weights salient contrastive tokens through additive attention.',
+  },
+  {
+    id: 'bert_transformer',
+    name: 'BERT Contextual',
+    full_name: 'bert-base-uncased (12-layer Bidirectional Transformer)',
+    phase: 'Phase 8',
+    paradigm: 'Pretrained Contextual Transformer (WordPiece)',
+    parameter_count: 109485316,
+    val_macro_f1: 0.6935,
+    val_accuracy: 0.8612,
+    latency_ms: 39.33,
+    is_champion: false,
+    description: 'Deep contextual transformer fine-tuned end-to-end; completely eliminates mutual confusion between Sarcasm and Irony.',
+  },
+];
+
 /**
- * Predict Sarcasm/Irony for a single input text.
+ * Predict Sarcasm/Irony for a single input text using chosen model.
  * @param {string} text - Raw input text (max 5000 chars)
+ * @param {string} [model='bow_linearsvm'] - Chosen model ID
  * @param {AbortSignal} [signal] - Optional AbortController signal
  * @returns {Promise<Object>} Formatted prediction object
  */
-export async function predictText(text, signal) {
+export async function predictText(text, model = 'bow_linearsvm', signal) {
   try {
-    const response = await apiClient.post('/api/predict', { text }, { signal });
+    const payload = { text, model };
+    const response = await apiClient.post('/api/predict', payload, { signal });
     if (response.data && response.data.success && response.data.data) {
       return response.data.data;
     }
     throw new Error('Malformed prediction response from backend.');
   } catch (error) {
     throw normalizeError(error);
+  }
+}
+
+/**
+ * Fetch all available comparative NLP models from the backend / ML service.
+ * @param {AbortSignal} [signal]
+ * @returns {Promise<Array<Object>>}
+ */
+export async function getAvailableModels(signal) {
+  try {
+    const response = await apiClient.get('/api/models', { signal });
+    if (response.data && response.data.data && Array.isArray(response.data.data.models)) {
+      return response.data.data.models;
+    }
+    return DEFAULT_MODELS;
+  } catch {
+    return DEFAULT_MODELS;
   }
 }
 
@@ -185,8 +272,11 @@ export async function getModelInfo(signal) {
 
 export default {
   predictText,
+  getAvailableModels,
+  DEFAULT_MODELS,
   getPredictionHistory,
   deletePrediction,
   checkHealth,
   getModelInfo,
 };
+

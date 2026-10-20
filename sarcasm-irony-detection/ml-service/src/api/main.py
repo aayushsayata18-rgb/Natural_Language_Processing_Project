@@ -17,6 +17,8 @@ from .schemas import (
     HealthResponse,
     ReadinessResponse,
     ModelInfoResponse,
+    ModelListResponse,
+    ModelListItem,
     PredictionRequest,
     PredictionResponse,
     BatchPredictionRequest,
@@ -24,8 +26,9 @@ from .schemas import (
     ErrorResponse,
 )
 
-# Import Phase 10 Inference Predictor and Exceptions
+# Import Inference Predictors and Exceptions
 from ..inference.predictor import SarcasmIronyPredictor
+from ..inference.multi_predictor import MultiModelPredictor, get_multi_predictor
 from ..inference.exceptions import (
     InferenceError,
     ModelNotFoundError,
@@ -50,7 +53,7 @@ async def lifespan(app: FastAPI):
     Loads the ML model artifact bundle exactly once on startup.
     Cleans up resources cleanly on shutdown.
     """
-    logger.info("Initializing ML Service...")
+    logger.info("Initializing ML Service with Multi-Model comparative engine...")
     logger.info("Loading model artifacts from: %s", settings.resolved_model_dir)
 
     try:
@@ -59,14 +62,17 @@ async def lifespan(app: FastAPI):
             verify_checksums=settings.verify_checksums,
         )
         app.state.predictor = predictor
+        app.state.multi_predictor = get_multi_predictor()
         app.state.model_loaded = True
         logger.info(
-            "Final Model loaded successfully: %s (%s)",
+            "Final Champion Model loaded successfully: %s (%s)",
             predictor.model_name,
             predictor.model_version,
         )
+        logger.info("Multi-Model Comparative Registry initialized with 5 models.")
     except Exception as exc:
         app.state.predictor = None
+        app.state.multi_predictor = None
         app.state.model_loaded = False
         logger.critical("Failed to load model artifacts on startup: %s", exc, exc_info=True)
 
@@ -74,13 +80,14 @@ async def lifespan(app: FastAPI):
 
     logger.info("Shutting down ML Service...")
     app.state.predictor = None
+    app.state.multi_predictor = None
     app.state.model_loaded = False
 
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Sarcasm & Irony Detection ML Inference API",
-    description="Dedicated Python FastAPI service exposing the final NLP model (LinearSVC BoW) for inference.",
+    description="Dedicated Python FastAPI service exposing 5 comparative NLP model paradigms for inference.",
     version="1.0.0",
     docs_url="/docs",
     openapi_url="/openapi.json",
@@ -236,10 +243,34 @@ async def get_model_info():
     )
 
 
+@app.get(
+    "/models",
+    response_model=ModelListResponse,
+    summary="List All Available Comparative NLP Models",
+    tags=["Model Information"],
+)
+async def list_models():
+    """
+    Returns specifications and metrics for all 5 comparative NLP models:
+    Phase 4 (BoW LinearSVM), Phase 5 (TF-IDF LinearSVM), Phase 6 (GloVe Bi-LSTM),
+    Phase 7 (FastText Attention), and Phase 8 (BERT Contextual Transformer).
+    """
+    multi_predictor: Optional[MultiModelPredictor] = getattr(app.state, "multi_predictor", None)
+    if not multi_predictor:
+        multi_predictor = get_multi_predictor()
+
+    models = multi_predictor.list_available_models()
+    return ModelListResponse(
+        models=models,
+        default_model="bow_linearsvm",
+        total_models=len(models),
+    )
+
+
 @app.post(
     "/predict",
     response_model=PredictionResponse,
-    summary="Single Text Inference",
+    summary="Single Text Inference Across Comparative Models",
     tags=["Inference"],
     responses={
         422: {"model": ErrorResponse, "description": "Input validation failure."},
@@ -249,17 +280,21 @@ async def get_model_info():
 )
 async def predict_single(request: PredictionRequest):
     """
-    Classifies a single input text for Sarcasm and Irony.
-    Returns predicted class, confidence, calibrated probability distribution, and latency.
+    Classifies a single input text for Sarcasm and Irony using the chosen model.
+    Defaults to the Phase 9 champion model (LinearSVC BoW).
     """
-    predictor: Optional[SarcasmIronyPredictor] = getattr(app.state, "predictor", None)
-    if not predictor or not getattr(app.state, "model_loaded", False):
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Model is not loaded or currently unavailable.",
-        )
+    multi_predictor: Optional[MultiModelPredictor] = getattr(app.state, "multi_predictor", None)
+    if not multi_predictor:
+        multi_predictor = get_multi_predictor()
 
-    res = predictor.predict(request.text)
+    try:
+        res = multi_predictor.predict(request.text, model_id=request.model)
+    except Exception as exc:
+        logger.error("Inference failure on model %s: %s", request.model, exc, exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Inference computation error: {str(exc)}",
+        )
 
     return PredictionResponse(
         text=res.text,
@@ -275,7 +310,7 @@ async def predict_single(request: PredictionRequest):
 @app.post(
     "/predict/batch",
     response_model=BatchPredictionResponse,
-    summary="Batch Text Inference",
+    summary="Batch Text Inference Across Comparative Models",
     tags=["Inference"],
     responses={
         422: {"model": ErrorResponse, "description": "Batch input validation failure."},
@@ -285,17 +320,21 @@ async def predict_single(request: PredictionRequest):
 )
 async def predict_batch(request: BatchPredictionRequest):
     """
-    Classifies a batch of input texts sequentially/vectorized.
+    Classifies a batch of input texts using the chosen model.
     Returns ordered list of prediction results with total batch latency.
     """
-    predictor: Optional[SarcasmIronyPredictor] = getattr(app.state, "predictor", None)
-    if not predictor or not getattr(app.state, "model_loaded", False):
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Model is not loaded or currently unavailable.",
-        )
+    multi_predictor: Optional[MultiModelPredictor] = getattr(app.state, "multi_predictor", None)
+    if not multi_predictor:
+        multi_predictor = get_multi_predictor()
 
-    batch_res = predictor.predict_batch(request.texts)
+    try:
+        batch_res = multi_predictor.predict_batch(request.texts, model_id=request.model)
+    except Exception as exc:
+        logger.error("Batch inference failure on model %s: %s", request.model, exc, exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Batch inference computation error: {str(exc)}",
+        )
 
     predictions = [
         PredictionResponse(

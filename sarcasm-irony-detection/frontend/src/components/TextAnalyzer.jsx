@@ -1,5 +1,6 @@
 import React from 'react';
-import { Send, Eraser, Sparkles, CornerDownLeft } from 'lucide-react';
+import { Send, Eraser, Sparkles, CornerDownLeft, Cpu } from 'lucide-react';
+import { DEFAULT_MODELS } from '../services/api';
 
 export const EXAMPLE_TEXTS = [
   {
@@ -34,12 +35,18 @@ export function TextAnalyzer({
   onTextChange,
   onAnalyze,
   onClear,
+  selectedModel = 'bow_linearsvm',
+  onModelChange,
+  models = DEFAULT_MODELS,
   loading = false,
   maxLength = 5000,
 }) {
   const charCount = inputText.length;
   const isOverLimit = charCount > maxLength;
   const isEmpty = inputText.trim().length === 0;
+
+  const modelList = Array.isArray(models) && models.length > 0 ? models : DEFAULT_MODELS;
+  const currentModel = modelList.find((m) => m.id === selectedModel) || modelList[0];
 
   const handleKeyDown = (e) => {
     // Ctrl/Cmd + Enter submits the text (Section 51)
@@ -65,6 +72,123 @@ export function TextAnalyzer({
           }
         }}
       >
+        {/* Model Selector Bar */}
+        <div
+          style={{
+            marginBottom: '1.25rem',
+            padding: '0.9rem 1.1rem',
+            borderRadius: 'var(--radius-md)',
+            background: 'rgba(255, 255, 255, 0.025)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.65rem',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+            }}
+          >
+            <label
+              htmlFor="model-select"
+              style={{
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: '#e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+              }}
+            >
+              <Cpu size={16} style={{ color: '#818cf8' }} />
+              Choose NLP Model Architecture
+            </label>
+
+            {currentModel && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                <span
+                  style={{
+                    fontSize: '0.725rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: currentModel.is_champion ? '#10b981' : '#38bdf8',
+                    background: currentModel.is_champion ? 'rgba(16, 185, 129, 0.12)' : 'rgba(56, 189, 248, 0.12)',
+                    border: `1px solid ${currentModel.is_champion ? 'rgba(16, 185, 129, 0.3)' : 'rgba(56, 189, 248, 0.3)'}`,
+                    padding: '0.15rem 0.55rem',
+                    borderRadius: 'var(--radius-full)',
+                    fontWeight: 600,
+                  }}
+                >
+                  {currentModel.phase} {currentModel.is_champion ? '⭐ (Champion)' : ''}
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.725rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: '#cbd5e1',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid var(--border-color)',
+                    padding: '0.15rem 0.55rem',
+                    borderRadius: 'var(--radius-full)',
+                  }}
+                >
+                  Macro F1: {currentModel.val_macro_f1}
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.725rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: '#94a3b8',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid var(--border-color)',
+                    padding: '0.15rem 0.55rem',
+                    borderRadius: 'var(--radius-full)',
+                  }}
+                >
+                  ~{currentModel.latency_ms}ms
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <select
+              id="model-select"
+              value={selectedModel}
+              onChange={(e) => onModelChange && onModelChange(e.target.value)}
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '0.65rem 0.95rem',
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                color: '#f8fafc',
+                border: '1px solid rgba(99, 102, 241, 0.4)',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.9rem',
+                fontFamily: 'var(--font-body)',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                outline: 'none',
+              }}
+            >
+              {modelList.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.phase}: {m.name} — {m.paradigm} {m.is_champion ? '⭐ (Champion Model)' : ''}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {currentModel?.description && (
+            <p style={{ margin: 0, fontSize: '0.775rem', color: '#94a3b8', lineHeight: 1.45 }}>
+              {currentModel.description}
+            </p>
+          )}
+        </div>
+
         <div style={{ marginBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <label
             htmlFor="analyzer-textarea"

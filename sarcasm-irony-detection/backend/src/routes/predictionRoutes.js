@@ -9,6 +9,7 @@ const {
   predictBatch,
   getPredictions,
   deletePrediction,
+  getModels,
 } = require('../controllers/predictionController');
 const {
   validatePredictRequest,
@@ -18,9 +19,11 @@ const {
 
 const router = express.Router();
 
+router.get('/models', getModels);
 router.post('/predict', validatePredictRequest, predict);
 router.post('/predict/batch', validateBatchPredictRequest, predictBatch);
 router.get('/predictions', validateHistoryQuery, getPredictions);
 router.delete('/predictions/:id', deletePrediction);
 
 module.exports = router;
+

@@ -47,12 +47,38 @@ const validatePredictRequest = (req, res, next) => {
     });
   }
 
+  if (req.body.model !== undefined && req.body.model !== null) {
+    if (typeof req.body.model !== 'string') {
+      return res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_DATA_TYPE',
+          message: 'The "model" field must be a valid string identifier.',
+        },
+      });
+    }
+    req.body.model = req.body.model.trim();
+  }
+
   req.body.text = trimmed;
   next();
 };
 
 const validateBatchPredictRequest = (req, res, next) => {
-  const { texts } = req.body;
+  const { texts, model } = req.body;
+
+  if (model !== undefined && model !== null) {
+    if (typeof model !== 'string') {
+      return res.status(400).json({
+        success: false,
+        error: {
+          code: 'INVALID_DATA_TYPE',
+          message: 'The "model" field must be a valid string identifier.',
+        },
+      });
+    }
+    req.body.model = model.trim();
+  }
 
   if (!Array.isArray(texts)) {
     return res.status(400).json({

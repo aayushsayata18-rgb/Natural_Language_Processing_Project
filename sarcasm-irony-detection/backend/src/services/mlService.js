@@ -74,13 +74,31 @@ class MLService {
   }
 
   /**
+   * Fetch all 5 available comparative models from ML service.
+   * @returns {Promise<Object>} Available models payload
+   */
+  async getAvailableModels() {
+    try {
+      const response = await this.client.get('/models');
+      return response.data;
+    } catch (error) {
+      this._handleAxiosError(error, 'Failed to fetch available models from ML service.');
+    }
+  }
+
+  /**
    * Request single text prediction from the ML service.
    * @param {string} text - Raw input text to classify
+   * @param {string} [model] - Target model ID (e.g. bow_linearsvm, bert_transformer)
    * @returns {Promise<Object>} Formatted prediction result
    */
-  async predict(text) {
+  async predict(text, model = null) {
     try {
-      const response = await this.client.post('/predict', { text });
+      const payload = { text };
+      if (model) {
+        payload.model = model;
+      }
+      const response = await this.client.post('/predict', payload);
       const data = response.data;
 
       // Contract validation (Section 50 & Section 74)
@@ -108,11 +126,16 @@ class MLService {
   /**
    * Request batch prediction from the ML service.
    * @param {Array<string>} texts - Array of raw input texts
+   * @param {string} [model] - Target model ID
    * @returns {Promise<Object>}
    */
-  async predictBatch(texts) {
+  async predictBatch(texts, model = null) {
     try {
-      const response = await this.client.post('/predict/batch', { texts });
+      const payload = { texts };
+      if (model) {
+        payload.model = model;
+      }
+      const response = await this.client.post('/predict/batch', payload);
       const data = response.data;
 
       if (!Array.isArray(data.predictions)) {

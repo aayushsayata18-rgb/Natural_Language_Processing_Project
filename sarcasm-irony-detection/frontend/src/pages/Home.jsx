@@ -46,7 +46,7 @@ export function Home() {
           }}
         >
           <Sparkles size={15} />
-          <span>MCA Final-Year NLP Project — SemEval-2018 Task 3 Benchmark</span>
+          <span>MCA Final-Year NLP Project — 5-Paradigm Comparative Benchmark</span>
         </div>
 
         <h1
@@ -80,7 +80,8 @@ export function Home() {
           }}
         >
           Analyze sentences and social discourse to discern non-literal intent, sarcastic contempt,
-          situational irony, and metaphorical figurative language using trained Machine Learning models.
+          situational irony, and metaphorical figurative language across <strong>5 benchmarked NLP paradigms</strong> —
+          from classical LinearSVC to fine-tuned BERT Transformers.
         </p>
 
         {/* CTA Buttons */}
@@ -94,17 +95,173 @@ export function Home() {
           }}
         >
           <Link to="/detector" className="btn btn-primary" style={{ padding: '0.85rem 1.85rem', fontSize: '1rem' }}>
-            <span>Analyze Text</span>
+            <span>Compare Models in Detector</span>
             <ArrowRight size={18} />
           </Link>
           <Link to="/about" className="btn btn-secondary" style={{ padding: '0.85rem 1.85rem', fontSize: '1rem' }}>
             <BookOpen size={18} />
-            <span>Learn About Project</span>
+            <span>5-Model Benchmark Report</span>
           </Link>
         </div>
       </section>
 
-      {/* 2. THE FOUR CLASSES EXPLAINED (Section 9) */}
+      {/* 2. THE 5 BENCHMARK MODELS SHOWCASE */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '1.85rem', marginBottom: '0.5rem', color: '#f8fafc' }}>
+            5 Comparative NLP Model Architectures
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
+            Our research evaluated five generations of Natural Language Processing methodologies on
+            an identical, decontaminated multi-class benchmark. Select any architecture live in the detector!
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1.25rem',
+          }}
+        >
+          {[
+            {
+              phase: 'Phase 4',
+              name: 'LinearSVM (BoW)',
+              tag: '⭐ Champion Model',
+              tagColor: '#10b981',
+              paradigm: 'Bag of Words (n-grams 1-2)',
+              params: '112,312',
+              macroF1: '0.7187',
+              accuracy: '84.57%',
+              latency: '0.027 ms',
+              desc: 'Highest Macro F1 across all models. Maintains active hyperplane separation on the minority Figurative class without collapsing to zero recall.',
+            },
+            {
+              phase: 'Phase 5',
+              name: 'LinearSVM (TF-IDF)',
+              tag: 'Statistical NLP',
+              tagColor: '#38bdf8',
+              paradigm: 'Sublinear TF-IDF + N-grams',
+              params: '112,312',
+              macroF1: '0.7002',
+              accuracy: '85.65%',
+              latency: '0.014 ms',
+              desc: 'Leverages inverse document frequency to downweight common stopwords while upweighting discriminative sarcastic lexical markers.',
+            },
+            {
+              phase: 'Phase 6',
+              name: 'GloVe + Bi-LSTM',
+              tag: 'Deep Learning',
+              tagColor: '#a855f7',
+              paradigm: '100d Dense Word Embeddings',
+              params: '3,197,636',
+              macroF1: '0.6940',
+              accuracy: '86.12%',
+              latency: '0.041 ms',
+              desc: 'Bidirectional LSTM sequence model learning forward and backward temporal word dependencies from pretrained GloVe vectors.',
+            },
+            {
+              phase: 'Phase 7',
+              name: 'FastText + Attention',
+              tag: 'Subwords & Attention',
+              tagColor: '#f59e0b',
+              paradigm: '300d Subwords + Additive Attn',
+              params: '9,204,828',
+              macroF1: '0.6928',
+              accuracy: '86.03%',
+              latency: '0.098 ms',
+              desc: 'Solves social media out-of-vocabulary slang via character n-grams and attends directly to high-salience contrastive tokens.',
+            },
+            {
+              phase: 'Phase 8',
+              name: 'BERT Contextual',
+              tag: 'Transformer',
+              tagColor: '#ec4899',
+              paradigm: '12-Layer Contextual Transformer',
+              params: '109,485,316',
+              macroF1: '0.6935',
+              accuracy: '86.12%',
+              latency: '39.33 ms',
+              desc: 'Pretrained deep bidirectional transformer fine-tuned end-to-end. Completely eliminated mutual confusion between Sarcasm and Irony.',
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="card"
+              style={{
+                border: item.tagColor ? `1px solid ${item.tagColor}40` : '1px solid var(--border-color)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.85rem',
+                position: 'relative',
+                background: 'rgba(255, 255, 255, 0.02)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: item.tagColor,
+                    background: `${item.tagColor}15`,
+                    border: `1px solid ${item.tagColor}35`,
+                    padding: '0.2rem 0.6rem',
+                    borderRadius: 'var(--radius-full)',
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.phase} • {item.tag}
+                </span>
+                <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'var(--font-mono)' }}>
+                  ~{item.latency}
+                </span>
+              </div>
+
+              <h3 style={{ fontSize: '1.2rem', color: '#ffffff', margin: 0 }}>{item.name}</h3>
+              <div style={{ fontSize: '0.8rem', color: '#818cf8', fontFamily: 'var(--font-mono)' }}>
+                {item.paradigm}
+              </div>
+
+              <p style={{ color: '#94a3b8', fontSize: '0.85rem', lineHeight: 1.5, flex: 1, margin: 0 }}>
+                {item.desc}
+              </p>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '0.5rem',
+                  paddingTop: '0.75rem',
+                  borderTop: '1px solid var(--border-color)',
+                  textAlign: 'center',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '0.675rem', color: '#64748b', textTransform: 'uppercase' }}>Params</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#cbd5e1', fontWeight: 600 }}>
+                    {item.params}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.675rem', color: '#64748b', textTransform: 'uppercase' }}>Macro F1</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#10b981', fontWeight: 700 }}>
+                    {item.macroF1}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.675rem', color: '#64748b', textTransform: 'uppercase' }}>Accuracy</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#38bdf8', fontWeight: 600 }}>
+                    {item.accuracy}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. THE FOUR CLASSES EXPLAINED (Section 9) */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem', color: '#f8fafc' }}>
@@ -158,7 +315,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS 5-STEP PIPELINE (Section 10) */}
+      {/* 4. HOW IT WORKS 5-STEP PIPELINE (Section 10) */}
       <section className="card" style={{ padding: '2.5rem 2rem' }}>
         <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 2.5rem' }}>
           <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem', color: '#ffffff' }}>
@@ -192,14 +349,14 @@ export function Home() {
             },
             {
               step: 'STEP 3',
-              title: 'Feature Vectorization',
-              desc: 'N-gram CountVectorizer converts tokens into Bag-of-Words sparse matrix.',
+              title: 'Model Representation',
+              desc: 'Extracts BoW tokens, TF-IDF weights, GloVe vectors, FastText subwords, or WordPiece IDs.',
               icon: <Cpu size={22} style={{ color: '#a855f7' }} />,
             },
             {
               step: 'STEP 4',
-              title: 'LinearSVC Evaluation',
-              desc: 'One-vs-Rest hyperplane margin scoring with calibrated Platt softmax.',
+              title: 'Multi-Model Inference',
+              desc: 'Executes chosen model (LinearSVC, Bi-LSTM, Attention, or BERT) with calibrated softmax.',
               icon: <Brain size={22} style={{ color: '#ec4899' }} />,
             },
             {

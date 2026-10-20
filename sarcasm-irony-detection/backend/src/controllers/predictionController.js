@@ -14,10 +14,10 @@ const { isDbConnected } = require('../config/database');
  */
 const predict = async (req, res, next) => {
   try {
-    const { text } = req.body;
+    const { text, model } = req.body;
 
-    // Call Python ML service
-    const mlResult = await mlService.predict(text);
+    // Call Python ML service with selected model
+    const mlResult = await mlService.predict(text, model);
 
     let savedRecord = null;
     let historySaved = false;
@@ -70,9 +70,9 @@ const predict = async (req, res, next) => {
  */
 const predictBatch = async (req, res, next) => {
   try {
-    const { texts } = req.body;
+    const { texts, model } = req.body;
 
-    const batchResult = await mlService.predictBatch(texts);
+    const batchResult = await mlService.predictBatch(texts, model);
 
     // Save batch to MongoDB in bulk if connected
     if (isDbConnected()) {
@@ -230,9 +230,27 @@ const deletePrediction = async (req, res, next) => {
   }
 };
 
+/**
+ * Handle get available comparative models request.
+ * GET /api/models
+ */
+const getModels = async (req, res, next) => {
+  try {
+    const modelsData = await mlService.getAvailableModels();
+    return res.status(200).json({
+      success: true,
+      data: modelsData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   predict,
   predictBatch,
   getPredictions,
   deletePrediction,
+  getModels,
 };
+

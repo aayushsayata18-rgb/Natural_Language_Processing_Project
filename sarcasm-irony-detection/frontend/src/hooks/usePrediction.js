@@ -12,6 +12,7 @@ export const MAX_INPUT_LENGTH = 5000;
 export function usePrediction() {
   const [inputText, setInputText] = useState('');
   const [lastAnalyzedText, setLastAnalyzedText] = useState('');
+  const [selectedModel, setSelectedModel] = useState('bow_linearsvm');
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,8 +33,9 @@ export function usePrediction() {
   /**
    * Submit text for sarcasm/irony classification
    */
-  const analyze = useCallback(async (customText) => {
+  const analyze = useCallback(async (customText, customModel) => {
     const textToAnalyze = (customText !== undefined ? customText : inputText).trim();
+    const modelToUse = customModel || selectedModel || 'bow_linearsvm';
 
     // Frontend validation
     if (!textToAnalyze) {
@@ -58,7 +60,7 @@ export function usePrediction() {
     setError(null);
 
     try {
-      const result = await predictText(textToAnalyze, controller.signal);
+      const result = await predictText(textToAnalyze, modelToUse, controller.signal);
       setPrediction(result);
       setLastAnalyzedText(textToAnalyze);
       setLoading(false);
@@ -71,7 +73,7 @@ export function usePrediction() {
       setError(err.message || 'Unable to analyze text. Please try again.');
       setLoading(false);
     }
-  }, [inputText]);
+  }, [inputText, selectedModel]);
 
   /**
    * Reset the analyzer state
@@ -93,6 +95,8 @@ export function usePrediction() {
   return {
     inputText,
     setInputText: handleTextChange,
+    selectedModel,
+    setSelectedModel,
     prediction,
     loading,
     error,
@@ -105,3 +109,4 @@ export function usePrediction() {
 }
 
 export default usePrediction;
+

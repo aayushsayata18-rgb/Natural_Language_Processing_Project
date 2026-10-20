@@ -28,6 +28,13 @@ from .utils import (
     get_memory_info,
 )
 
+from .multi_predictor import (
+    MultiModelPredictor,
+    get_multi_predictor,
+    MODEL_METADATA_REGISTRY,
+    MODEL_ALIASES,
+)
+
 __version__ = "1.0.0"
 
 _global_predictor: Optional[SarcasmIronyPredictor] = None
@@ -41,20 +48,20 @@ def get_predictor(model_dir: Optional[str] = None) -> SarcasmIronyPredictor:
     return _global_predictor
 
 
-def predict_text(text: str, model_dir: Optional[str] = None) -> Dict[str, Any]:
+def predict_text(text: str, model_id: Optional[str] = "bow_linearsvm", model_dir: Optional[str] = None) -> Dict[str, Any]:
     """
-    Convenience function for single text inference.
-    Used by Python scripts and backend API integration (Phase 11).
+    Convenience function for single text inference across models.
+    Used by Python scripts and backend API integration.
     """
-    return get_predictor(model_dir=model_dir).predict(text).to_dict()
+    return get_multi_predictor(base_dir=model_dir).predict(text, model_id=model_id).to_dict()
 
 
-def predict_batch(texts: List[str], model_dir: Optional[str] = None) -> Dict[str, Any]:
+def predict_batch(texts: List[str], model_id: Optional[str] = "bow_linearsvm", model_dir: Optional[str] = None) -> Dict[str, Any]:
     """
-    Convenience function for vectorized batch inference.
-    Used by Python scripts and backend API integration (Phase 11).
+    Convenience function for vectorized batch inference across models.
+    Used by Python scripts and backend API integration.
     """
-    return get_predictor(model_dir=model_dir).predict_batch(texts).to_dict()
+    return get_multi_predictor(base_dir=model_dir).predict_batch(texts, model_id=model_id).to_dict()
 
 
 def load_model(model_dir: Optional[str] = None) -> SarcasmIronyPredictor:
@@ -64,6 +71,10 @@ def load_model(model_dir: Optional[str] = None) -> SarcasmIronyPredictor:
 
 __all__ = [
     "SarcasmIronyPredictor",
+    "MultiModelPredictor",
+    "get_multi_predictor",
+    "MODEL_METADATA_REGISTRY",
+    "MODEL_ALIASES",
     "predict_text",
     "predict_batch",
     "load_model",
@@ -85,3 +96,4 @@ __all__ = [
     "get_execution_device",
     "get_memory_info",
 ]
+

@@ -88,12 +88,12 @@ export function About() {
         </p>
       </section>
 
-      {/* 3. Model Information & Performance Metrics (Section 39 & 40) */}
+      {/* 3. Cross-Paradigm Benchmark Matrix (Section 39 & 40) */}
       <section className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
           <h2 style={{ fontSize: '1.35rem', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <BarChart3 size={20} style={{ color: '#10b981' }} />
-            Final Production Model Specifications
+            Cross-Paradigm Model Benchmark Matrix (Phases 4–8)
           </h2>
           <span
             style={{
@@ -106,81 +106,172 @@ export function About() {
               border: '1px solid rgba(56, 189, 248, 0.2)',
             }}
           >
-            Phase 9 Selection & Phase 10 Packaged
+            5 Architectures Benchmarked & Deployed
           </span>
         </div>
 
-        <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
-          Selected after exhaustive benchmarking against Logistic Regression, Naive Bayes, Random
-          Forest, BiLSTM, and Transformer baselines in Phase 9.
+        <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>
+          All five models were evaluated on the identical decontaminated benchmark of 5,527 test tweets
+          (Regular: 33.6%, Sarcasm: 29.0%, Irony: 23.5%, Figurative: 13.9%). All 5 models are hosted live
+          and selectable in the detector dropdown.
         </p>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '1rem',
-          }}
-        >
-          <div
-            style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '10px',
-              padding: '1rem',
-            }}
-          >
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Model Name</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 600, color: '#f8fafc', marginTop: '0.25rem' }}>
-              {modelInfo?.model_name || 'LinearSVM'}
-            </div>
-          </div>
-
-          <div
-            style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '10px',
-              padding: '1rem',
-            }}
-          >
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Model Version</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 600, color: '#6366f1', marginTop: '0.25rem' }}>
-              {modelInfo?.model_version || 'SIC-v1.0'}
-            </div>
-          </div>
-
-          <div
-            style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '10px',
-              padding: '1rem',
-            }}
-          >
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Macro F1-Score</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 700, color: '#10b981', marginTop: '0.25rem' }}>
-              {modelInfo?.macro_f1 ? modelInfo.macro_f1.toFixed(4) : '0.7719'}
-            </div>
-          </div>
-
-          <div
-            style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '10px',
-              padding: '1rem',
-            }}
-          >
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase' }}>Overall Accuracy</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.05rem', fontWeight: 700, color: '#38bdf8', marginTop: '0.25rem' }}>
-              {modelInfo?.accuracy ? `${(modelInfo.accuracy * 100).toFixed(2)}%` : '77.00%'}
-            </div>
-          </div>
+        {/* Responsive Table */}
+        <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', textAlign: 'left' }}>
+            <thead>
+              <tr style={{ background: 'rgba(255, 255, 255, 0.04)', borderBottom: '1px solid var(--border-color)' }}>
+                <th style={{ padding: '0.75rem 1rem', color: '#f8fafc' }}>Architecture</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Phase</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Representation</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Parameters</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Latency</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Accuracy</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Macro F1</th>
+                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Figurative F1</th>
+                <th style={{ padding: '0.75rem 1rem', color: '#f8fafc' }}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                {
+                  arch: 'LinearSVM (BOW-16)',
+                  phase: 'Phase 4',
+                  rep: 'Bag of Words (n-grams 1-2)',
+                  params: '112,312',
+                  latency: '0.027 ms',
+                  acc: '84.57%',
+                  f1: '0.7187',
+                  figF1: '0.1378',
+                  status: '⭐ Selected Champion',
+                  isChamp: true,
+                },
+                {
+                  arch: 'LinearSVM (TFIDF-06)',
+                  phase: 'Phase 5',
+                  rep: 'Sublinear TF-IDF',
+                  params: '112,312',
+                  latency: '0.014 ms',
+                  acc: '85.65%',
+                  f1: '0.7002',
+                  figF1: '0.0421',
+                  status: 'Live in Dropdown',
+                  isChamp: false,
+                },
+                {
+                  arch: 'GloVe + Bi-LSTM (BILSTM-02)',
+                  phase: 'Phase 6',
+                  rep: 'Pretrained 100d GloVe',
+                  params: '3,197,636',
+                  latency: '0.041 ms',
+                  acc: '86.12%',
+                  f1: '0.6940',
+                  figF1: '0.0026',
+                  status: 'Live in Dropdown',
+                  isChamp: false,
+                },
+                {
+                  arch: 'FastText + Bi-LSTM + Attn (FT-02)',
+                  phase: 'Phase 7',
+                  rep: '300d Subwords + Attention',
+                  params: '9,204,828',
+                  latency: '0.098 ms',
+                  acc: '86.03%',
+                  f1: '0.6928',
+                  figF1: '0.0000',
+                  status: 'Live in Dropdown',
+                  isChamp: false,
+                },
+                {
+                  arch: 'BERT (bert-base-uncased)',
+                  phase: 'Phase 8',
+                  rep: '12-Layer Transformer (768d)',
+                  params: '109,485,316',
+                  latency: '39.33 ms',
+                  acc: '86.12%',
+                  f1: '0.6935',
+                  figF1: '0.0000',
+                  status: 'Live in Dropdown',
+                  isChamp: false,
+                },
+              ].map((row, idx) => (
+                <tr
+                  key={idx}
+                  style={{
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                    background: row.isChamp ? 'rgba(16, 185, 129, 0.06)' : 'transparent',
+                  }}
+                >
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: row.isChamp ? '#10b981' : '#f8fafc' }}>
+                    {row.arch}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+                    {row.phase}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: '#cbd5e1' }}>{row.rep}</td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+                    {row.params}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>
+                    {row.latency}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: '#cbd5e1', fontFamily: 'var(--font-mono)' }}>
+                    {row.acc}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', fontWeight: 700, color: row.isChamp ? '#10b981' : '#cbd5e1', fontFamily: 'var(--font-mono)' }}>
+                    {row.f1}
+                  </td>
+                  <td style={{ padding: '0.75rem 0.75rem', color: row.isChamp ? '#10b981' : '#ef4444', fontFamily: 'var(--font-mono)' }}>
+                    {row.figF1}
+                  </td>
+                  <td style={{ padding: '0.75rem 1rem' }}>
+                    <span
+                      style={{
+                        fontSize: '0.725rem',
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: 'var(--radius-full)',
+                        background: row.isChamp ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                        color: row.isChamp ? '#10b981' : '#94a3b8',
+                        border: `1px solid ${row.isChamp ? 'rgba(16, 185, 129, 0.3)' : 'var(--border-color)'}`,
+                        fontWeight: 600,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.25rem' }}>
-          <strong>Architecture:</strong> {modelInfo?.model_type || 'LinearSVC (One-vs-Rest) with BoW CountVectorizer (n-grams: 1-2)'}
+        {/* Academic Key Takeaways Callout */}
+        <div
+          style={{
+            background: 'rgba(99, 102, 241, 0.05)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            borderRadius: '8px',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.65rem',
+          }}
+        >
+          <h4 style={{ color: '#818cf8', margin: 0, fontSize: '0.95rem' }}>
+            Academic Research Insights: Why Did LinearSVM Win on Macro F1?
+          </h4>
+          <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#cbd5e1', fontSize: '0.85rem', lineHeight: 1.6 }}>
+            <li>
+              <strong>Margin Maximization vs. Cross-Entropy Loss:</strong> LinearSVM optimizes geometric margins between hyperplanes. In our imbalanced dataset, standard unweighted cross-entropy in deep neural networks flattened the minority <em>Figurative</em> class into the majority classes, whereas LinearSVM preserved 16.97% recall.
+            </li>
+            <li>
+              <strong>BERT's Semantic Precision:</strong> While BERT collapsed on Figurative, it achieved <strong>0 errors out of 2,903 tweets</strong> between Sarcasm and Irony, proving contextual transformers have superior phrase-level boundary precision.
+            </li>
+            <li>
+              <strong>Computational Return on Investment:</strong> LinearSVM executes at <strong>0.027 ms/text</strong> (~1,400× faster than BERT on CPU) with 975× fewer parameters, making it optimal for high-throughput production deployment.
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -214,14 +305,15 @@ export function About() {
       <section className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <h2 style={{ fontSize: '1.35rem', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <GitBranch size={20} style={{ color: '#a855f7' }} />
-          NLP Pipeline & Methodology
+          NLP Pipeline & 5 Evaluated Paradigms
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {[
-            { step: '1. Preprocessing', detail: 'URL removal, username neutralization, contraction expansion, lowercase normalization, and punctuation token preservation.' },
-            { step: '2. Representation', detail: 'Bag-of-Words (BoW) feature extraction capturing unigram and bigram frequency distributions.' },
-            { step: '3. Classification', detail: 'Linear Support Vector Classifier (LinearSVC) utilizing One-vs-Rest decision boundaries.' },
-            { step: '4. Probability Calibration', detail: 'Platt scaling / Softmax transformation converting decision function margins into normalized probabilities across all four classes.' },
+            { step: 'Phase 4 (BoW)', detail: 'CountVectorizer unigrams and bigrams (28,077 features) with One-vs-Rest LinearSVC and Platt probability calibration.' },
+            { step: 'Phase 5 (TF-IDF)', detail: 'Sublinear TF-IDF term frequency scaling downweighting common terms and highlighting rare contrastive tokens.' },
+            { step: 'Phase 6 (GloVe)', detail: 'Pretrained 100-dimensional GloVe dense word embeddings feeding a 2-layer Bidirectional LSTM network.' },
+            { step: 'Phase 7 (FastText)', detail: 'Character n-gram subword synthesis resolving 93.8% of Twitter OOV tokens, augmented with Additive Self-Attention.' },
+            { step: 'Phase 8 (BERT)', detail: 'Pretrained bert-base-uncased contextual transformer (12 layers, 768d, 12 attention heads) fine-tuned end-to-end with AdamW.' },
           ].map((item, idx) => (
             <div
               key={idx}

@@ -32,12 +32,39 @@ class ModelInfoResponse(BaseModel):
     accuracy: Optional[float] = Field(None, description="Validation accuracy score")
 
 
+class ModelListItem(BaseModel):
+    """Specification of an available model in the comparative registry."""
+    id: str = Field(..., description="Unique model identifier")
+    name: str = Field(..., description="Short display name")
+    full_name: str = Field(..., description="Full academic model title")
+    phase: str = Field(..., description="Project phase")
+    paradigm: str = Field(..., description="NLP representation paradigm")
+    parameter_count: int = Field(..., description="Total parameter count")
+    val_macro_f1: float = Field(..., description="Validation Macro F1 score")
+    val_accuracy: float = Field(..., description="Validation accuracy score")
+    latency_ms: float = Field(..., description="Expected per-text inference latency in milliseconds")
+    is_champion: bool = Field(..., description="Whether this is the Phase 9 selected production model")
+    description: str = Field(..., description="Architectural summary and trade-offs")
+
+
+class ModelListResponse(BaseModel):
+    """List of all available models for comparative inference."""
+    models: List[ModelListItem] = Field(..., description="List of registered model specifications")
+    default_model: str = Field(default="bow_linearsvm", description="Default model ID")
+    total_models: int = Field(..., description="Total number of models available")
+
+
 class PredictionRequest(BaseModel):
     """Single text inference request schema."""
     text: str = Field(
         ...,
         description="Input text snippet to classify for sarcasm and irony",
         examples=["Fantastic, another three-hour meeting."]
+    )
+    model: Optional[str] = Field(
+        default="bow_linearsvm",
+        description="Target model identifier (bow_linearsvm, tfidf_linearsvm, glove_bilstm, fasttext_attention, bert_transformer)",
+        examples=["bow_linearsvm"]
     )
 
     @field_validator("text")
@@ -69,6 +96,11 @@ class BatchPredictionRequest(BaseModel):
         ...,
         description="List of input text snippets to classify",
         examples=[["Great job breaking the build.", "Have a nice weekend!"]]
+    )
+    model: Optional[str] = Field(
+        default="bow_linearsvm",
+        description="Target model identifier for batch classification",
+        examples=["bow_linearsvm"]
     )
 
     @field_validator("texts")

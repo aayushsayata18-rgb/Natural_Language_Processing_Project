@@ -8,7 +8,7 @@
 
 ## 1. Overview
 
-The React Frontend provides the primary user interface for the Sarcasm & Irony Detection System. It allows users to input text, receive real-time four-class predictions (Regular, Sarcasm, Irony, Figurative) with calibrated confidence and probability distributions, view historical predictions persisted in MongoDB, and review model architecture and performance metrics.
+The React Frontend provides the primary user interface for the Sarcasm & Irony Detection System. It allows users to input text, dynamically select from 5 benchmarked NLP models (LinearSVM BoW Champion, LinearSVM TF-IDF, GloVe + Bi-LSTM, FastText + Attention, and BERT Contextual), receive real-time four-class predictions (Regular, Sarcasm, Irony, Figurative) with calibrated confidence and probability distributions, view historical predictions persisted in MongoDB, and review comprehensive model metrics and Kaggle dataset details ("Tweets with Sarcasm and Irony").
 
 ### Architecture Compliance
 Following strict decoupled multi-tier design (Section 2 & 94):
@@ -18,7 +18,7 @@ Following strict decoupled multi-tier design (Section 2 & 94):
 - Prediction results are **NEVER** hard-coded; every analysis passes through the live ML pipeline.
 
 ```
-USER ──► React Frontend (Port 3000) ──► Node.js Express (Port 5000) ──► Python FastAPI (Port 8000) ──► LinearSVC BoW
+USER ──► React Frontend (Port 3000) ──► Node.js Express (Port 5000) ──► Python FastAPI (Port 8000) ──► 5 NLP Models
                                                 │
                                                 ▼
                                          MongoDB History

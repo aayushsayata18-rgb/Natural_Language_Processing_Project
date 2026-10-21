@@ -368,7 +368,7 @@ class MultiModelPredictor:
             confidence=round(confidence, 4),
             probabilities=prob_dict,
             model_name=meta["name"],
-            model_version=f"{meta['phase']} ({canonical_id})",
+            model_version="SIC-v1.0",
             latency_ms=latency_ms,
         )
 
@@ -394,7 +394,7 @@ class MultiModelPredictor:
             total_count=len(texts),
             batch_latency_ms=batch_latency,
             model_name=meta["name"],
-            model_version=f"{meta['phase']} ({canonical_id})",
+            model_version="SIC-v1.0",
         )
 
 

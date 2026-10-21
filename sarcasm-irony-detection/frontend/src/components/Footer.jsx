@@ -34,7 +34,7 @@ export function Footer() {
         </div>
 
         <div style={{ fontSize: '0.75rem', color: '#64748b' }}>
-          MCA Final-Year NLP Project &copy; {new Date().getFullYear()} — Natural Language Processing & Machine Learning
+          NLP Project &copy; {new Date().getFullYear()} — Natural Language Processing & Machine Learning
         </div>
       </div>
     </footer>

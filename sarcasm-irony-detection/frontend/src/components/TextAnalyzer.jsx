@@ -123,7 +123,7 @@ export function TextAnalyzer({
                     fontWeight: 600,
                   }}
                 >
-                  {currentModel.phase} {currentModel.is_champion ? '⭐ (Champion)' : ''}
+                  {currentModel.name} {currentModel.is_champion ? '⭐ (Champion)' : ''}
                 </span>
                 <span
                   style={{
@@ -176,7 +176,7 @@ export function TextAnalyzer({
             >
               {modelList.map((m) => (
                 <option key={m.id} value={m.id}>
-                  {m.phase}: {m.name} — {m.paradigm} {m.is_champion ? '⭐ (Champion Model)' : ''}
+                  {m.name} — {m.paradigm} {m.is_champion ? '⭐ (Champion Model)' : ''}
                 </option>
               ))}
             </select>

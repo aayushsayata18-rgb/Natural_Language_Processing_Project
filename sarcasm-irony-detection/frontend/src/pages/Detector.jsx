@@ -28,11 +28,15 @@ export function Detector() {
   // Fetch available models list on mount
   useEffect(() => {
     let isMounted = true;
-    getAvailableModels().then((models) => {
-      if (isMounted && Array.isArray(models) && models.length > 0) {
-        setAvailableModels(models);
-      }
-    }).catch(() => {});
+    if (typeof getAvailableModels === 'function') {
+      Promise.resolve(getAvailableModels())
+        .then((models) => {
+          if (isMounted && Array.isArray(models) && models.length > 0) {
+            setAvailableModels(models);
+          }
+        })
+        .catch(() => {});
+    }
     return () => {
       isMounted = false;
     };

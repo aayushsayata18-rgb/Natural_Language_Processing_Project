@@ -1,6 +1,6 @@
 /**
  * Formatting and Helper Utilities.
- * Sarcasm & Irony Detection System - React Frontend (Phase 12)
+ * Sarcasm & Irony Detection System - React Frontend
  */
 
 export const CLASS_COLORS = {

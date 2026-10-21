@@ -260,7 +260,7 @@ export function PredictionHistory({
                             color: '#94a3b8',
                           }}
                         >
-                          {p.modelVersion || p.model_version || 'SIC-v1.0'}
+                          {p.modelName || p.model_name || (p.modelVersion ? p.modelVersion.replace(/Phase\s*\d+\s*\(?/i, '').replace(/\)/, '').trim() : 'LinearSVM') || 'LinearSVM'}
                         </td>
                         <td
                           style={{

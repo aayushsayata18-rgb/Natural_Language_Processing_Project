@@ -209,7 +209,7 @@ export function PredictionResult({
         }}
       >
         <div>
-          Model: <span style={{ color: '#94a3b8' }}>{modelName} ({modelVersion})</span>
+          Model: <span style={{ color: '#94a3b8' }}>{modelName}</span>
         </div>
         {latencyMs !== null && latencyMs !== undefined && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>

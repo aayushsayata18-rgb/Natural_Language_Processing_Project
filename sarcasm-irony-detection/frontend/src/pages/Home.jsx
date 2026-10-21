@@ -46,7 +46,7 @@ export function Home() {
           }}
         >
           <Sparkles size={15} />
-          <span>MCA Final-Year NLP Project — 5-Paradigm Comparative Benchmark</span>
+          <span>NLP Project — 5-Paradigm Comparative Benchmark</span>
         </div>
 
         <h1
@@ -126,7 +126,6 @@ export function Home() {
         >
           {[
             {
-              phase: 'Phase 4',
               name: 'LinearSVM (BoW)',
               tag: '⭐ Champion Model',
               tagColor: '#10b981',
@@ -138,7 +137,6 @@ export function Home() {
               desc: 'Highest Macro F1 across all models. Maintains active hyperplane separation on the minority Figurative class without collapsing to zero recall.',
             },
             {
-              phase: 'Phase 5',
               name: 'LinearSVM (TF-IDF)',
               tag: 'Statistical NLP',
               tagColor: '#38bdf8',
@@ -150,7 +148,6 @@ export function Home() {
               desc: 'Leverages inverse document frequency to downweight common stopwords while upweighting discriminative sarcastic lexical markers.',
             },
             {
-              phase: 'Phase 6',
               name: 'GloVe + Bi-LSTM',
               tag: 'Deep Learning',
               tagColor: '#a855f7',
@@ -162,7 +159,6 @@ export function Home() {
               desc: 'Bidirectional LSTM sequence model learning forward and backward temporal word dependencies from pretrained GloVe vectors.',
             },
             {
-              phase: 'Phase 7',
               name: 'FastText + Attention',
               tag: 'Subwords & Attention',
               tagColor: '#f59e0b',
@@ -174,7 +170,6 @@ export function Home() {
               desc: 'Solves social media out-of-vocabulary slang via character n-grams and attends directly to high-salience contrastive tokens.',
             },
             {
-              phase: 'Phase 8',
               name: 'BERT Contextual',
               tag: 'Transformer',
               tagColor: '#ec4899',
@@ -211,7 +206,7 @@ export function Home() {
                     fontWeight: 600,
                   }}
                 >
-                  {item.phase} • {item.tag}
+                  {item.tag}
                 </span>
                 <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: 'var(--font-mono)' }}>
                   ~{item.latency}
@@ -470,7 +465,7 @@ export function Home() {
               color: '#94a3b8',
             }}
           >
-            LinearSVC achieved a Macro F1 score of <strong>0.7719</strong> and Accuracy of <strong>77.00%</strong> in comprehensive Phase 9 benchmarks.
+            LinearSVC achieved a Macro F1 score of <strong>0.7719</strong> and Accuracy of <strong>77.00%</strong> in comprehensive benchmarks.
           </div>
         </div>
       </section>

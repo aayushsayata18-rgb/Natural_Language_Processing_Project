@@ -11,6 +11,7 @@ import {
   ShieldAlert,
   BarChart3,
   GitBranch,
+  ExternalLink,
 } from 'lucide-react';
 import { CLASS_COLORS } from '../utils/formatting';
 
@@ -64,7 +65,7 @@ export function About() {
         </h1>
         <p style={{ color: '#94a3b8', fontSize: '1.05rem', lineHeight: 1.6 }}>
           Comprehensive documentation of the Sarcasm and Irony Detection System developed for the
-          MCA Final-Year NLP curriculum.
+          NLP Project curriculum.
         </p>
       </div>
 
@@ -93,7 +94,7 @@ export function About() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
           <h2 style={{ fontSize: '1.35rem', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <BarChart3 size={20} style={{ color: '#10b981' }} />
-            Cross-Paradigm Model Benchmark Matrix (Phases 4–8)
+            Cross-Paradigm Model Benchmark Matrix
           </h2>
           <span
             style={{
@@ -122,7 +123,6 @@ export function About() {
             <thead>
               <tr style={{ background: 'rgba(255, 255, 255, 0.04)', borderBottom: '1px solid var(--border-color)' }}>
                 <th style={{ padding: '0.75rem 1rem', color: '#f8fafc' }}>Architecture</th>
-                <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Phase</th>
                 <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Representation</th>
                 <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Parameters</th>
                 <th style={{ padding: '0.75rem 0.75rem', color: '#f8fafc' }}>Latency</th>
@@ -135,8 +135,7 @@ export function About() {
             <tbody>
               {[
                 {
-                  arch: 'LinearSVM (BOW-16)',
-                  phase: 'Phase 4',
+                  arch: 'LinearSVM (BoW)',
                   rep: 'Bag of Words (n-grams 1-2)',
                   params: '112,312',
                   latency: '0.027 ms',
@@ -147,8 +146,7 @@ export function About() {
                   isChamp: true,
                 },
                 {
-                  arch: 'LinearSVM (TFIDF-06)',
-                  phase: 'Phase 5',
+                  arch: 'LinearSVM (TF-IDF)',
                   rep: 'Sublinear TF-IDF',
                   params: '112,312',
                   latency: '0.014 ms',
@@ -159,8 +157,7 @@ export function About() {
                   isChamp: false,
                 },
                 {
-                  arch: 'GloVe + Bi-LSTM (BILSTM-02)',
-                  phase: 'Phase 6',
+                  arch: 'GloVe + Bi-LSTM',
                   rep: 'Pretrained 100d GloVe',
                   params: '3,197,636',
                   latency: '0.041 ms',
@@ -171,8 +168,7 @@ export function About() {
                   isChamp: false,
                 },
                 {
-                  arch: 'FastText + Bi-LSTM + Attn (FT-02)',
-                  phase: 'Phase 7',
+                  arch: 'FastText + Bi-LSTM + Attention',
                   rep: '300d Subwords + Attention',
                   params: '9,204,828',
                   latency: '0.098 ms',
@@ -183,8 +179,7 @@ export function About() {
                   isChamp: false,
                 },
                 {
-                  arch: 'BERT (bert-base-uncased)',
-                  phase: 'Phase 8',
+                  arch: 'BERT Contextual',
                   rep: '12-Layer Transformer (768d)',
                   params: '109,485,316',
                   latency: '39.33 ms',
@@ -204,9 +199,6 @@ export function About() {
                 >
                   <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: row.isChamp ? '#10b981' : '#f8fafc' }}>
                     {row.arch}
-                  </td>
-                  <td style={{ padding: '0.75rem 0.75rem', color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
-                    {row.phase}
                   </td>
                   <td style={{ padding: '0.75rem 0.75rem', color: '#cbd5e1' }}>{row.rep}</td>
                   <td style={{ padding: '0.75rem 0.75rem', color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
@@ -276,29 +268,166 @@ export function About() {
       </section>
 
       {/* 4. Dataset Information (Section 42) */}
-      <section className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <h2 style={{ fontSize: '1.35rem', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Database size={20} style={{ color: '#f59e0b' }} />
-          Dataset & Corpus Details
-        </h2>
-        <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: 1.7 }}>
-          The system was trained and evaluated on the standardized <strong>SemEval-2018 Task 3 Subtask B</strong> benchmark
-          corpus for sarcasm and irony detection in English tweets.
+      <section className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <h2 style={{ fontSize: '1.35rem', color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+            <Database size={20} style={{ color: '#f59e0b' }} />
+            Dataset & Corpus Details
+          </h2>
+          <a
+            href="https://www.kaggle.com/datasets/nikhiljohnk/tweets-with-sarcasm-and-irony"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              fontSize: '0.8rem',
+              fontWeight: 500,
+              color: '#38bdf8',
+              background: 'rgba(56, 189, 248, 0.1)',
+              padding: '0.35rem 0.75rem',
+              borderRadius: 'var(--radius-full)',
+              border: '1px solid rgba(56, 189, 248, 0.25)',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <span>Kaggle: Tweets with Sarcasm and Irony</span>
+            <ExternalLink size={14} />
+          </a>
+        </div>
+
+        <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
+          The project utilizes the <strong>Tweets with Sarcasm and Irony</strong> dataset sourced from Kaggle
+          (curated by <strong>Nikhil John K</strong>), capturing real-world social media discourse with rich pragmatic nuance.
+          The dataset provides supervised labels across four distinct linguistic categories, grounded in the standardized
+          SemEval-2018 Task 3 benchmark for figurative language understanding.
         </p>
-        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', color: '#94a3b8', fontSize: '0.9rem' }}>
-          <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <CheckCircle2 size={16} style={{ color: '#10b981' }} />
-            <span><strong>Task:</strong> 4-class multi-class classification (Regular, Sarcasm, Irony, Figurative).</span>
-          </li>
-          <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <CheckCircle2 size={16} style={{ color: '#10b981' }} />
-            <span><strong>Validation Strategy:</strong> Stratified K-Fold cross-validation preserving label distribution.</span>
-          </li>
-          <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <CheckCircle2 size={16} style={{ color: '#10b981' }} />
-            <span><strong>Evaluation Metrics:</strong> Macro F1-score (primary), Class-wise Precision/Recall, and Accuracy.</span>
-          </li>
-        </ul>
+
+        {/* Dataset Key Volume Cards */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+            gap: '0.75rem',
+          }}
+        >
+          <div style={{ padding: '0.85rem 1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Raw Corpus</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#f8fafc', marginTop: '0.2rem' }}>89,536 Tweets</div>
+            <span style={{ fontSize: '0.75rem', color: '#64748b' }}>81,408 Train / 8,128 Test</span>
+          </div>
+
+          <div style={{ padding: '0.85rem 1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Clean Training Set</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#10b981', marginTop: '0.2rem' }}>81,359 Tweets</div>
+            <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Deduplicated & leak-free</span>
+          </div>
+
+          <div style={{ padding: '0.85rem 1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Benchmark Test Set</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#38bdf8', marginTop: '0.2rem' }}>5,527 Tweets</div>
+            <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Strictly decontaminated</span>
+          </div>
+
+          <div style={{ padding: '0.85rem 1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Classification</span>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#a855f7', marginTop: '0.2rem' }}>4 Classes</div>
+            <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Pragmatic & Figurative</span>
+          </div>
+        </div>
+
+        {/* 4-Class Test Breakdown Cards */}
+        <div>
+          <h4 style={{ fontSize: '0.9rem', color: '#f8fafc', marginBottom: '0.6rem' }}>
+            Class Distribution Across Benchmark Evaluation Set (5,527 Tweets):
+          </h4>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '0.65rem',
+            }}
+          >
+            {[
+              {
+                name: 'Regular',
+                count: '1,858',
+                percent: '33.6%',
+                color: '#10b981',
+                bg: 'rgba(16, 185, 129, 0.08)',
+                desc: 'Literal expressions without sarcasm or irony.',
+              },
+              {
+                name: 'Sarcasm',
+                count: '1,602',
+                percent: '29.0%',
+                color: '#f59e0b',
+                bg: 'rgba(245, 158, 11, 0.08)',
+                desc: 'Mockery where surface praise conveys contempt.',
+              },
+              {
+                name: 'Irony',
+                count: '1,301',
+                percent: '23.5%',
+                color: '#a855f7',
+                bg: 'rgba(168, 85, 247, 0.08)',
+                desc: 'Incongruity between expectation and actual reality.',
+              },
+              {
+                name: 'Figurative',
+                count: '766',
+                percent: '13.9%',
+                color: '#ec4899',
+                bg: 'rgba(236, 72, 153, 0.08)',
+                desc: 'Metaphors, hyperbole, and creative non-literal expressions.',
+              },
+            ].map((cls, idx) => (
+              <div
+                key={idx}
+                style={{
+                  padding: '0.75rem 0.9rem',
+                  background: cls.bg,
+                  borderRadius: '8px',
+                  border: `1px solid ${cls.color}33`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.25rem',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, color: cls.color, fontSize: '0.9rem' }}>{cls.name}</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#cbd5e1' }}>
+                    {cls.count} ({cls.percent})
+                  </span>
+                </div>
+                <span style={{ fontSize: '0.75rem', color: '#94a3b8', lineHeight: 1.4 }}>{cls.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Curation & Decontamination Audit */}
+        <div style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+          <h4 style={{ color: '#e2e8f0', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+            Data Quality & Leakage Decontamination Protocol:
+          </h4>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem', padding: 0, margin: 0, color: '#94a3b8', fontSize: '0.85rem' }}>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+              <CheckCircle2 size={15} style={{ color: '#10b981', marginTop: '2px', flexShrink: 0 }} />
+              <span><strong>Cross-Split Leakage Removal:</strong> 2,592 duplicate or label-conflicting samples across train/test splits were purged to ensure 0% test data memorization.</span>
+            </li>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+              <CheckCircle2 size={15} style={{ color: '#10b981', marginTop: '2px', flexShrink: 0 }} />
+              <span><strong>Social Media Text Normalization:</strong> Normalized user handles (`@user`), stripped noisy t.co URLs, unpacked contractions, and decoded UTF-8 emojis into descriptive tokens.</span>
+            </li>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+              <CheckCircle2 size={15} style={{ color: '#10b981', marginTop: '2px', flexShrink: 0 }} />
+              <span><strong>Minority Class Preservation:</strong> Retained all natural class imbalances to honestly benchmark whether models collapse on rare figurative speech (13.9% support).</span>
+            </li>
+          </ul>
+        </div>
       </section>
 
       {/* 5. Methodology & NLP Pipeline (Section 38 & 43) */}
@@ -309,11 +438,11 @@ export function About() {
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {[
-            { step: 'Phase 4 (BoW)', detail: 'CountVectorizer unigrams and bigrams (28,077 features) with One-vs-Rest LinearSVC and Platt probability calibration.' },
-            { step: 'Phase 5 (TF-IDF)', detail: 'Sublinear TF-IDF term frequency scaling downweighting common terms and highlighting rare contrastive tokens.' },
-            { step: 'Phase 6 (GloVe)', detail: 'Pretrained 100-dimensional GloVe dense word embeddings feeding a 2-layer Bidirectional LSTM network.' },
-            { step: 'Phase 7 (FastText)', detail: 'Character n-gram subword synthesis resolving 93.8% of Twitter OOV tokens, augmented with Additive Self-Attention.' },
-            { step: 'Phase 8 (BERT)', detail: 'Pretrained bert-base-uncased contextual transformer (12 layers, 768d, 12 attention heads) fine-tuned end-to-end with AdamW.' },
+            { step: 'Bag of Words (BoW)', detail: 'CountVectorizer unigrams and bigrams (28,077 features) with One-vs-Rest LinearSVC and Platt probability calibration.' },
+            { step: 'TF-IDF Representation', detail: 'Sublinear TF-IDF term frequency scaling downweighting common terms and highlighting rare contrastive tokens.' },
+            { step: 'GloVe Word Embeddings', detail: 'Pretrained 100-dimensional GloVe dense word embeddings feeding a 2-layer Bidirectional LSTM network.' },
+            { step: 'FastText with Self-Attention', detail: 'Character n-gram subword synthesis resolving 93.8% of Twitter OOV tokens, augmented with Additive Self-Attention.' },
+            { step: 'BERT Contextual Transformer', detail: 'Pretrained bert-base-uncased contextual transformer (12 layers, 768d, 12 attention heads) fine-tuned end-to-end with AdamW.' },
           ].map((item, idx) => (
             <div
               key={idx}

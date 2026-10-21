@@ -86,7 +86,6 @@ export const DEFAULT_MODELS = [
     id: 'bow_linearsvm',
     name: 'LinearSVM (BoW)',
     full_name: 'Linear Support Vector Classifier with Bag of Words (One-vs-Rest)',
-    phase: 'Phase 4',
     paradigm: 'Bag of Words (n-grams 1-2)',
     parameter_count: 112312,
     val_macro_f1: 0.7187,
@@ -99,7 +98,6 @@ export const DEFAULT_MODELS = [
     id: 'tfidf_linearsvm',
     name: 'LinearSVM (TF-IDF)',
     full_name: 'Linear Support Vector Classifier with Sublinear TF-IDF',
-    phase: 'Phase 5',
     paradigm: 'TF-IDF + Statistical N-grams',
     parameter_count: 112312,
     val_macro_f1: 0.7002,
@@ -112,7 +110,6 @@ export const DEFAULT_MODELS = [
     id: 'glove_bilstm',
     name: 'GloVe + Bi-LSTM',
     full_name: 'Bidirectional LSTM with 100d Pretrained GloVe Embeddings (BILSTM-02)',
-    phase: 'Phase 6',
     paradigm: 'Dense Word Embeddings (Deep Learning)',
     parameter_count: 3197636,
     val_macro_f1: 0.6940,
@@ -125,7 +122,6 @@ export const DEFAULT_MODELS = [
     id: 'fasttext_attention',
     name: 'FastText + Bi-LSTM + Attention',
     full_name: 'FastText 300d + Bi-LSTM + Feed-Forward Attention Mechanism (FT-02)',
-    phase: 'Phase 7',
     paradigm: 'Subword Embeddings & Feed-Forward Attention',
     parameter_count: 9204828,
     val_macro_f1: 0.6928,
@@ -138,7 +134,6 @@ export const DEFAULT_MODELS = [
     id: 'bert_transformer',
     name: 'BERT Contextual',
     full_name: 'bert-base-uncased (12-layer Bidirectional Transformer)',
-    phase: 'Phase 8',
     paradigm: 'Pretrained Contextual Transformer (WordPiece)',
     parameter_count: 109485316,
     val_macro_f1: 0.6935,
@@ -256,7 +251,7 @@ export async function getModelInfo(signal) {
       const fallback = await apiClient.get('/model-info', { signal });
       return fallback.data.data;
     } catch {
-      // Static verified Phase 9 baseline fallback if network is completely down
+      // Static verified baseline fallback if network is completely down
       return {
         model_name: 'SarcasmIronyClassifier-LinearSVM',
         model_version: 'SIC-v1.0',

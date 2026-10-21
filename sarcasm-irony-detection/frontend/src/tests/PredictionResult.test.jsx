@@ -24,7 +24,7 @@ describe('PredictionResult Component', () => {
 
     expect(screen.getByText(/Detected:/i)).toBeInTheDocument();
     expect(screen.getAllByText('88.4%').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/SarcasmIronyClassifier-LinearSVM \(SIC-v1.0\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/SarcasmIronyClassifier-LinearSVM/i)).toBeInTheDocument();
     expect(screen.getByText(/1.45 ms/i)).toBeInTheDocument();
     expect(
       screen.getByText(/Sarcasm and irony can be context-dependent and subjective/i)
